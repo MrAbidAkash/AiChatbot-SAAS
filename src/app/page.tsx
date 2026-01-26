@@ -51,7 +51,7 @@ export default function HomePage() {
               <FaRobot className="text-white text-xl" />
             </div>
             <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              ChatPilot AI
+              ChatTime AI
             </h1>
           </div>
 
@@ -184,7 +184,7 @@ export default function HomePage() {
                     <div className="w-3 h-3 rounded-full bg-green-500" />
                   </div>
                   <div className="mx-auto text-sm text-gray-400">
-                    ChatPilot Dashboard
+                    ChatTime AI Dashboard
                   </div>
                 </div>
 
@@ -396,7 +396,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               {steps.map((step, index) => (
                 <div key={index} className="relative">
-                  <div className="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+                  <div className="bg-white rounded-2xl p-8 px-2 shadow-xl hover:shadow-2xl transition-shadow duration-300">
                     <div className="relative z-10">
                       <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                         <div className="text-3xl font-bold text-white">
@@ -411,7 +411,7 @@ export default function HomePage() {
                         {step.description}
                       </p>
 
-                      <div className="bg-gray-50 rounded-xl p-4">
+                      <div className="bg-gray-50 rounded-xl p-4 mx-10">
                         <div className="flex items-center space-x-3">
                           <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
                             {step.icon}
@@ -597,7 +597,7 @@ export default function HomePage() {
               <span className="block text-blue-600">Questions</span>
             </h2>
             <p className="mt-6 text-xl text-gray-600">
-              Everything you need to know about ChatPilot AI
+              Everything you need to know about ChatTime AI
             </p>
           </div>
 
@@ -647,7 +647,7 @@ export default function HomePage() {
           </h2>
 
           <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-            Join 2,500+ businesses using ChatPilot AI to save time and convert
+            Join 2,500+ businesses using ChatTime AI to save time and convert
             more customers
           </p>
 
@@ -692,7 +692,7 @@ export default function HomePage() {
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
                   <FaRobot className="text-white text-xl" />
                 </div>
-                <h2 className="text-2xl font-bold">ChatPilot AI</h2>
+                <h2 className="text-2xl font-bold">ChatTime AI</h2>
               </div>
               <p className="text-gray-400 mb-8 max-w-md">
                 AI-powered chatbot automation for Facebook and Instagram.
@@ -733,7 +733,7 @@ export default function HomePage() {
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <div>
-                © {new Date().getFullYear()} ChatPilot AI. All rights reserved.
+                © {new Date().getFullYear()} ChatTime AI. All rights reserved.
               </div>
               <div className="mt-4 md:mt-0">
                 <Link
@@ -893,7 +893,7 @@ const steps = [
 const testimonials = [
   {
     quote:
-      "ChatPilot increased our lead conversion by 40% and reduced response time from hours to seconds.",
+      "ChatTime AI increased our lead conversion by 40% and reduced response time from hours to seconds.",
     name: "Sarah Johnson",
     role: "Marketing Director, TechStart Inc",
     initials: "SJ",

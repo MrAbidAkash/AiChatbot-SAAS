@@ -7,5 +7,12 @@ const signIn = async () => {
   });
 };
 
+const Session = async () => {
+  const data = await authClient.getSession();
+  return data;
+};
+
+console.log(await Session());
+
 export default authClient;
-export { signIn };
+export { signIn, Session };

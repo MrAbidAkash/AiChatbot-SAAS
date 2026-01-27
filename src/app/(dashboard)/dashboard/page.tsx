@@ -1,3 +1,4 @@
+import Dashboard from "@/components/Dashboard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -11,5 +12,5 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  return <h1>Welcome {session.user.name}</h1>;
+  return <Dashboard session={session} />;
 }

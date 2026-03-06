@@ -751,21 +751,39 @@ export default function HomePage() {
               <div className="mt-4 md:mt-0">
                 <Link
                   href="/privacy"
-                  className="hover:text-white transition mx-4"
+                  className="hover:text-white transition mx-2"
                 >
                   Privacy Policy
                 </Link>
                 <Link
                   href="/terms"
-                  className="hover:text-white transition mx-4"
+                  className="hover:text-white transition mx-2"
                 >
                   Terms of Service
                 </Link>
                 <Link
-                  href="/cookies"
-                  className="hover:text-white transition mx-4"
+                  href="/delete-data"
+                  className="hover:text-white transition mx-2"
                 >
-                  Cookie Policy
+                  Data Deletion
+                </Link>
+                <Link
+                  href="/contact"
+                  className="hover:text-white transition mx-2"
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="/about"
+                  className="hover:text-white transition mx-2"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/security"
+                  className="hover:text-white transition mx-2"
+                >
+                  Security
                 </Link>
               </div>
             </div>

@@ -762,6 +762,18 @@ export default function HomePage() {
                   Terms of Service
                 </Link>
                 <Link
+                  href="/terms-bn"
+                  className="hover:text-white transition mx-2"
+                >
+                  শর্তাবলী (বাংলা)
+                </Link>
+                <Link
+                  href="/refund-policy"
+                  className="hover:text-white transition mx-2"
+                >
+                  Refund Policy
+                </Link>
+                <Link
                   href="/delete-data"
                   className="hover:text-white transition mx-2"
                 >

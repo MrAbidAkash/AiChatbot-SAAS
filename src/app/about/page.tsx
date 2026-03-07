@@ -133,7 +133,7 @@ export default function AboutPage() {
                 </div>
                 <div className="bg-white rounded-xl p-6 text-center">
                   <div className="text-3xl font-bold text-orange-600 mb-2">
-                    50+
+                    5+
                   </div>
                   <div className="text-gray-600">Countries Served</div>
                 </div>

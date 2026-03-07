@@ -166,8 +166,83 @@ export default function TermsBN() {
 
           {/* Privacy */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">
-              গোপনীয়তা এবং ডেটা সুরক্ষা
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              ১১. ওয়েবসাইট ও সামাজিক যোগাযোগ মাধ্যমের নিয়মাবলী
+            </h2>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              হ্যাঁ, ChatTime AI-এর ওয়েবসাইট ও সামাজিক যোগাযোগ মাধ্যমের সকল
+              নিয়ম ও শর্তাবলী বাংলায় দেওয়া আছে। আমাদের সকল সেবার শর্তাবলী
+              স্পষ্টভাবে বাংলায় উল্লেখ করা হয়েছে।
+            </p>
+
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h3 className="font-semibold text-gray-900 mb-4">
+                বাংলায় উপলব্ধ নিয়মাবলী:
+              </h3>
+              <ul className="space-y-3 text-gray-700">
+                <li>
+                  • <strong>ওয়েবসাইট ব্যবহারের শর্তাবলী:</strong>{" "}
+                  chattimeai.com/terms-bn
+                </li>
+                <li>
+                  • <strong>গোপনীয়তা নীতিমালা:</strong> ব্যবহারকারীর তথ্য
+                  সুরক্ষা
+                </li>
+                <li>
+                  • <strong>সেবা প্রদানের শর্ত:</strong> AI চ্যাটবট ব্যবহার
+                </li>
+                <li>
+                  • <strong>পেমেন্ট নীতিমালা:</strong> সাবস্ক্রিপশন ও মূল্য
+                  প্রদান
+                </li>
+                <li>
+                  • <strong>রিফান্ড নীতি:</strong> ৭ দিনের মানি ব্যাক গ্যারান্টি
+                </li>
+                <li>
+                  • <strong>ডাটা সুরক্ষা:</strong> ব্যবহারকারীর তথ্য সুরক্ষা
+                </li>
+              </ul>
+            </div>
+
+            <div className="bg-green-50 rounded-xl p-6 mt-6">
+              <h3 className="font-semibold text-gray-900 mb-4">
+                সামাজিক যোগাযোগ মাধ্যম:
+              </h3>
+              <p className="text-gray-700 mb-4">
+                আমাদের Facebook Page, Instagram, WhatsApp এবং অন্যান্য সামাজিক
+                যোগাযোগ মাধ্যমে বাংলায় সেবা প্রদান করা হয়। গ্রাহকরা বাংলায়
+                যোগাযোগ করতে পারবেন।
+              </p>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">
+                    যোগাযোগের মাধ্যম:
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    <li>• Facebook: ChatTime AI Bangladesh</li>
+                    <li>• WhatsApp: +8801607008272</li>
+                    <li>• Email: support@chattimeai.com</li>
+                    <li>• Website: chattimeai.com</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-800 mb-2">
+                    সেবার ভাষা:
+                  </h4>
+                  <ul className="space-y-1 text-gray-600 text-sm">
+                    <li>• বাংলা সাপোর্ট</li>
+                    <li>• ইংরেজি সাপোর্ট</li>
+                    <li>• বাংলা AI চ্যাটবট</li>
+                    <li>• বাংলা ডকুমেন্টেশন</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              ১২. আইনগত তথ্য
             </h2>
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
               <div className="flex items-center mb-4">
@@ -179,10 +254,7 @@ export default function TermsBN() {
               <p className="text-gray-700">
                 ব্যবহারকারীর তথ্য সুরক্ষা আমাদের মূল অঙ্গীকার। বিস্তারিত তথ্য
                 ব্যবস্থাপনা আমাদের{" "}
-                <Link
-                  href="/privacy"
-                  className="text-blue-600 underline"
-                >
+                <Link href="/privacy" className="text-blue-600 underline">
                   গোপনীয়তা নীতি
                 </Link>
                 -এ পাওয়া যাবে।

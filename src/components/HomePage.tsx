@@ -107,12 +107,16 @@ export default function HomePage() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <button className="text-gray-700 hover:text-blue-600 font-medium transition">
+            <Link
+              href="/dashboard"
+              className="text-gray-700 hover:text-blue-600 font-medium transition"
+            >
               Sign In
-            </button>
-            <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-200">
+            </Link>
+             <Link
+              href="/dashboard" className="px-6 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all duration-200">
               Start Free Trial
-            </button>
+            </Link>
           </div>
         </div>
       </header>
@@ -157,12 +161,18 @@ export default function HomePage() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                <Link
+                  href="/dashboard"
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-200"
+                >
                   Start Free Trial
-                </button>
-                <button className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-200">
+                </Link>
+                <Link
+                  href="/dashboard"
+                  className="px-8 py-4 bg-white border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-200"
+                >
                   Watch Demo
-                </button>
+                </Link>
               </div>
 
               {/* Social Proof */}
@@ -650,12 +660,18 @@ export default function HomePage() {
             customer support
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition">
+            <Link
+              href="/dashboard"
+              className="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition"
+            >
               Start Free Trial
-            </button>
-            <button className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition">
+            </Link>
+            <Link
+              href="/dashboard"
+              className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition"
+            >
               Schedule Demo
-            </button>
+            </Link>
           </div>
         </div>
       </section>

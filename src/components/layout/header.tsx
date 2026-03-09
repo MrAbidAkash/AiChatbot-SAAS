@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import AuthHeader from "@/components/auth-header";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -111,22 +112,7 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button
-              variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
-              asChild
-            >
-              <Link href="/login">Sign In</Link>
-            </Button>
-            <Button
-              className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
-              asChild
-            >
-              <Link href="/signup">
-                <Sparkles className="h-4 w-4" />
-                Start Free Trial
-              </Link>
-            </Button>
+            <AuthHeader />
           </div>
 
           {/* Mobile Menu Button */}
@@ -184,18 +170,7 @@ export function Header() {
                 <Link href="/docs">Documentation</Link>
               </Button>
               <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
-                <Button variant="outline" className="w-full" asChild>
-                  <Link href="/login">Sign In</Link>
-                </Button>
-                <Button
-                  className="w-full gap-2 bg-primary text-primary-foreground"
-                  asChild
-                >
-                  <Link href="/signup">
-                    <Sparkles className="h-4 w-4" />
-                    Start Free Trial
-                  </Link>
-                </Button>
+                <AuthHeader />
               </div>
             </nav>
           </div>

@@ -8,9 +8,28 @@ const signIn = async () => {
   });
 };
 
-const Session = async () => {
+const signUp = async (email: string, password: string, name: string) => {
+  return await authClient.signUp.email({
+    email,
+    password,
+    name,
+  });
+};
+
+const signInWithEmail = async (email: string, password: string) => {
+  return await authClient.signIn.email({
+    email,
+    password,
+  });
+};
+
+const signOut = async () => {
+  return await authClient.signOut();
+};
+
+const getSession = async () => {
   return await authClient.getSession();
 };
 
 export default authClient;
-export { signIn, Session };
+export { signIn, signUp, signInWithEmail, signOut, getSession };

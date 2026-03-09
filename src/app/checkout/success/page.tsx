@@ -1,21 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
+import AuthGuard from "@/components/auth-guard";
 import {
   CheckCircle,
-  Mail,
-  Download,
   ArrowRight,
-  Sparkles,
+  Download,
   Settings,
+  Mail,
+  Loader2,
+  Sparkles,
 } from "lucide-react";
 
 export default function CheckoutSuccessPage() {
+  return (
+    <AuthGuard>
+      <CheckoutSuccessContent />
+    </AuthGuard>
+  );
+}
+
+function CheckoutSuccessContent() {
   const [nextBillingDate] = useState(() =>
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
   );

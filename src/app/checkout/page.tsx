@@ -12,24 +12,45 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { 
-  CreditCard, 
-  Smartphone, 
-  Shield, 
+import AuthGuard from "@/components/auth-guard";
+import {
+  CreditCard,
+  Smartphone,
+  Shield,
   Lock,
   CheckCircle,
   AlertCircle,
   ArrowRight,
-  Loader2
+  Loader2,
 } from "lucide-react";
 
 const plans = {
-  "starter": { name: "Starter", price: 999, features: ["1,000 conversations/month", "1 chatbot", "Basic analytics"] },
-  "professional": { name: "Professional", price: 2999, features: ["4,000 conversations/month", "2 chatbots", "Advanced analytics"] },
-  "business": { name: "Business", price: 5999, features: ["10,000 conversations/month", "4 chatbots", "Priority support"] },
+  starter: {
+    name: "Starter",
+    price: 999,
+    features: ["1,000 conversations/month", "1 chatbot", "Basic analytics"],
+  },
+  professional: {
+    name: "Professional",
+    price: 2999,
+    features: ["4,000 conversations/month", "2 chatbots", "Advanced analytics"],
+  },
+  business: {
+    name: "Business",
+    price: 5999,
+    features: ["10,000 conversations/month", "4 chatbots", "Priority support"],
+  },
 };
 
 export default function CheckoutPage() {
+  return (
+    <AuthGuard>
+      <CheckoutContent />
+    </AuthGuard>
+  );
+}
+
+function CheckoutContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const plan = searchParams.get("plan") as keyof typeof plans;
@@ -37,7 +58,9 @@ export default function CheckoutPage() {
 
   const [paymentMethod, setPaymentMethod] = useState<"card" | "bkash">("card");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [paymentStatus, setPaymentStatus] = useState<"idle" | "processing" | "success" | "error">("idle");
+  const [paymentStatus, setPaymentStatus] = useState<
+    "idle" | "processing" | "success" | "error"
+  >("idle");
   const [formData, setFormData] = useState({
     cardNumber: "",
     cardName: "",
@@ -49,7 +72,7 @@ export default function CheckoutPage() {
   });
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const formatCardNumber = (value: string) => {
@@ -93,16 +116,20 @@ export default function CheckoutPage() {
 
   const isFormValid = () => {
     if (paymentMethod === "card") {
-      return formData.cardNumber.replace(/\s/g, "").length === 16 &&
-             formData.cardName.length > 0 &&
-             formData.expiryDate.length === 5 &&
-             formData.cvv.length === 3 &&
-             formData.email.length > 0 &&
-             formData.name.length > 0;
+      return (
+        formData.cardNumber.replace(/\s/g, "").length === 16 &&
+        formData.cardName.length > 0 &&
+        formData.expiryDate.length === 5 &&
+        formData.cvv.length === 3 &&
+        formData.email.length > 0 &&
+        formData.name.length > 0
+      );
     } else {
-      return formData.bkashNumber.length === 11 &&
-             formData.email.length > 0 &&
-             formData.name.length > 0;
+      return (
+        formData.bkashNumber.length === 11 &&
+        formData.email.length > 0 &&
+        formData.name.length > 0
+      );
     }
   };
 
@@ -358,11 +385,10 @@ export default function CheckoutPage() {
                         </h4>
                         <ol className="text-sm text-muted-foreground space-y-1">
                           <li>1. Enter your bKash account number above</li>
-                          <li>2. Click
-                            &quot;Pay with bKash&quot; button</li>
+                          <li>2. Click &quot;Pay with bKash&quot; button</li>
                           <li>
-                            3. You&apos;ll receive a payment request on your bKash
-                            app
+                            3. You&apos;ll receive a payment request on your
+                            bKash app
                           </li>
                           <li>
                             4. Enter your bKash PIN to confirm the payment

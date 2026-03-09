@@ -1,49 +1,49 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { 
-  ArrowRight, 
-  Sparkles, 
-  MessageSquare, 
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  ArrowRight,
+  Sparkles,
+  MessageSquare,
   Bot,
   Zap,
   Shield,
   Globe,
-  Play
-} from "lucide-react"
+  Play,
+} from "lucide-react";
 
 const stats = [
-  { value: "50M+", label: "Messages Processed" },
-  { value: "10K+", label: "Active Businesses" },
+  { value: "5k+", label: "Messages Processed" },
+  { value: "10+", label: "Active Businesses" },
   { value: "99.9%", label: "Uptime SLA" },
-  { value: "150+", label: "Countries" },
-]
+  { value: "3+", label: "Countries" },
+];
 
 const socialChannels = [
   { name: "WhatsApp", color: "bg-green-500/20 text-green-400" },
   { name: "Instagram", color: "bg-pink-500/20 text-pink-400" },
   { name: "Facebook", color: "bg-blue-500/20 text-blue-400" },
   { name: "Telegram", color: "bg-sky-500/20 text-sky-400" },
-]
+];
 
 export function HeroSection() {
-  const [typedText, setTypedText] = useState("")
-  const fullText = "How can I help you today?"
+  const [typedText, setTypedText] = useState("");
+  const fullText = "How can I help you today?";
 
   useEffect(() => {
-    let index = 0
+    let index = 0;
     const timer = setInterval(() => {
       if (index <= fullText.length) {
-        setTypedText(fullText.slice(0, index))
-        index++
+        setTypedText(fullText.slice(0, index));
+        index++;
       } else {
-        clearInterval(timer)
+        clearInterval(timer);
       }
-    }, 50)
-    return () => clearInterval(timer)
-  }, [])
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="relative overflow-hidden py-20 lg:pb-32">
@@ -69,15 +69,19 @@ export function HeroSection() {
             </h1>
 
             <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Build, deploy, and manage AI-powered chatbots across WhatsApp, Instagram, 
-              and Facebook. Train your AI with your own documents for context-aware, 
-              personalized customer interactions.
+              Build, deploy, and manage AI-powered chatbots across WhatsApp,
+              Instagram, and Facebook. Train your AI with your own documents for
+              context-aware, personalized customer interactions.
             </p>
 
             {/* Social Channels */}
             <div className="mt-8 flex flex-wrap gap-2">
               {socialChannels.map((channel) => (
-                <Badge key={channel.name} variant="outline" className={channel.color}>
+                <Badge
+                  key={channel.name}
+                  variant="outline"
+                  className={channel.color}
+                >
                   {channel.name}
                 </Badge>
               ))}
@@ -85,7 +89,10 @@ export function HeroSection() {
 
             {/* CTA Buttons */}
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Button size="lg" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+              <Button
+                size="lg"
+                className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+              >
                 <Sparkles className="h-4 w-4" />
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
@@ -100,7 +107,9 @@ export function HeroSection() {
             <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
               {stats.map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-2xl font-bold text-foreground">
+                    {stat.value}
+                  </p>
                   <p className="text-sm text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
@@ -116,8 +125,12 @@ export function HeroSection() {
                   <Bot className="h-5 w-5 text-primary-foreground" />
                 </div>
                 <div>
-                  <p className="font-medium text-foreground">ChatFlow Assistant</p>
-                  <p className="text-sm text-muted-foreground">Online • Powered by AI</p>
+                  <p className="font-medium text-foreground">
+                    ChatFlow Assistant
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Online • Powered by AI
+                  </p>
                 </div>
                 <div className="ml-auto flex gap-2">
                   <div className="h-3 w-3 rounded-full bg-green-500" />
@@ -152,7 +165,9 @@ export function HeroSection() {
                   </div>
                   <div className="rounded-2xl rounded-tl-none bg-muted px-4 py-3">
                     <p className="text-foreground">
-                      {"Our return policy allows returns within 30 days of purchase. Would you like me to help you start a return?"}
+                      {
+                        "Our return policy allows returns within 30 days of purchase. Would you like me to help you start a return?"
+                      }
                     </p>
                   </div>
                 </div>
@@ -175,9 +190,14 @@ export function HeroSection() {
               <div className="mt-4 flex gap-2">
                 <div className="flex flex-1 items-center rounded-full border border-border bg-muted px-4 py-2">
                   <MessageSquare className="mr-2 h-4 w-4 text-muted-foreground" />
-                  <span className="text-muted-foreground">Type a message...</span>
+                  <span className="text-muted-foreground">
+                    Type a message...
+                  </span>
                 </div>
-                <Button size="icon" className="rounded-full bg-primary text-primary-foreground">
+                <Button
+                  size="icon"
+                  className="rounded-full bg-primary text-primary-foreground"
+                >
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
@@ -187,26 +207,32 @@ export function HeroSection() {
             <div className="absolute -left-4 top-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Zap className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-foreground">Instant Responses</span>
+                <span className="text-sm font-medium text-foreground">
+                  Instant Responses
+                </span>
               </div>
             </div>
 
             <div className="absolute -right-4 top-1/2 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-foreground">Enterprise Security</span>
+                <span className="text-sm font-medium text-foreground">
+                  Enterprise Security
+                </span>
               </div>
             </div>
 
             <div className="absolute -bottom-2 left-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Globe className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-foreground">Multi-Channel</span>
+                <span className="text-sm font-medium text-foreground">
+                  Multi-Channel
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }

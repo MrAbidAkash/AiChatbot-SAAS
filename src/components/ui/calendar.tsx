@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
 import * as React from 'react'
@@ -36,7 +37,7 @@ function Calendar({
       )}
       captionLayout={captionLayout}
       formatters={{
-        formatMonthDropdown: (date) =>
+        formatMonthDropdown: (date:any) =>
           date.toLocaleString('default', { month: 'short' }),
         ...formatters,
       }}

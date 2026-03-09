@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useRef } from "react";
@@ -18,7 +19,7 @@ export default function ProductDesignOutline() {
   const trainingRef = useRef(null);
   const pricingRef = useRef(null);
 
-  const scrollToSection = (ref) => {
+  const scrollToSection = (ref:any) => {
     ref.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",

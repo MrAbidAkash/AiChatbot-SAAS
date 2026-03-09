@@ -204,7 +204,7 @@ export function HeroSection() {
             </div>
 
             {/* Floating Cards */}
-            <div className="absolute -left-4 top-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            <div className="absolute -left-4 -top-9 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Zap className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-foreground">
@@ -213,7 +213,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="absolute -right-4 top-1/2 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            <div className="absolute -right-4 -bottom-8 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-foreground">
@@ -222,7 +222,7 @@ export function HeroSection() {
               </div>
             </div>
 
-            <div className="absolute -bottom-2 left-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            <div className="absolute -bottom-8 left-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
               <div className="flex items-center gap-2">
                 <Globe className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-foreground">

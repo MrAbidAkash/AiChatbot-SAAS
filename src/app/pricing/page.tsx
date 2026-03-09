@@ -208,7 +208,11 @@ export default function PricingPage() {
                     asChild
                   >
                     <Link
-                      href={plan.name === "Enterprise" ? "/contact" : "/signup"}
+                      href={
+                        plan.name === "Enterprise"
+                          ? "/contact"
+                          : `/checkout?plan=${plan.name.toLowerCase()}`
+                      }
                     >
                       {plan.cta}
                     </Link>

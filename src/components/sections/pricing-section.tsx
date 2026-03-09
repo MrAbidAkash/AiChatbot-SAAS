@@ -1,18 +1,19 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Switch } from "@/components/ui/switch"
-import { 
-  Check, 
+import { useState } from "react";
+import Link from "next/link";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
+import {
+  Check,
   Sparkles,
   Zap,
   Building2,
   HelpCircle,
-  ArrowRight
-} from "lucide-react"
+  ArrowRight,
+} from "lucide-react";
 
 const plans = [
   {
@@ -126,24 +127,28 @@ const plans = [
 const faqs = [
   {
     question: "What happens after my free trial?",
-    answer: "After your 14-day free trial, you'll be asked to select a plan. You won't be charged until you actively choose to subscribe. No credit card is required for the trial."
+    answer:
+      "After your 14-day free trial, you'll be asked to select a plan. You won't be charged until you actively choose to subscribe. No credit card is required for the trial.",
   },
   {
     question: "Can I change plans later?",
-    answer: "Yes! You can upgrade or downgrade your plan at any time. When upgrading, you'll have immediate access to new features. When downgrading, changes take effect at your next billing cycle."
+    answer:
+      "Yes! You can upgrade or downgrade your plan at any time. When upgrading, you'll have immediate access to new features. When downgrading, changes take effect at your next billing cycle.",
   },
   {
     question: "What counts as a conversation?",
-    answer: "A conversation is a complete interaction between a customer and your chatbot, regardless of the number of messages exchanged within that session."
+    answer:
+      "A conversation is a complete interaction between a customer and your chatbot, regardless of the number of messages exchanged within that session.",
   },
   {
     question: "Do you offer discounts for nonprofits?",
-    answer: "Yes, we offer special pricing for registered nonprofits and educational institutions. Contact our sales team to learn more about our discount programs."
+    answer:
+      "Yes, we offer special pricing for registered nonprofits and educational institutions. Contact our sales team to learn more about our discount programs.",
   },
-]
+];
 
 export function PricingSection() {
-  const [isYearly, setIsYearly] = useState(false)
+  const [isYearly, setIsYearly] = useState(false);
 
   return (
     <section className="py-20 lg:py-32">
@@ -244,9 +249,18 @@ export function PricingSection() {
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "bg-muted text-foreground hover:bg-muted/80"
                   }`}
+                  asChild
                 >
-                  {plan.cta}
-                  <ArrowRight className="h-4 w-4" />
+                  <Link
+                    href={
+                      plan.name === "Enterprise"
+                        ? "/contact"
+                        : `/checkout?plan=${plan.name.toLowerCase()}`
+                    }
+                  >
+                    {plan.cta}
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
 
                 <ul className="space-y-3">

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useRef } from "react";
 import { HeroSection } from "@/components/sections/hero-section";
 import { FeaturesSection } from "@/components/sections/features-section";
 import { IntegrationsSection } from "@/components/sections/integrations-section";
@@ -12,86 +11,66 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 
 export default function ProductDesignOutline() {
-  const [activeSection, setActiveSection] = useState("overview");
+  const overviewRef = useRef(null);
+  const featuresRef = useRef(null);
+  const integrationsRef = useRef(null);
+  const dashboardRef = useRef(null);
+  const trainingRef = useRef(null);
+  const pricingRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <main>
-        {/* Navigation Tabs for Design Sections */}
-        <div className="sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container mx-auto px-4">
-            <Tabs
-              value={activeSection}
-              onValueChange={setActiveSection}
-              className="w-full"
-            >
-              <TabsList className="h-12 w-full justify-start gap-2 rounded-none border-0 bg-transparent p-0">
-                <TabsTrigger
-                  value="overview"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger
-                  value="features"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  Features
-                </TabsTrigger>
-                <TabsTrigger
-                  value="integrations"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  Integrations
-                </TabsTrigger>
-                <TabsTrigger
-                  value="dashboard"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  Dashboard
-                </TabsTrigger>
-                <TabsTrigger
-                  value="training"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  AI Training
-                </TabsTrigger>
-                <TabsTrigger
-                  value="pricing"
-                  className="relative h-12 rounded-none border-b-2 border-transparent bg-transparent px-4 font-medium text-muted-foreground data-[state=active]:border-primary data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  Pricing
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="overview" className="mt-0">
-                <HeroSection />
-              </TabsContent>
-
-              <TabsContent value="features" className="mt-0">
-                <FeaturesSection />
-              </TabsContent>
-
-              <TabsContent value="integrations" className="mt-0">
-                <IntegrationsSection />
-              </TabsContent>
-
-              <TabsContent value="dashboard" className="mt-0">
-                <DashboardPreview />
-              </TabsContent>
-
-              <TabsContent value="training" className="mt-0">
-                <DocumentTrainingSection />
-              </TabsContent>
-
-              <TabsContent value="pricing" className="mt-0">
-                <PricingSection />
-              </TabsContent>
-            </Tabs>
-          </div>
+      {/* Sticky Navigation */}
+      <div className="sticky top-16 z-40 border-b bg-background">
+        <div className="container mx-auto flex gap-4 px-4 py-2">
+          <button onClick={() => scrollToSection(overviewRef)}>Overview</button>
+          <button onClick={() => scrollToSection(featuresRef)}>Features</button>
+          <button onClick={() => scrollToSection(integrationsRef)}>
+            Integrations
+          </button>
+          <button onClick={() => scrollToSection(dashboardRef)}>
+            Dashboard
+          </button>
+          <button onClick={() => scrollToSection(trainingRef)}>
+            AI Training
+          </button>
+          <button onClick={() => scrollToSection(pricingRef)}>Pricing</button>
         </div>
+      </div>
+
+      <main>
+        <section ref={overviewRef}>
+          <HeroSection />
+        </section>
+
+        <section ref={featuresRef}>
+          <FeaturesSection />
+        </section>
+
+        <section ref={integrationsRef}>
+          <IntegrationsSection />
+        </section>
+
+        <section ref={dashboardRef}>
+          <DashboardPreview />
+        </section>
+
+        <section ref={trainingRef}>
+          <DocumentTrainingSection />
+        </section>
+
+        <section ref={pricingRef}>
+          <PricingSection />
+        </section>
       </main>
 
       <Footer />

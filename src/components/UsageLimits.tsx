@@ -31,7 +31,7 @@ export default function UsageLimits() {
   const plans = [
     {
       name: "Starter",
-      price: "$29",
+      price: "৳1000",
       messages: "5,000",
       pages: "5",
       features: ["Basic AI", "Email support", "7-day history"],

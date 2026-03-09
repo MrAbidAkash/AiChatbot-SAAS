@@ -2,24 +2,50 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Check, Sparkles, Zap } from "lucide-react";
 
 const plans = [
   {
-    name: "Starter",
+    name: "Free",
     description: "Perfect for small businesses getting started",
-    price: "$29",
+    price: "৳0",
     period: "/month",
     features: [
-      "1,000 conversations/month",
+      "100 conversations/month",
       "1 chatbot",
+      "WhatsApp integration",
       "Basic analytics",
       "Email support",
       "Website widget",
       "Basic customization",
+      "1 document upload",
+    ],
+    cta: "Start Free Trial",
+    popular: false,
+  },
+  {
+    name: "Starter",
+    description: "Perfect for small businesses getting started",
+    price: "999",
+    period: "/month",
+    features: [
+      "1,000 conversations/month",
+      "1 chatbot",
+      "WhatsApp and Facebook integration",
+      "Basic analytics",
+      "Email support",
+      "Website widget",
+      "Basic customization",
+      "10 document uploads",
     ],
     cta: "Start Free Trial",
     popular: false,
@@ -27,20 +53,42 @@ const plans = [
   {
     name: "Professional",
     description: "For growing businesses with higher demands",
-    price: "$99",
+    price: "৳2999",
     period: "/month",
     features: [
-      "10,000 conversations/month",
-      "5 chatbots",
+      "4,000 conversations/month",
+      "2 chatbots",
+      "All social integrations",
       "Advanced analytics",
       "Priority support",
       "All integrations",
       "Custom branding",
       "Team collaboration",
       "API access",
+      "20 document uploads",
     ],
     cta: "Start Free Trial",
     popular: true,
+  },
+  {
+    name: "Business",
+    description: "For growing businesses with higher demands",
+    price: "৳5999",
+    period: "/month",
+    features: [
+      "10,000 conversations/month",
+      "4 chatbots",
+      "All social integrations",
+      "Advanced analytics",
+      "Priority support",
+      "All integrations",
+      "Custom branding",
+      "Team collaboration",
+      "API access",
+      "50 document uploads",
+    ],
+    cta: "Start Free Trial",
+    // popular: true,
   },
   {
     name: "Enterprise",
@@ -50,6 +98,7 @@ const plans = [
     features: [
       "Unlimited conversations",
       "Unlimited chatbots",
+      "All social integrations",
       "Enterprise analytics",
       "24/7 dedicated support",
       "Custom integrations",
@@ -57,6 +106,7 @@ const plans = [
       "SSO & advanced security",
       "SLA guarantee",
       "On-premise option",
+      "Unlimited document uploads",
     ],
     cta: "Contact Sales",
     popular: false,
@@ -66,19 +116,23 @@ const plans = [
 const faqs = [
   {
     question: "Can I change plans at any time?",
-    answer: "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated.",
+    answer:
+      "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately and billing is prorated.",
   },
   {
     question: "What counts as a conversation?",
-    answer: "A conversation is counted when a user initiates a chat session with your chatbot. Multiple messages within the same session count as one conversation.",
+    answer:
+      "A conversation is counted when a user initiates a chat session with your chatbot. Multiple messages within the same session count as one conversation.",
   },
   {
     question: "Do you offer refunds?",
-    answer: "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund.",
+    answer:
+      "Yes, we offer a 30-day money-back guarantee. If you're not satisfied, contact us for a full refund.",
   },
   {
     question: "Is there a free trial?",
-    answer: "Yes! All paid plans come with a 14-day free trial. No credit card required to start.",
+    answer:
+      "Yes! All paid plans come with a 14-day free trial. No credit card required to start.",
   },
 ];
 
@@ -93,14 +147,16 @@ export default function PricingPage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Simple, Transparent Pricing</span>
+              <span className="text-muted-foreground">
+                Simple, Transparent Pricing
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              Choose Your{" "}
-              <span className="text-primary">Plan</span>
+              Choose Your <span className="text-primary">Plan</span>
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Start free and scale as you grow. All plans include a 14-day trial.
+              Start free and scale as you grow. All plans include a 14-day
+              trial.
             </p>
           </div>
         </div>
@@ -111,8 +167,8 @@ export default function PricingPage() {
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-3">
             {plans.map((plan) => (
-              <Card 
-                key={plan.name} 
+              <Card
+                key={plan.name}
                 className={`relative border-border bg-card ${plan.popular ? "border-2 border-primary shadow-lg" : ""}`}
               >
                 {plan.popular && (
@@ -124,10 +180,14 @@ export default function PricingPage() {
                   </div>
                 )}
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-xl text-foreground">{plan.name}</CardTitle>
+                  <CardTitle className="text-xl text-foreground">
+                    {plan.name}
+                  </CardTitle>
                   <CardDescription>{plan.description}</CardDescription>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                    <span className="text-4xl font-bold text-foreground">
+                      {plan.price}
+                    </span>
                     <span className="text-muted-foreground">{plan.period}</span>
                   </div>
                 </CardHeader>
@@ -136,16 +196,20 @@ export default function PricingPage() {
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-center gap-2">
                         <Check className="h-4 w-4 text-primary" />
-                        <span className="text-sm text-foreground">{feature}</span>
+                        <span className="text-sm text-foreground">
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    className="w-full" 
+                  <Button
+                    className="w-full"
                     variant={plan.popular ? "default" : "outline"}
                     asChild
                   >
-                    <Link href={plan.name === "Enterprise" ? "/contact" : "/signup"}>
+                    <Link
+                      href={plan.name === "Enterprise" ? "/contact" : "/signup"}
+                    >
                       {plan.cta}
                     </Link>
                   </Button>
@@ -165,8 +229,13 @@ export default function PricingPage() {
             </h2>
             <div className="space-y-6">
               {faqs.map((faq) => (
-                <div key={faq.question} className="rounded-lg border border-border bg-card p-6">
-                  <h3 className="mb-2 font-semibold text-foreground">{faq.question}</h3>
+                <div
+                  key={faq.question}
+                  className="rounded-lg border border-border bg-card p-6"
+                >
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    {faq.question}
+                  </h3>
                   <p className="text-muted-foreground">{faq.answer}</p>
                 </div>
               ))}
@@ -183,7 +252,8 @@ export default function PricingPage() {
               Still Have Questions?
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              Our team is here to help you find the right plan for your business.
+              Our team is here to help you find the right plan for your
+              business.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Contact Sales</Link>

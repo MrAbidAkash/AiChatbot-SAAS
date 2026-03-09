@@ -27,12 +27,12 @@ export default function ProductDesignOutline() {
   };
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen overflow-x-hidde">
       <Header />
 
       {/* Sticky Navigation */}
-      <div className="sticky top-16 px-4 z-40 border-b bg-background">
-        <div className="container mx-auto flex gap-10 px-4 py-2 justify-evenly">
+      <div className="sticky top-16 px-4 z-40 border-b bg-background w-full">
+        <div className="container mx-auto flex flex-wrap gap-4 sm:gap-10 px-4 py-2 ">
           <button
             onClick={() => scrollToSection(overviewRef)}
             className="hover:text-primary cursor-pointer"

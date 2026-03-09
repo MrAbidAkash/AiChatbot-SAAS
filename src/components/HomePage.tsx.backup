@@ -178,7 +178,7 @@ export default function HomePage() {
                       <div className="bg-gradient-to-r from-blue-500/20 to-purple-600/20 border border-blue-500/30 rounded-2xl rounded-br-none p-4 max-w-[80%]">
                         <div className="text-sm text-gray-300">
                           Hello! I&apos;d be happy to help with pricing. We have
-                          plans starting at $29/month. Would you like me to send
+                          plans starting at ৳1000/month. Would you like me to send
                           you our detailed pricing PDF?
                         </div>
                         <div className="flex items-center justify-between mt-2">

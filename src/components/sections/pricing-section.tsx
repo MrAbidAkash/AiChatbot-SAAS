@@ -16,61 +16,113 @@ import {
 
 const plans = [
   {
-    name: "Starter",
+    name: "Free",
     description: "Perfect for small businesses getting started",
-    monthlyPrice: 29,
-    yearlyPrice: 24,
+    monthlyPrice: 0,
+    yearlyPrice: 0,
+    price: "৳0",
+    period: "/month",
     features: [
-      "1 Chatbot",
-      "1,000 conversations/month",
+      "100 conversations/month",
+      "1 chatbot",
       "WhatsApp integration",
       "Basic analytics",
       "Email support",
-      "5 document uploads",
+      "Website widget",
+      "Basic customization",
+      "1 document upload",
+    ],
+    cta: "Start Free Trial",
+    popular: false,
+  },
+  {
+    name: "Starter",
+    description: "Perfect for small businesses getting started",
+    monthlyPrice: 999,
+    yearlyPrice: 999,
+    price: "999",
+    period: "/month",
+    features: [
+      "1,000 conversations/month",
+      "1 chatbot",
+      "WhatsApp and Facebook integration",
+      "Basic analytics",
+      "Email support",
+      "Website widget",
+      "Basic customization",
+      "10 document uploads",
     ],
     cta: "Start Free Trial",
     popular: false,
   },
   {
     name: "Professional",
-    description: "For growing businesses with advanced needs",
-    monthlyPrice: 79,
-    yearlyPrice: 66,
+    description: "For growing businesses with higher demands",
+    monthlyPrice: 2999,
+    yearlyPrice: 2999,
+    price: "৳2999",
+    period: "/month",
     features: [
-      "5 Chatbots",
-      "10,000 conversations/month",
+      "4,000 conversations/month",
+      "2 chatbots",
       "All social integrations",
       "Advanced analytics",
       "Priority support",
-      "50 document uploads",
+      "All integrations",
       "Custom branding",
-      "Team collaboration (3 users)",
+      "Team collaboration",
+      "API access",
+      "20 document uploads",
     ],
     cta: "Start Free Trial",
     popular: true,
   },
   {
+    name: "Business",
+    description: "For growing businesses with higher demands",
+    monthlyPrice: 5999,
+    yearlyPrice: 5999,
+    price: "৳5999",
+    period: "/month",
+    features: [
+      "10,000 conversations/month",
+      "4 chatbots",
+      "All social integrations",
+      "Advanced analytics",
+      "Priority support",
+      "All integrations",
+      "Custom branding",
+      "Team collaboration",
+      "API access",
+      "50 document uploads",
+    ],
+    cta: "Start Free Trial",
+    // popular: true,
+  },
+  {
     name: "Enterprise",
-    description: "For large organizations requiring scale",
+    description: "Custom solutions for large organizations",
     monthlyPrice: null,
     yearlyPrice: null,
+    price: "Custom",
+    period: "",
     features: [
-      "Unlimited Chatbots",
       "Unlimited conversations",
-      "All integrations + API",
-      "Real-time analytics",
+      "Unlimited chatbots",
+      "All social integrations",
+      "Enterprise analytics",
       "24/7 dedicated support",
-      "Unlimited documents",
+      "Custom integrations",
       "White-label solution",
-      "Unlimited team members",
       "SSO & advanced security",
-      "Custom AI training",
+      "SLA guarantee",
+      "On-premise option",
+      "Unlimited document uploads",
     ],
     cta: "Contact Sales",
     popular: false,
   },
-]
-
+];
 const faqs = [
   {
     question: "What happens after my free trial?",
@@ -103,8 +155,7 @@ export function PricingSection() {
             Pricing
           </Badge>
           <h2 className="text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-            Simple, Transparent{" "}
-            <span className="gradient-text">Pricing</span>
+            Simple, Transparent <span className="gradient-text">Pricing</span>
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Start free, scale as you grow. No hidden fees, no surprises.
@@ -112,14 +163,15 @@ export function PricingSection() {
 
           {/* Billing Toggle */}
           <div className="mt-8 flex items-center justify-center gap-4">
-            <span className={`text-sm ${!isYearly ? 'text-foreground' : 'text-muted-foreground'}`}>
+            <span
+              className={`text-sm ${!isYearly ? "text-foreground" : "text-muted-foreground"}`}
+            >
               Monthly
             </span>
-            <Switch
-              checked={isYearly}
-              onCheckedChange={setIsYearly}
-            />
-            <span className={`text-sm ${isYearly ? 'text-foreground' : 'text-muted-foreground'}`}>
+            <Switch checked={isYearly} onCheckedChange={setIsYearly} />
+            <span
+              className={`text-sm ${isYearly ? "text-foreground" : "text-muted-foreground"}`}
+            >
               Yearly
             </span>
             {isYearly && (
@@ -136,7 +188,7 @@ export function PricingSection() {
             <Card
               key={plan.name}
               className={`relative border-border bg-card ${
-                plan.popular ? 'ring-2 ring-primary' : ''
+                plan.popular ? "ring-2 ring-primary" : ""
               }`}
             >
               {plan.popular && (
@@ -148,28 +200,40 @@ export function PricingSection() {
               )}
               <CardHeader className="pb-4">
                 <div className="flex items-center gap-2">
-                  {plan.name === "Starter" && <Zap className="h-5 w-5 text-primary" />}
-                  {plan.name === "Professional" && <Sparkles className="h-5 w-5 text-primary" />}
-                  {plan.name === "Enterprise" && <Building2 className="h-5 w-5 text-primary" />}
-                  <CardTitle className="text-lg text-foreground">{plan.name}</CardTitle>
+                  {plan.name === "Starter" && (
+                    <Zap className="h-5 w-5 text-primary" />
+                  )}
+                  {plan.name === "Professional" && (
+                    <Sparkles className="h-5 w-5 text-primary" />
+                  )}
+                  {plan.name === "Enterprise" && (
+                    <Building2 className="h-5 w-5 text-primary" />
+                  )}
+                  <CardTitle className="text-lg text-foreground">
+                    {plan.name}
+                  </CardTitle>
                 </div>
-                <p className="mt-1 text-sm text-muted-foreground">{plan.description}</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {plan.description}
+                </p>
               </CardHeader>
               <CardContent>
                 <div className="mb-6">
-                  {plan.monthlyPrice ? (
+                  {plan.monthlyPrice || plan.monthlyPrice === 0 ? (
                     <div className="flex items-baseline">
                       <span className="text-4xl font-bold text-foreground">
-                        ${isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                        ৳{isYearly ? plan.yearlyPrice : plan.monthlyPrice}
                       </span>
                       <span className="ml-2 text-muted-foreground">/month</span>
                     </div>
                   ) : (
-                    <div className="text-4xl font-bold text-foreground">Custom</div>
+                    <div className="text-4xl font-bold text-foreground">
+                      Custom
+                    </div>
                   )}
                   {isYearly && plan.monthlyPrice && (
                     <p className="mt-1 text-sm text-muted-foreground">
-                      Billed annually (${plan.yearlyPrice! * 12}/year)
+                      Billed annually (৳{plan.yearlyPrice! * 12}/year)
                     </p>
                   )}
                 </div>
@@ -177,8 +241,8 @@ export function PricingSection() {
                 <Button
                   className={`mb-6 w-full gap-2 ${
                     plan.popular
-                      ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                      : 'bg-muted text-foreground hover:bg-muted/80'
+                      ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                      : "bg-muted text-foreground hover:bg-muted/80"
                   }`}
                 >
                   {plan.cta}
@@ -189,7 +253,9 @@ export function PricingSection() {
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
                       <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
+                      <span className="text-sm text-muted-foreground">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -216,8 +282,12 @@ export function PricingSection() {
                   <div className="flex items-start gap-3">
                     <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                     <div>
-                      <h4 className="font-medium text-foreground">{faq.question}</h4>
-                      <p className="mt-2 text-sm text-muted-foreground">{faq.answer}</p>
+                      <h4 className="font-medium text-foreground">
+                        {faq.question}
+                      </h4>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {faq.answer}
+                      </p>
                     </div>
                   </div>
                 </CardContent>
@@ -242,7 +312,10 @@ export function PricingSection() {
                 <Button variant="outline" size="lg">
                   Schedule Demo
                 </Button>
-                <Button size="lg" className="gap-2 bg-primary text-primary-foreground">
+                <Button
+                  size="lg"
+                  className="gap-2 bg-primary text-primary-foreground"
+                >
                   <Sparkles className="h-4 w-4" />
                   Start Free Trial
                 </Button>
@@ -253,10 +326,21 @@ export function PricingSection() {
 
         {/* Trust Badges */}
         <div className="mt-16 text-center">
-          <p className="mb-6 text-sm text-muted-foreground">Trusted by leading companies worldwide</p>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Trusted by leading companies worldwide
+          </p>
           <div className="flex flex-wrap items-center justify-center gap-8 opacity-50">
-            {["TechCorp", "GlobalRetail", "HealthPlus", "EduLearn", "FinanceHub"].map((company) => (
-              <div key={company} className="text-lg font-semibold text-muted-foreground">
+            {[
+              "TechCorp",
+              "GlobalRetail",
+              "HealthPlus",
+              "EduLearn",
+              "FinanceHub",
+            ].map((company) => (
+              <div
+                key={company}
+                className="text-lg font-semibold text-muted-foreground"
+              >
                 {company}
               </div>
             ))}
@@ -264,5 +348,5 @@ export function PricingSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

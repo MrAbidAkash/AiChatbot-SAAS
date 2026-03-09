@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
-import { 
-  FileText, 
-  Upload, 
-  Cloud, 
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import {
+  FileText,
+  Upload,
+  Cloud,
   Database,
   CheckCircle,
   XCircle,
@@ -21,8 +21,8 @@ import {
   HardDrive,
   FileType,
   Globe,
-  Zap
-} from "lucide-react"
+  Zap,
+} from "lucide-react";
 
 const uploadSources = [
   {
@@ -49,7 +49,7 @@ const uploadSources = [
     description: "Connect to your database",
     formats: ["PostgreSQL", "MySQL"],
   },
-]
+];
 
 const documents = [
   {
@@ -84,18 +84,18 @@ const documents = [
     chunks: 0,
     lastUpdated: "Just now",
   },
-]
+];
 
 const integrations = [
   { name: "Google Drive", icon: HardDrive, connected: true },
   { name: "Dropbox", icon: FolderOpen, connected: false },
   { name: "Notion", icon: FileType, connected: true },
   { name: "Confluence", icon: Link2, connected: false },
-]
+];
 
 export function DocumentTrainingSection() {
-  const [dragActive, setDragActive] = useState(false)
-  const [trainingProgress, setTrainingProgress] = useState(67)
+  const [dragActive, setDragActive] = useState(false);
+  const [trainingProgress, setTrainingProgress] = useState(67);
 
   return (
     <section className="py-20 lg:py-32">
@@ -111,14 +111,16 @@ export function DocumentTrainingSection() {
             <span className="gradient-text">Your Knowledge</span>
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            Upload your documents, connect cloud storage, or link your website to train the AI with your business knowledge for accurate, context-aware responses.
+            Upload your documents, connect cloud storage, or link your website
+            to train the AI with your business knowledge for accurate,
+            context-aware responses.
           </p>
         </div>
 
         {/* Upload Sources */}
         <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {uploadSources.map((source) => (
-            <Card 
+            <Card
               key={source.title}
               className="group cursor-pointer border-border bg-card transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5"
             >
@@ -126,11 +128,19 @@ export function DocumentTrainingSection() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
                   <source.icon className="h-6 w-6 text-primary" />
                 </div>
-                <h3 className="font-semibold text-foreground">{source.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{source.description}</p>
+                <h3 className="font-semibold text-foreground">
+                  {source.title}
+                </h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {source.description}
+                </p>
                 <div className="mt-3 flex flex-wrap gap-1">
                   {source.formats.map((format) => (
-                    <Badge key={format} variant="outline" className="text-xs text-muted-foreground">
+                    <Badge
+                      key={format}
+                      variant="outline"
+                      className="text-xs text-muted-foreground"
+                    >
                       {format}
                     </Badge>
                   ))}
@@ -141,24 +151,26 @@ export function DocumentTrainingSection() {
         </div>
 
         {/* Main Training Interface */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 w-full grid gap-6 overflow-x-hidden lg:grid-cols-3">
           {/* Upload Area */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 w-full max-md:truncate">
             <Card className="border-border bg-card">
               <CardHeader>
-                <CardTitle className="text-lg text-foreground">Knowledge Base</CardTitle>
+                <CardTitle className="text-lg text-foreground">
+                  Knowledge Base
+                </CardTitle>
               </CardHeader>
               <CardContent>
                 {/* Drop Zone */}
                 <div
                   className={`mb-6 flex flex-col items-center justify-center rounded-lg border-2 border-dashed p-8 transition-colors ${
                     dragActive
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border bg-muted/30 hover:border-primary/50'
+                      ? "border-primary bg-primary/5"
+                      : "border-border bg-muted/30 hover:border-primary/50"
                   }`}
                   onDragOver={(e) => {
-                    e.preventDefault()
-                    setDragActive(true)
+                    e.preventDefault();
+                    setDragActive(true);
                   }}
                   onDragLeave={() => setDragActive(false)}
                   onDrop={() => setDragActive(false)}
@@ -190,7 +202,9 @@ export function DocumentTrainingSection() {
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-2">
-                          <p className="truncate font-medium text-foreground">{doc.name}</p>
+                          <p className="truncate font-medium text-foreground">
+                            {doc.name}
+                          </p>
                           <Badge variant="outline" className="text-xs">
                             {doc.type}
                           </Badge>
@@ -202,29 +216,32 @@ export function DocumentTrainingSection() {
                           <span>•</span>
                           <span>{doc.lastUpdated}</span>
                         </div>
-                        {doc.status === 'training' && (
-                          <Progress value={trainingProgress} className="mt-2 h-1" />
+                        {doc.status === "training" && (
+                          <Progress
+                            value={trainingProgress}
+                            className="mt-2 h-1 "
+                          />
                         )}
                       </div>
-                      <div className="shrink-0">
-                        {doc.status === 'trained' && (
+                      <div className="shrink-0 max-md:-mt-7">
+                        {doc.status === "trained" && (
                           <Badge className="border-green-500/30 bg-green-500/10 text-green-400">
                             <CheckCircle className="mr-1 h-3 w-3" />
                             Trained
                           </Badge>
                         )}
-                        {doc.status === 'training' && (
+                        {doc.status === "training" && (
                           <Badge className="border-blue-500/30 bg-blue-500/10 text-blue-400">
                             <RefreshCw className="mr-1 h-3 w-3 animate-spin" />
                             Training
                           </Badge>
                         )}
-                        {doc.status === 'queued' && (
+                        {doc.status === "queued" && (
                           <Badge className="border-yellow-500/30 bg-yellow-500/10 text-yellow-400">
                             Queued
                           </Badge>
                         )}
-                        {doc.status === 'error' && (
+                        {doc.status === "error" && (
                           <Badge className="border-red-500/30 bg-red-500/10 text-red-400">
                             <XCircle className="mr-1 h-3 w-3" />
                             Error
@@ -243,28 +260,40 @@ export function DocumentTrainingSection() {
             {/* Training Stats */}
             <Card className="border-border bg-card">
               <CardHeader>
-                <CardTitle className="text-lg text-foreground">Training Overview</CardTitle>
+                <CardTitle className="text-lg text-foreground">
+                  Training Overview
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Documents</span>
+                  <span className="text-sm text-muted-foreground">
+                    Documents
+                  </span>
                   <span className="font-medium text-foreground">4</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Total Chunks</span>
+                  <span className="text-sm text-muted-foreground">
+                    Total Chunks
+                  </span>
                   <span className="font-medium text-foreground">268</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Knowledge Size</span>
+                  <span className="text-sm text-muted-foreground">
+                    Knowledge Size
+                  </span>
                   <span className="font-medium text-foreground">5.2 MB</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Last Updated</span>
+                  <span className="text-sm text-muted-foreground">
+                    Last Updated
+                  </span>
                   <span className="font-medium text-foreground">5 min ago</span>
                 </div>
                 <div className="border-t border-border pt-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Training Status</span>
+                    <span className="text-sm text-muted-foreground">
+                      Training Status
+                    </span>
                     <Badge className="border-green-500/30 bg-green-500/10 text-green-400">
                       Ready
                     </Badge>
@@ -276,7 +305,9 @@ export function DocumentTrainingSection() {
             {/* Connected Sources */}
             <Card className="border-border bg-card">
               <CardHeader>
-                <CardTitle className="text-lg text-foreground">Connected Sources</CardTitle>
+                <CardTitle className="text-lg text-foreground">
+                  Connected Sources
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {integrations.map((integration) => (
@@ -286,7 +317,9 @@ export function DocumentTrainingSection() {
                   >
                     <div className="flex items-center gap-3">
                       <integration.icon className="h-5 w-5 text-muted-foreground" />
-                      <span className="text-sm text-foreground">{integration.name}</span>
+                      <span className="text-sm text-foreground">
+                        {integration.name}
+                      </span>
                     </div>
                     {integration.connected ? (
                       <Badge className="border-green-500/30 bg-green-500/10 text-green-400">
@@ -321,31 +354,40 @@ export function DocumentTrainingSection() {
                 step: "01",
                 icon: Upload,
                 title: "Upload Your Content",
-                description: "Upload PDFs, documents, or connect your cloud storage. We support all major file formats and can even crawl your website."
+                description:
+                  "Upload PDFs, documents, or connect your cloud storage. We support all major file formats and can even crawl your website.",
               },
               {
                 step: "02",
                 icon: Brain,
                 title: "AI Processing",
-                description: "Our AI analyzes your content, extracts key information, and creates semantic embeddings for intelligent retrieval."
+                description:
+                  "Our AI analyzes your content, extracts key information, and creates semantic embeddings for intelligent retrieval.",
               },
               {
                 step: "03",
                 icon: Sparkles,
                 title: "Smart Responses",
-                description: "Your chatbot now delivers accurate, context-aware responses based on your actual business knowledge."
-              }
+                description:
+                  "Your chatbot now delivers accurate, context-aware responses based on your actual business knowledge.",
+              },
             ].map((item) => (
               <div key={item.step} className="relative">
                 <div className="rounded-lg border border-border bg-card p-6">
                   <div className="mb-4 flex items-center justify-between">
-                    <span className="text-4xl font-bold text-muted-foreground/30">{item.step}</span>
+                    <span className="text-4xl font-bold text-muted-foreground/30">
+                      {item.step}
+                    </span>
                     <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                       <item.icon className="h-6 w-6 text-primary" />
                     </div>
                   </div>
-                  <h4 className="mb-2 text-lg font-semibold text-foreground">{item.title}</h4>
-                  <p className="text-sm text-muted-foreground">{item.description}</p>
+                  <h4 className="mb-2 text-lg font-semibold text-foreground">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
                 {item.step !== "03" && (
                   <div className="absolute -right-4 top-1/2 hidden -translate-y-1/2 md:block">
@@ -369,19 +411,40 @@ export function DocumentTrainingSection() {
                 Context-Aware AI That Knows Your Business
               </h3>
               <p className="mt-4 text-muted-foreground">
-                Stop wasting time on generic responses. Train your AI with your unique business knowledge for accurate, helpful customer interactions.
+                Stop wasting time on generic responses. Train your AI with your
+                unique business knowledge for accurate, helpful customer
+                interactions.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { title: "95% Accuracy", description: "Responses based on your actual data" },
-                { title: "Auto-Sync", description: "Keep knowledge base always up-to-date" },
-                { title: "Multi-Language", description: "Train in any language, respond in 50+" },
-                { title: "Secure", description: "Your data is encrypted and private" },
+                {
+                  title: "95% Accuracy",
+                  description: "Responses based on your actual data",
+                },
+                {
+                  title: "Auto-Sync",
+                  description: "Keep knowledge base always up-to-date",
+                },
+                {
+                  title: "Multi-Language",
+                  description: "Train in any language, respond in 50+",
+                },
+                {
+                  title: "Secure",
+                  description: "Your data is encrypted and private",
+                },
               ].map((benefit) => (
-                <div key={benefit.title} className="rounded-lg border border-border bg-muted/30 p-4">
-                  <h4 className="font-semibold text-foreground">{benefit.title}</h4>
-                  <p className="mt-1 text-sm text-muted-foreground">{benefit.description}</p>
+                <div
+                  key={benefit.title}
+                  className="rounded-lg border border-border bg-muted/30 p-4"
+                >
+                  <h4 className="font-semibold text-foreground">
+                    {benefit.title}
+                  </h4>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {benefit.description}
+                  </p>
                 </div>
               ))}
             </div>
@@ -389,5 +452,5 @@ export function DocumentTrainingSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }

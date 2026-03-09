@@ -19,7 +19,7 @@ export default function ProductDesignOutline() {
   const trainingRef = useRef(null);
   const pricingRef = useRef(null);
 
-  const scrollToSection = (ref:any) => {
+  const scrollToSection = (ref: any) => {
     ref.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -27,28 +27,52 @@ export default function ProductDesignOutline() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen ">
       <Header />
 
       {/* Sticky Navigation */}
-      <div className="sticky top-16 z-40 border-b bg-background">
-        <div className="container mx-auto flex gap-4 px-4 py-2">
-          <button onClick={() => scrollToSection(overviewRef)}>Overview</button>
-          <button onClick={() => scrollToSection(featuresRef)}>Features</button>
-          <button onClick={() => scrollToSection(integrationsRef)}>
+      <div className="sticky top-16 px-4 z-40 border-b bg-background">
+        <div className="container mx-auto flex gap-10 px-4 py-2 justify-evenly">
+          <button
+            onClick={() => scrollToSection(overviewRef)}
+            className="hover:text-primary cursor-pointer"
+          >
+            Overview
+          </button>
+          <button
+            onClick={() => scrollToSection(featuresRef)}
+            className="hover:text-primary cursor-pointer"
+          >
+            Features
+          </button>
+          <button
+            onClick={() => scrollToSection(integrationsRef)}
+            className="hover:text-primary cursor-pointer"
+          >
             Integrations
           </button>
-          <button onClick={() => scrollToSection(dashboardRef)}>
+          <button
+            onClick={() => scrollToSection(dashboardRef)}
+            className="hover:text-primary cursor-pointer"
+          >
             Dashboard
           </button>
-          <button onClick={() => scrollToSection(trainingRef)}>
+          <button
+            onClick={() => scrollToSection(trainingRef)}
+            className="hobuttonxt-primary cursor-pointer"
+          >
             AI Training
           </button>
-          <button onClick={() => scrollToSection(pricingRef)}>Pricing</button>
+          <button
+            onClick={() => scrollToSection(pricingRef)}
+            className="hover:text-primary cursor-pointer"
+          >
+            Pricing
+          </button>
         </div>
       </div>
 
-      <main>
+      <main className="px-4">
         <section ref={overviewRef}>
           <HeroSection />
         </section>

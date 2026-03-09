@@ -46,7 +46,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section className="relative overflow-hidden py-20 lg:py-32">
+    <section className="relative overflow-hidden py-20 lg:pb-32">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />

@@ -42,10 +42,18 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuItem>AI Chatbot Builder</DropdownMenuItem>
-                <DropdownMenuItem>Flow Designer</DropdownMenuItem>
-                <DropdownMenuItem>Analytics Dashboard</DropdownMenuItem>
-                <DropdownMenuItem>Document Training</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/products/chatbot-builder">AI Chatbot Builder</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/products/flow-designer">Flow Designer</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/products/analytics">Analytics Dashboard</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/products/document-training">Document Training</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -57,32 +65,42 @@ export function Header() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuItem>E-commerce</DropdownMenuItem>
-                <DropdownMenuItem>Healthcare</DropdownMenuItem>
-                <DropdownMenuItem>Financial Services</DropdownMenuItem>
-                <DropdownMenuItem>Education</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/solutions/ecommerce">E-commerce</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/solutions/healthcare">Healthcare</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/solutions/financial">Financial Services</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/solutions/education">Education</Link>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Integrations
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+              <Link href="/integrations">Integrations</Link>
             </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Pricing
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+              <Link href="/pricing">Pricing</Link>
             </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Documentation
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+              <Link href="/docs">Documentation</Link>
             </Button>
           </nav>
 
           {/* CTA Buttons */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
-              Sign In
+            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+              <Link href="/login">Sign In</Link>
             </Button>
-            <Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
-              <Sparkles className="h-4 w-4" />
-              Start Free Trial
+            <Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+              <Link href="/signup">
+                <Sparkles className="h-4 w-4" />
+                Start Free Trial
+              </Link>
             </Button>
           </div>
 
@@ -101,28 +119,30 @@ export function Header() {
         {mobileMenuOpen && (
           <div className="border-t border-border py-4 md:hidden">
             <nav className="flex flex-col gap-2">
-              <Button variant="ghost" className="justify-start text-muted-foreground">
-                Product
+              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+                <Link href="/products/chatbot-builder">Product</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground">
-                Solutions
+              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+                <Link href="/solutions/ecommerce">Solutions</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground">
-                Integrations
+              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+                <Link href="/integrations">Integrations</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground">
-                Pricing
+              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+                <Link href="/pricing">Pricing</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground">
-                Documentation
+              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+                <Link href="/docs">Documentation</Link>
               </Button>
               <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
-                <Button variant="outline" className="w-full">
-                  Sign In
+                <Button variant="outline" className="w-full" asChild>
+                  <Link href="/login">Sign In</Link>
                 </Button>
-                <Button className="w-full gap-2 bg-primary text-primary-foreground">
-                  <Sparkles className="h-4 w-4" />
-                  Start Free Trial
+                <Button className="w-full gap-2 bg-primary text-primary-foreground" asChild>
+                  <Link href="/signup">
+                    <Sparkles className="h-4 w-4" />
+                    Start Free Trial
+                  </Link>
                 </Button>
               </div>
             </nav>

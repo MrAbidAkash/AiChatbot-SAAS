@@ -45,7 +45,7 @@ export default function TermsBN() {
 
           {/* Agreement */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">শর্তাবলীতে সম্মতি</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black!">শর্তাবলীতে সম্মতি</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
               ChatTime AI ব্যবহার করার মাধ্যমে আপনি এই শর্তাবলীর সাথে সম্মত
               হচ্ছেন। যদি আপনি এই শর্তাবলীর সাথে একমত না হন, অনুগ্রহ করে সেবা
@@ -59,7 +59,7 @@ export default function TermsBN() {
 
           {/* Service Description */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">সেবার বিবরণ</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">সেবার বিবরণ</h2>
             <div className="bg-blue-50 p-6 rounded-xl">
               <p className="text-gray-700 mb-4">
                 ChatTime AI একটি AI ভিত্তিক চ্যাটবট ও অটোমেশন প্ল্যাটফর্ম যা
@@ -77,7 +77,7 @@ export default function TermsBN() {
 
           {/* User Responsibilities */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">ব্যবহারকারীর দায়িত্ব</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">ব্যবহারকারীর দায়িত্ব</h2>
             <div className="space-y-6">
               <div className="border-l-4 border-red-500 pl-6">
                 <h3 className="font-semibold text-gray-900 mb-2 flex items-center">
@@ -121,7 +121,7 @@ export default function TermsBN() {
 
           {/* Acceptable Use */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">সঠিক ব্যবহার</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">সঠিক ব্যবহার</h2>
             <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-6">
               <h3 className="font-semibold mb-4">নিষিদ্ধ কার্যকলাপ</h3>
               <div className="grid md:grid-cols-2 gap-4">
@@ -151,7 +151,7 @@ export default function TermsBN() {
 
           {/* Payment Terms */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold mb-4">পেমেন্ট শর্তাবলী</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">পেমেন্ট শর্তাবলী</h2>
             <div className="bg-green-50 rounded-xl p-6">
               <ul className="space-y-2 text-gray-700 text-sm">
                 <li>• ফ্রি ট্রায়াল: ১৪ দিন, কোন ক্রেডিট কার্ড প্রয়োজন নয়</li>
@@ -264,7 +264,7 @@ export default function TermsBN() {
 
           {/* Governing Law */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">প্রযোজ্য আইন</h2>
+            <h2 className="text-2xl font-bold mb-4 text-black">প্রযোজ্য আইন</h2>
             <p className="text-gray-700">
               এই শর্তাবলী বাংলাদেশের প্রচলিত আইন অনুযায়ী পরিচালিত হবে। যেকোনো
               বিরোধ সমাধান ঢাকা, বাংলাদেশ-এ অনুষ্ঠিত হবে।

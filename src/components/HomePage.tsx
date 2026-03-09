@@ -59,7 +59,7 @@ export default function ProductDesignOutline() {
           </button>
           <button
             onClick={() => scrollToSection(trainingRef)}
-            className="hobuttonxt-primary cursor-pointer"
+            className="hover:text-primary cursor-pointer"
           >
             AI Training
           </button>

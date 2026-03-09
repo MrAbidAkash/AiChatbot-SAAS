@@ -1,21 +1,41 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
-
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
+  variable: "--font-mono",
 });
 
-export const metadata = {
-  title: "ChatTime AI – AI Chatbot for Facebook & Instagram",
+export const metadata: Metadata = {
+  title: "ChatFlow AI - Intelligent Conversational Platform",
   description:
-    "Automate Facebook & Instagram messages with AI. Convert conversations into customers 24/7.",
+    "Modern AI chatbot platform for businesses. Connect with customers across WhatsApp, Instagram, and Facebook with intelligent, context-aware conversations.",
+  generator: "ChatFlow AI",
+  keywords: [
+    "AI chatbot",
+    "WhatsApp business",
+    "Instagram automation",
+    "Facebook Messenger",
+    "customer support",
+    "conversational AI",
+  ],
+  authors: [{ name: "ChatFlow AI" }],
+  openGraph: {
+    title: "ChatFlow AI - Intelligent Conversational Platform",
+    description: "Modern AI chatbot platform for businesses",
+    type: "website",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -24,11 +44,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${geistMono.variable} font-sans antialiased`}
+        suppressHydrationWarning
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );

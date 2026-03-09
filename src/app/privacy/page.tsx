@@ -10,53 +10,45 @@ import {
   FaFacebook,
   FaChartLine,
 } from "react-icons/fa";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <Link
-            href="/"
-            className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            ← Back to ChatTime AI
-          </Link>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+        <div className="bg-card rounded-2xl shadow-lg p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-12">
-            <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-              <FaShieldAlt className="text-blue-600 text-2xl" />
+            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <FaShieldAlt className="text-primary text-2xl" />
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            <h1 className="text-4xl font-bold text-foreground mb-4">
               Privacy Policy
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-muted-foreground">
               Last updated: {new Date().toLocaleDateString()}
             </p>
-            <p className="text-gray-500 mt-2">
+            <p className="text-muted-foreground mt-2">
               ChatTime AI • Dhaka, Bangladesh • support@chattimeai.com
             </p>
           </div>
 
           {/* Introduction */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Introduction
             </h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
+            <p className="text-muted-foreground leading-relaxed mb-4">
               ChatTime AI ("we," "our," or "us") is committed to protecting your
               privacy. This Privacy Policy explains how we collect, use, store,
               and protect your information when you use our AI-powered chatbot
               automation platform.
             </p>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-muted-foreground leading-relaxed">
               By using ChatTime AI, you agree to the collection and use of
               information in accordance with this policy.
             </p>
@@ -64,17 +56,17 @@ export default function PrivacyPolicy() {
 
           {/* Information We Collect */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Information We Collect
             </h2>
 
             <div className="space-y-6">
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h3 className="font-semibold text-lg text-gray-900 mb-3 flex items-center">
-                  <FaFacebook className="mr-2 text-blue-600" />
+              <div className="bg-primary/5 rounded-xl p-6">
+                <h3 className="font-semibold text-lg text-foreground mb-3 flex items-center">
+                  <FaFacebook className="mr-2 text-primary" />
                   Facebook & Instagram Data
                 </h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Facebook Page ID and Instagram Business Account ID</li>
                   <li>• Messages and comments received on your pages</li>
                   <li>
@@ -87,12 +79,12 @@ export default function PrivacyPolicy() {
                 </ul>
               </div>
 
-              <div className="bg-green-50 rounded-xl p-6">
-                <h3 className="font-semibold text-lg text-gray-900 mb-3 flex items-center">
-                  <FaUserSecret className="mr-2 text-green-600" />
+              <div className="bg-success/5 rounded-xl p-6">
+                <h3 className="font-semibold text-lg text-foreground mb-3 flex items-center">
+                  <FaUserSecret className="mr-2 text-success" />
                   Account Information
                 </h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Email address and name for account creation</li>
                   <li>• Business information and contact details</li>
                   <li>• Authentication tokens for platform connections</li>
@@ -100,12 +92,12 @@ export default function PrivacyPolicy() {
                 </ul>
               </div>
 
-              <div className="bg-purple-50 rounded-xl p-6">
-                <h3 className="font-semibold text-lg text-gray-900 mb-3 flex items-center">
-                  <FaChartLine className="mr-2 text-purple-600" />
+              <div className="bg-accent/5 rounded-xl p-6">
+                <h3 className="font-semibold text-lg text-foreground mb-3 flex items-center">
+                  <FaChartLine className="mr-2 text-accent" />
                   Analytics & Performance Data
                 </h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-muted-foreground">
                   <li>• Message response times and success rates</li>
                   <li>• AI model performance metrics</li>
                   <li>• Platform usage statistics</li>
@@ -117,26 +109,26 @@ export default function PrivacyPolicy() {
 
           {/* How We Use Your Information */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               How We Use Your Information
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="font-semibold text-gray-900 mb-3">
+              <div className="bg-muted rounded-xl p-6">
+                <h3 className="font-semibold text-foreground mb-3">
                   Core Service Functions
                 </h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-muted-foreground text-sm">
                   <li>• Process and respond to messages automatically</li>
                   <li>• Train AI models for better responses</li>
                   <li>• Maintain conversation history</li>
                   <li>• Provide analytics and insights</li>
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="font-semibold text-gray-900 mb-3">
+              <div className="bg-muted rounded-xl p-6">
+                <h3 className="font-semibold text-foreground mb-3">
                   Service Improvement
                 </h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-muted-foreground text-sm">
                   <li>• Analyze usage patterns to improve features</li>
                   <li>• Monitor system performance</li>
                   <li>• Develop new capabilities</li>
@@ -148,17 +140,17 @@ export default function PrivacyPolicy() {
 
           {/* Data Storage & Security */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Data Storage & Security
             </h2>
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+            <div className="bg-linear-to-r from-primary/5 to-accent/5 rounded-xl p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4 flex items-center">
-                    <FaLock className="mr-2 text-blue-600" />
+                  <h3 className="font-semibold text-foreground mb-4 flex items-center">
+                    <FaLock className="mr-2 text-primary" />
                     Security Measures
                   </h3>
-                  <ul className="space-y-2 text-gray-700 text-sm">
+                  <ul className="space-y-2 text-muted-foreground text-sm">
                     <li>• End-to-end encryption for data transmission</li>
                     <li>• Encrypted database storage (AES-256)</li>
                     <li>• Regular security audits and penetration testing</li>
@@ -167,10 +159,10 @@ export default function PrivacyPolicy() {
                   </ul>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">
+                  <h3 className="font-semibold text-foreground mb-4">
                     Data Retention
                   </h3>
-                  <ul className="space-y-2 text-gray-700 text-sm">
+                  <ul className="space-y-2 text-muted-foreground text-sm">
                     <li>• Conversation data retained for 2 years</li>
                     <li>
                       • Analytics data aggregated and anonymized after 90 days
@@ -185,34 +177,34 @@ export default function PrivacyPolicy() {
 
           {/* Your Rights */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Your Data Rights
             </h2>
             <div className="space-y-4">
-              <div className="border-l-4 border-blue-500 pl-6 py-2">
-                <h3 className="font-semibold text-gray-900">
+              <div className="border-l-4 border-primary pl-6 py-2">
+                <h3 className="font-semibold text-foreground">
                   Access & Portability
                 </h3>
-                <p className="text-gray-700">
+                <p className="text-muted-foreground">
                   Request a copy of all your personal data at any time.
                 </p>
               </div>
-              <div className="border-l-4 border-green-500 pl-6 py-2">
-                <h3 className="font-semibold text-gray-900">Correction</h3>
-                <p className="text-gray-700">
+              <div className="border-l-4 border-success pl-6 py-2">
+                <h3 className="font-semibold text-foreground">Correction</h3>
+                <p className="text-muted-foreground">
                   Update or correct inaccurate personal information.
                 </p>
               </div>
-              <div className="border-l-4 border-purple-500 pl-6 py-2">
-                <h3 className="font-semibold text-gray-900">Deletion</h3>
-                <p className="text-gray-700">
+              <div className="border-l-4 border-accent pl-6 py-2">
+                <h3 className="font-semibold text-foreground">Deletion</h3>
+                <p className="text-muted-foreground">
                   Request permanent deletion of your account and all associated
                   data.
                 </p>
               </div>
-              <div className="border-l-4 border-orange-500 pl-6 py-2">
-                <h3 className="font-semibold text-gray-900">Opt-out</h3>
-                <p className="text-gray-700">
+              <div className="border-l-4 border-warning pl-6 py-2">
+                <h3 className="font-semibold text-foreground">Opt-out</h3>
+                <p className="text-muted-foreground">
                   Disable data processing for specific features or entirely.
                 </p>
               </div>
@@ -221,56 +213,60 @@ export default function PrivacyPolicy() {
 
           {/* Data Deletion Process */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Data Deletion Process
             </h2>
-            <div className="bg-red-50 rounded-xl p-8">
-              <h3 className="font-semibold text-gray-900 mb-4">
+            <div className="bg-destructive/5 rounded-xl p-8">
+              <h3 className="font-semibold text-foreground mb-4">
                 How to Delete Your Data
               </h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">1</span>
+                  <div className="w-8 h-8 bg-destructive/10 rounded-full flex items-center justify-center shrink-0">
+                    <span className="text-destructive font-bold">1</span>
                   </div>
                   <div>
-                    <p className="text-gray-700 font-medium">Email Us</p>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-muted-foreground font-medium">
+                      Email Us
+                    </p>
+                    <p className="text-muted-foreground text-sm">
                       Send a deletion request to support@chattimeai.com
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">2</span>
+                  <div className="w-8 h-8 bg-destructive/10 rounded-full flex items-center justify-center shrink-0">
+                    <span className="text-destructive font-bold">2</span>
                   </div>
                   <div>
-                    <p className="text-gray-700 font-medium">Verify Identity</p>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-muted-foreground font-medium">
+                      Verify Identity
+                    </p>
+                    <p className="text-muted-foreground text-sm">
                       We'll verify your identity using your registered email
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
-                    <span className="text-red-600 font-bold">3</span>
+                  <div className="w-8 h-8 bg-destructive/10 rounded-full flex items-center justify-center shrink-0">
+                    <span className="text-destructive font-bold">3</span>
                   </div>
                   <div>
-                    <p className="text-gray-700 font-medium">
+                    <p className="text-muted-foreground font-medium">
                       Complete Deletion
                     </p>
-                    <p className="text-gray-600 text-sm">
+                    <p className="text-muted-foreground text-sm">
                       All data permanently deleted within 30 days
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="mt-6 p-4 bg-white rounded-lg">
-                <p className="text-sm text-gray-600">
+              <div className="mt-6 p-4 bg-card rounded-lg">
+                <p className="text-sm text-muted-foreground">
                   <strong>Alternative:</strong> Visit{" "}
                   <Link
                     href="/delete-data"
-                    className="text-blue-600 hover:underline"
+                    className="text-primary hover:underline"
                   >
                     /delete-data
                   </Link>{" "}
@@ -282,38 +278,42 @@ export default function PrivacyPolicy() {
 
           {/* Third-Party Services */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Third-Party Services
             </h2>
-            <p className="text-gray-700 mb-4">
+            <p className="text-muted-foreground mb-4">
               We use the following trusted third-party services:
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <div className="border rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900">Meta Platforms</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-semibold text-foreground">
+                  Meta Platforms
+                </h4>
+                <p className="text-sm text-muted-foreground">
                   Facebook & Instagram API integration
                 </p>
               </div>
               <div className="border rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-foreground">
                   Cloud Infrastructure
                 </h4>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Secure data hosting and processing
                 </p>
               </div>
               <div className="border rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-foreground">
                   Payment Processors
                 </h4>
-                <p className="text-sm text-gray-600">Secure payment handling</p>
+                <p className="text-sm text-muted-foreground">
+                  Secure payment handling
+                </p>
               </div>
               <div className="border rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-foreground">
                   Analytics Services
                 </h4>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-muted-foreground">
                   Usage monitoring and optimization
                 </p>
               </div>
@@ -322,7 +322,7 @@ export default function PrivacyPolicy() {
 
           {/* International Data Transfers */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               International Data Transfers
             </h2>
             <p className="text-gray-700">
@@ -335,10 +335,10 @@ export default function PrivacyPolicy() {
 
           {/* Contact Information */}
           <section className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Contact Us
             </h2>
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-8 text-white">
+            <div className="bg-linear-to-r from-primary to-accent rounded-xl p-8 text-foreground">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="font-semibold text-lg mb-4 flex items-center">
@@ -366,7 +366,7 @@ export default function PrivacyPolicy() {
 
           {/* Policy Updates */}
           <section className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Policy Updates
             </h2>
             <p className="text-gray-700">
@@ -378,6 +378,8 @@ export default function PrivacyPolicy() {
           </section>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

@@ -25,9 +25,9 @@ const footerLinks = {
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
-    { name: "Privacy Policy (Bengali)", href: "/privacy-bn" },
+    { name: "Privacy Policy (বাংলা)", href: "/privacy-bn" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Terms (Bengali)", href: "/terms-bn" },
+    { name: "Terms of Service (বাংলা)", href: "/terms-bn" },
     { name: "Cookie Policy", href: "/cookie-policy" },
     { name: "Security", href: "/security" },
   ],

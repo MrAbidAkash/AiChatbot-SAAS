@@ -10,6 +10,8 @@ import {
   FaBuilding,
   FaCertificate,
 } from "react-icons/fa";
+import { Footer } from "@/components/layout/footer";
+import { Header } from "@/components/layout/header";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -45,22 +47,22 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 max-w-2xl w-full">
+      <div className="min-h-screen bg-background flex items-center justify-center px-4">
+        <div className="bg-card rounded-2xl shadow-lg p-8 md:p-12 max-w-2xl w-full">
           <div className="text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <FaPaperPlane className="text-green-600 text-3xl" />
+            <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <FaPaperPlane className="text-success text-3xl" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
               Message Sent Successfully
             </h1>
-            <p className="text-gray-600 mb-8">
+            <p className="text-muted-foreground mb-8">
               Thank you for contacting us. We&apos;ll get back to you within 24
               hours.
             </p>
             <Link
               href="/"
-              className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition"
+              className="inline-block bg-primary text-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/80 transition"
             >
               Return to Homepage
             </Link>
@@ -71,25 +73,16 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-6">
-          <Link
-            href="/"
-            className="text-blue-600 hover:text-blue-700 font-medium"
-          >
-            ← Back to ChatTime AI
-          </Link>
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header />
 
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-blue-600 to-purple-600 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Contact Us</h1>
           <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-            We're here to help you succeed with AI-powered customer automation
+            We&apos;re here to help you succeed with AI-powered customer
+            automation
           </p>
         </div>
       </div>
@@ -100,75 +93,87 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="lg:col-span-1 space-y-6">
             {/* Business Information */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-card rounded-2xl shadow-lg p-8">
               <div className="flex items-center mb-6">
-                <FaBuilding className="text-blue-600 text-2xl mr-3" />
-                <h2 className="text-xl font-bold text-gray-900">
+                <FaBuilding className="text-primary text-2xl mr-3" />
+                <h2 className="text-xl font-bold text-foreground">
                   Business Information
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <FaMapMarkerAlt className="text-gray-400 mt-1" />
+                  <FaMapMarkerAlt className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">Address</p>
-                    <p className="text-gray-600">Dhaka, Bangladesh</p>
+                    <p className="font-medium text-foreground">Address</p>
+                    <p className="text-muted-foreground">Dhaka, Bangladesh</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <FaCertificate className="text-gray-400 mt-1" />
+                  <FaCertificate className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">Trade License</p>
-                    <p className="text-gray-600">[Your License Number]</p>
+                    <p className="font-medium text-foreground">Trade License</p>
+                    <p className="text-muted-foreground">
+                      [Your License Number]
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <FaCertificate className="text-gray-400 mt-1" />
+                  <FaCertificate className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">DBID</p>
-                    <p className="text-gray-600">[Your Digital Business ID]</p>
+                    <p className="font-medium text-foreground">DBID</p>
+                    <p className="text-muted-foreground">
+                      [Your Digital Business ID]
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Contact Details */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-card rounded-2xl shadow-lg p-8">
               <div className="flex items-center mb-6">
-                <FaEnvelope className="text-blue-600 text-2xl mr-3" />
-                <h2 className="text-xl font-bold text-gray-900">
+                <FaEnvelope className="text-primary text-2xl mr-3" />
+                <h2 className="text-xl font-bold text-foreground">
                   Get in Touch
                 </h2>
               </div>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <FaEnvelope className="text-gray-400 mt-1" />
+                  <FaEnvelope className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">Email Support</p>
-                    <p className="text-gray-600">support@chattimeai.com</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-foreground">Email Support</p>
+                    <p className="text-muted-foreground">
+                      support@chattimeai.com
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       Response within 24 hours
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <FaEnvelope className="text-gray-400 mt-1" />
+                  <FaEnvelope className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-foreground">
                       Business Inquiries
                     </p>
-                    <p className="text-gray-600">business@chattimeai.com</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-muted-foreground">
+                      business@chattimeai.com
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       Partnerships & enterprise
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <FaEnvelope className="text-gray-400 mt-1" />
+                  <FaEnvelope className="text-muted-foreground mt-1" />
                   <div>
-                    <p className="font-medium text-gray-900">Privacy & Legal</p>
-                    <p className="text-gray-600">legal@chattimeai.com</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-foreground">
+                      Privacy & Legal
+                    </p>
+                    <p className="text-muted-foreground">
+                      legal@chattimeai.com
+                    </p>
+                    <p className="text-sm text-muted-foreground">
                       Data protection & compliance
                     </p>
                   </div>
@@ -177,32 +182,32 @@ export default function ContactPage() {
             </div>
 
             {/* Business Hours */}
-            <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="bg-card rounded-2xl shadow-lg p-8">
               <div className="flex items-center mb-6">
-                <FaClock className="text-blue-600 text-2xl mr-3" />
-                <h2 className="text-xl font-bold text-gray-900">
+                <FaClock className="text-primary text-2xl mr-3" />
+                <h2 className="text-xl font-bold text-foreground">
                   Business Hours
                 </h2>
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Monday - Friday</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-muted-foreground">Monday - Friday</span>
+                  <span className="font-medium text-foreground">
                     9:00 AM - 6:00 PM
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Saturday</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-muted-foreground">Saturday</span>
+                  <span className="font-medium text-foreground">
                     10:00 AM - 4:00 PM
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Sunday</span>
-                  <span className="font-medium text-gray-900">Closed</span>
+                  <span className="text-muted-foreground">Sunday</span>
+                  <span className="font-medium text-foreground">Closed</span>
                 </div>
                 <div className="pt-3 border-t">
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-muted-foreground">
                     24/7 automated support available for all customers
                   </p>
                 </div>
@@ -212,8 +217,8 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
-              <h2 className="text-3xl font-bold text-gray-900 mb-8">
+            <div className="bg-card rounded-2xl shadow-lg p-8 md:p-12">
+              <h2 className="text-3xl font-bold text-foreground mb-8">
                 Send us a Message
               </h2>
 
@@ -222,7 +227,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="name"
-                      className="block text-gray-900 font-medium mb-2"
+                      className="block text-foreground font-medium mb-2"
                     >
                       Your Name *
                     </label>
@@ -233,7 +238,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                       placeholder="John Doe"
                     />
                   </div>
@@ -241,7 +246,7 @@ export default function ContactPage() {
                   <div>
                     <label
                       htmlFor="email"
-                      className="block text-gray-900 font-medium mb-2"
+                      className="block text-foreground font-medium mb-2"
                     >
                       Email Address *
                     </label>
@@ -252,7 +257,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -261,7 +266,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-gray-900 font-medium mb-2"
+                    className="block text-white font-medium mb-2"
                   >
                     Subject *
                   </label>
@@ -271,7 +276,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                   >
                     <option value="">Select a topic</option>
                     <option value="general">General Inquiry</option>
@@ -286,7 +291,7 @@ export default function ContactPage() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-gray-900 font-medium mb-2"
+                    className="block text-white font-medium mb-2"
                   >
                     Message *
                   </label>
@@ -297,13 +302,13 @@ export default function ContactPage() {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className="w-full px-4 py-3 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary bg-background text-foreground"
                     placeholder="Tell us how we can help you..."
                   />
                 </div>
 
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <p className="text-sm text-gray-700">
+                <div className="bg-primary/5 rounded-lg p-4">
+                  <p className="text-sm text-muted-foreground">
                     <strong>Response Time:</strong> We typically respond within
                     24 hours during business days. For urgent technical issues,
                     please include &quot;URGENT&quot; in your subject line.
@@ -313,7 +318,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-semibold hover:shadow-lg transition disabled:bg-gray-400 disabled:cursor-not-allowed"
+                  className="w-full bg-linear-to-r from-primary to-accent text-foreground py-4 rounded-lg font-semibold hover:shadow-lg transition disabled:bg-muted disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
@@ -321,36 +326,36 @@ export default function ContactPage() {
             </div>
 
             {/* FAQ Section */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 mt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            <div className="bg-card rounded-2xl shadow-lg p-8 mt-8">
+              <h2 className="text-2xl font-bold text-foreground mb-6">
                 Frequently Asked Questions
               </h2>
               <div className="space-y-6">
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-foreground mb-2">
                     How quickly can I set up ChatTime AI?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Setup takes less than 5 minutes. Simply connect your
                     Facebook page, customize your AI responses, and you&apos;re
                     ready to automate.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-foreground mb-2">
                     Do you offer customer support?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Yes! We offer 24/7 automated support and human support
                     during business hours. Enterprise customers get priority
                     support.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-2">
+                  <h3 className="font-semibold text-foreground mb-2">
                     Can I cancel my subscription anytime?
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-muted-foreground">
                     Absolutely. You can cancel your subscription at any time
                     with no penalties. Your service continues until the end of
                     your billing period.
@@ -363,38 +368,38 @@ export default function ContactPage() {
       </div>
 
       {/* Map Section (Optional) */}
-      <div className="bg-gray-100 py-12">
+      <div className="bg-muted py-12">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-card rounded-2xl shadow-lg p-8 text-center">
+            <h2 className="text-2xl font-bold text-foreground mb-4">
               Based in Dhaka, Serving the World
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-muted-foreground mb-6">
               ChatTime AI is proud to be a Bangladesh-based technology company
               serving customers globally with cutting-edge AI automation
               solutions.
             </p>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-blue-50 rounded-lg p-6">
-                <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="bg-primary/5 rounded-lg p-6">
+                <div className="text-3xl font-bold text-primary mb-2">
                   2,500+
                 </div>
-                <div className="text-gray-600">Active Customers</div>
+                <div className="text-muted-foreground">Active Customers</div>
               </div>
-              <div className="bg-green-50 rounded-lg p-6">
-                <div className="text-3xl font-bold text-green-600 mb-2">5+</div>
-                <div className="text-gray-600">Countries Served</div>
+              <div className="bg-success/5 rounded-lg p-6">
+                <div className="text-3xl font-bold text-success mb-2">5+</div>
+                <div className="text-muted-foreground">Countries Served</div>
               </div>
-              <div className="bg-purple-50 rounded-lg p-6">
-                <div className="text-3xl font-bold text-purple-600 mb-2">
-                  99.9%
-                </div>
-                <div className="text-gray-600">Uptime SLA</div>
+              <div className="bg-accent/5 rounded-lg p-6">
+                <div className="text-3xl font-bold text-accent mb-2">99.9%</div>
+                <div className="text-muted-foreground">Uptime SLA</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

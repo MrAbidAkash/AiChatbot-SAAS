@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ChatFlow AI - Intelligent Conversational Platform",
+  title: "ChatTime AI - Intelligent Conversational Platform",
   description:
     "Modern AI chatbot platform for businesses. Connect with customers across WhatsApp, Instagram, and Facebook with intelligent, context-aware conversations.",
-  generator: "ChatFlow AI",
+  generator: "ChatTime AI",
   keywords: [
     "AI chatbot",
     "WhatsApp business",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     "customer support",
     "conversational AI",
   ],
-  authors: [{ name: "ChatFlow AI" }],
+  authors: [{ name: "ChatTime AI" }],
   openGraph: {
-    title: "ChatFlow AI - Intelligent Conversational Platform",
+    title: "ChatTime AI - Intelligent Conversational Platform",
     description: "Modern AI chatbot platform for businesses",
     type: "website",
   },

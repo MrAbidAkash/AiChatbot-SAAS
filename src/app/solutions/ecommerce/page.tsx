@@ -76,15 +76,17 @@ export default function EcommercePage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">E-commerce Solutions</span>
+              <span className="text-muted-foreground">
+                E-commerce Solutions
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              Boost Your{" "}
-              <span className="text-primary">E-commerce Sales</span>
+              Boost Your <span className="text-primary">E-commerce Sales</span>
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
               Transform your online store with AI-powered chatbots that increase
-              conversions, reduce cart abandonment, and provide exceptional customer service.
+              conversions, reduce cart abandonment, and provide exceptional
+              customer service.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="gap-2">
@@ -128,7 +130,8 @@ export default function EcommercePage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Hi! I noticed you left some items in your cart. Can I help you complete your purchase?
+                      Hi! I noticed you left some items in your cart. Can I help
+                      you complete your purchase?
                     </p>
                   </div>
                 </div>
@@ -145,7 +148,8 @@ export default function EcommercePage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Of course! Free shipping on orders over $50. Your cart qualifies! Plus, use code SAVE10 for 10% off today.
+                      Of course! Free shipping on orders over $50. Your cart
+                      qualifies! Plus, use code SAVE10 for 10% off today.
                     </p>
                   </div>
                 </div>
@@ -170,7 +174,9 @@ export default function EcommercePage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -189,7 +195,7 @@ export default function EcommercePage() {
               Ready to Increase Your Sales?
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              Join thousands of e-commerce businesses already using ChatFlow AI.
+              Join thousands of e-commerce businesses already using ChatTime AI.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/signup">Start Free Trial</Link>

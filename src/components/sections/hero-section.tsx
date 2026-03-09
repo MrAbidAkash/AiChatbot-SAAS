@@ -126,7 +126,7 @@ export function HeroSection() {
                 </div>
                 <div>
                   <p className="font-medium text-foreground">
-                    ChatFlow Assistant
+                    ChatTime Assistant
                   </p>
                   <p className="text-sm text-muted-foreground">
                     Online • Powered by AI

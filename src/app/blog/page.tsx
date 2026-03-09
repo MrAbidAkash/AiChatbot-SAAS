@@ -9,7 +9,8 @@ import { ArrowRight, Calendar, Clock, User } from "lucide-react";
 
 const featuredPost = {
   title: "The Future of AI Chatbots in Customer Service",
-  excerpt: "Discover how AI-powered chatbots are transforming customer service and what it means for your business in 2026 and beyond.",
+  excerpt:
+    "Discover how AI-powered chatbots are transforming customer service and what it means for your business in 2026 and beyond.",
   author: "Sarah Chen",
   date: "March 5, 2026",
   readTime: "8 min read",
@@ -20,7 +21,8 @@ const featuredPost = {
 const posts = [
   {
     title: "10 Ways to Improve Your Chatbot Conversion Rates",
-    excerpt: "Learn proven strategies to turn more conversations into conversions with your AI chatbot.",
+    excerpt:
+      "Learn proven strategies to turn more conversations into conversions with your AI chatbot.",
     author: "Michael Ross",
     date: "March 3, 2026",
     readTime: "5 min read",
@@ -28,7 +30,8 @@ const posts = [
   },
   {
     title: "How to Train Your Chatbot with Custom Documents",
-    excerpt: "A step-by-step guide to training your chatbot using your own knowledge base and documents.",
+    excerpt:
+      "A step-by-step guide to training your chatbot using your own knowledge base and documents.",
     author: "Emily Zhang",
     date: "February 28, 2026",
     readTime: "6 min read",
@@ -36,15 +39,17 @@ const posts = [
   },
   {
     title: "HIPAA Compliance for Healthcare Chatbots",
-    excerpt: "Everything you need to know about building compliant chatbots for healthcare organizations.",
+    excerpt:
+      "Everything you need to know about building compliant chatbots for healthcare organizations.",
     author: "Dr. James Wilson",
     date: "February 25, 2026",
     readTime: "10 min read",
     category: "Compliance",
   },
   {
-    title: "Integrating ChatFlow AI with Shopify",
-    excerpt: "Complete guide to connecting your e-commerce store with ChatFlow AI for better customer support.",
+    title: "Integrating ChatTime AI with Shopify",
+    excerpt:
+      "Complete guide to connecting your e-commerce store with ChatTime AI for better customer support.",
     author: "Lisa Park",
     date: "February 22, 2026",
     readTime: "7 min read",
@@ -52,7 +57,8 @@ const posts = [
   },
   {
     title: "Understanding AI Chatbot Analytics",
-    excerpt: "How to interpret your chatbot metrics and use data to improve performance.",
+    excerpt:
+      "How to interpret your chatbot metrics and use data to improve performance.",
     author: "David Kim",
     date: "February 18, 2026",
     readTime: "6 min read",
@@ -60,7 +66,8 @@ const posts = [
   },
   {
     title: "Multi-Language Support: Reaching Global Audiences",
-    excerpt: "Best practices for deploying chatbots that serve customers in multiple languages.",
+    excerpt:
+      "Best practices for deploying chatbots that serve customers in multiple languages.",
     author: "Maria Garcia",
     date: "February 15, 2026",
     readTime: "5 min read",
@@ -68,7 +75,15 @@ const posts = [
   },
 ];
 
-const categories = ["All", "Industry Trends", "Tutorials", "Tips & Tricks", "Integrations", "Compliance", "Analytics"];
+const categories = [
+  "All",
+  "Industry Trends",
+  "Tutorials",
+  "Tips & Tricks",
+  "Integrations",
+  "Compliance",
+  "Analytics",
+];
 
 export default function BlogPage() {
   return (
@@ -83,7 +98,8 @@ export default function BlogPage() {
               Blog
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Insights, tutorials, and best practices for AI chatbot development.
+              Insights, tutorials, and best practices for AI chatbot
+              development.
             </p>
           </div>
         </div>
@@ -118,7 +134,9 @@ export default function BlogPage() {
                 <h2 className="mt-4 text-2xl font-bold text-foreground lg:text-3xl">
                   {featuredPost.title}
                 </h2>
-                <p className="mt-4 text-muted-foreground">{featuredPost.excerpt}</p>
+                <p className="mt-4 text-muted-foreground">
+                  {featuredPost.excerpt}
+                </p>
                 <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1">
                     <User className="h-4 w-4" />
@@ -139,7 +157,9 @@ export default function BlogPage() {
                 </Button>
               </div>
               <div className="flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5 p-12">
-                <div className="text-6xl font-bold text-primary/30">Featured</div>
+                <div className="text-6xl font-bold text-primary/30">
+                  Featured
+                </div>
               </div>
             </div>
           </Card>
@@ -151,7 +171,10 @@ export default function BlogPage() {
         <div className="container mx-auto px-4">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
-              <Card key={post.title} className="border-border bg-card transition-shadow hover:shadow-lg">
+              <Card
+                key={post.title}
+                className="border-border bg-card transition-shadow hover:shadow-lg"
+              >
                 <CardHeader className="pb-4">
                   <span className="inline-block w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                     {post.category}
@@ -161,7 +184,9 @@ export default function BlogPage() {
                   <h3 className="mb-2 text-lg font-semibold text-foreground">
                     {post.title}
                   </h3>
-                  <p className="mb-4 text-sm text-muted-foreground">{post.excerpt}</p>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {post.excerpt}
+                  </p>
                   <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1">
                       <User className="h-3 w-3" />
@@ -176,8 +201,8 @@ export default function BlogPage() {
                       {post.readTime}
                     </span>
                   </div>
-                  <Link 
-                    href="#" 
+                  <Link
+                    href="#"
                     className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                   >
                     Read more
@@ -187,7 +212,7 @@ export default function BlogPage() {
               </Card>
             ))}
           </div>
-          
+
           <div className="mt-12 text-center">
             <Button variant="outline" size="lg">
               Load More Articles

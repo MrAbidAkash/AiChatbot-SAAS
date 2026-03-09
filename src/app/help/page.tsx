@@ -22,7 +22,7 @@ const categories = [
   {
     icon: MessageSquare,
     title: "Getting Started",
-    description: "New to ChatFlow AI? Start here.",
+    description: "New to ChatTime AI? Start here.",
     articles: 12,
   },
   {
@@ -81,7 +81,7 @@ export default function HelpPage() {
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
               Search our knowledge base or browse categories below.
             </p>
-            
+
             {/* Search Bar */}
             <div className="mx-auto max-w-xl">
               <div className="relative">
@@ -102,19 +102,28 @@ export default function HelpPage() {
         <div className="container mx-auto px-4">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {categories.map((category) => (
-              <Card key={category.title} className="border-border bg-card transition-shadow hover:shadow-lg">
+              <Card
+                key={category.title}
+                className="border-border bg-card transition-shadow hover:shadow-lg"
+              >
                 <CardHeader>
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <category.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{category.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {category.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-4 text-sm text-muted-foreground">{category.description}</p>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {category.description}
+                  </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs text-muted-foreground">{category.articles} articles</span>
-                    <Link 
-                      href="#" 
+                    <span className="text-xs text-muted-foreground">
+                      {category.articles} articles
+                    </span>
+                    <Link
+                      href="#"
                       className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                     >
                       Browse
@@ -138,8 +147,8 @@ export default function HelpPage() {
             <ul className="space-y-3">
               {popularQuestions.map((question) => (
                 <li key={question}>
-                  <Link 
-                    href="#" 
+                  <Link
+                    href="#"
                     className="flex items-center justify-between rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary"
                   >
                     <span className="text-foreground">{question}</span>
@@ -166,8 +175,12 @@ export default function HelpPage() {
               <Card className="border-border bg-card">
                 <CardContent className="flex flex-col items-center p-6">
                   <Mail className="mb-4 h-8 w-8 text-primary" />
-                  <h3 className="mb-2 font-semibold text-foreground">Email Support</h3>
-                  <p className="mb-4 text-sm text-muted-foreground">Get a response within 24 hours</p>
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    Email Support
+                  </h3>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    Get a response within 24 hours
+                  </p>
                   <Button variant="outline" asChild>
                     <Link href="/contact">Send Email</Link>
                   </Button>
@@ -176,8 +189,12 @@ export default function HelpPage() {
               <Card className="border-border bg-card">
                 <CardContent className="flex flex-col items-center p-6">
                   <Phone className="mb-4 h-8 w-8 text-primary" />
-                  <h3 className="mb-2 font-semibold text-foreground">Live Chat</h3>
-                  <p className="mb-4 text-sm text-muted-foreground">Available Mon-Fri, 9am-6pm</p>
+                  <h3 className="mb-2 font-semibold text-foreground">
+                    Live Chat
+                  </h3>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    Available Mon-Fri, 9am-6pm
+                  </p>
                   <Button>Start Chat</Button>
                 </CardContent>
               </Card>

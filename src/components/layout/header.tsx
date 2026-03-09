@@ -1,24 +1,18 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { 
-  Bot, 
-  Menu, 
-  X,
-  ChevronDown,
-  Sparkles
-} from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Bot, Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
 export function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -29,21 +23,28 @@ export function Header() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Bot className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-semibold text-foreground">ChatFlow AI</span>
+            <span className="text-xl font-semibold text-foreground">
+              ChatTime AI
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-1 md:flex">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-1 text-muted-foreground hover:text-foreground">
+                <Button
+                  variant="ghost"
+                  className="gap-1 text-muted-foreground hover:text-foreground"
+                >
                   Product
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
                 <DropdownMenuItem asChild>
-                  <Link href="/products/chatbot-builder">AI Chatbot Builder</Link>
+                  <Link href="/products/chatbot-builder">
+                    AI Chatbot Builder
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/products/flow-designer">Flow Designer</Link>
@@ -52,14 +53,19 @@ export function Header() {
                   <Link href="/products/analytics">Analytics Dashboard</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link href="/products/document-training">Document Training</Link>
+                  <Link href="/products/document-training">
+                    Document Training
+                  </Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-1 text-muted-foreground hover:text-foreground">
+                <Button
+                  variant="ghost"
+                  className="gap-1 text-muted-foreground hover:text-foreground"
+                >
                   Solutions
                   <ChevronDown className="h-4 w-4" />
                 </Button>
@@ -80,23 +86,42 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              asChild
+            >
               <Link href="/integrations">Integrations</Link>
             </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              asChild
+            >
               <Link href="/pricing">Pricing</Link>
             </Button>
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              asChild
+            >
               <Link href="/docs">Documentation</Link>
             </Button>
           </nav>
 
           {/* CTA Buttons */}
           <div className="hidden items-center gap-3 md:flex">
-            <Button variant="ghost" className="text-muted-foreground hover:text-foreground" asChild>
+            <Button
+              variant="ghost"
+              className="text-muted-foreground hover:text-foreground"
+              asChild
+            >
               <Link href="/login">Sign In</Link>
             </Button>
-            <Button className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+            <Button
+              className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+              asChild
+            >
               <Link href="/signup">
                 <Sparkles className="h-4 w-4" />
                 Start Free Trial
@@ -105,13 +130,17 @@ export function Header() {
           </div>
 
           {/* Mobile Menu Button */}
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileMenuOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </Button>
         </div>
 
@@ -119,26 +148,49 @@ export function Header() {
         {mobileMenuOpen && (
           <div className="border-t border-border py-4 md:hidden">
             <nav className="flex flex-col gap-2">
-              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+              <Button
+                variant="ghost"
+                className="justify-start text-muted-foreground"
+                asChild
+              >
                 <Link href="/products/chatbot-builder">Product</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+              <Button
+                variant="ghost"
+                className="justify-start text-muted-foreground"
+                asChild
+              >
                 <Link href="/solutions/ecommerce">Solutions</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+              <Button
+                variant="ghost"
+                className="justify-start text-muted-foreground"
+                asChild
+              >
                 <Link href="/integrations">Integrations</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+              <Button
+                variant="ghost"
+                className="justify-start text-muted-foreground"
+                asChild
+              >
                 <Link href="/pricing">Pricing</Link>
               </Button>
-              <Button variant="ghost" className="justify-start text-muted-foreground" asChild>
+              <Button
+                variant="ghost"
+                className="justify-start text-muted-foreground"
+                asChild
+              >
                 <Link href="/docs">Documentation</Link>
               </Button>
               <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
                 <Button variant="outline" className="w-full" asChild>
                   <Link href="/login">Sign In</Link>
                 </Button>
-                <Button className="w-full gap-2 bg-primary text-primary-foreground" asChild>
+                <Button
+                  className="w-full gap-2 bg-primary text-primary-foreground"
+                  asChild
+                >
                   <Link href="/signup">
                     <Sparkles className="h-4 w-4" />
                     Start Free Trial
@@ -150,5 +202,5 @@ export function Header() {
         )}
       </div>
     </header>
-  )
+  );
 }

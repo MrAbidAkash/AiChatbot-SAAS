@@ -60,22 +60,26 @@ const benefits = [
   {
     icon: Heart,
     title: "Health & Wellness",
-    description: "Comprehensive health, dental, and vision insurance for you and your family.",
+    description:
+      "Comprehensive health, dental, and vision insurance for you and your family.",
   },
   {
     icon: Clock,
     title: "Flexible Hours",
-    description: "Work when you're most productive. We care about results, not hours.",
+    description:
+      "Work when you're most productive. We care about results, not hours.",
   },
   {
     icon: MapPin,
     title: "Remote First",
-    description: "Work from anywhere in the world. Our team spans multiple time zones.",
+    description:
+      "Work from anywhere in the world. Our team spans multiple time zones.",
   },
   {
     icon: Rocket,
     title: "Growth Budget",
-    description: "Annual budget for courses, conferences, and professional development.",
+    description:
+      "Annual budget for courses, conferences, and professional development.",
   },
   {
     icon: Coffee,
@@ -85,7 +89,8 @@ const benefits = [
   {
     icon: Users,
     title: "Team Retreats",
-    description: "Annual company retreats to connect and collaborate in person.",
+    description:
+      "Annual company retreats to connect and collaborate in person.",
   },
 ];
 
@@ -125,7 +130,8 @@ export default function CareersPage() {
               Why Work With Us
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              We offer competitive benefits and a culture that supports your growth.
+              We offer competitive benefits and a culture that supports your
+              growth.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -135,10 +141,14 @@ export default function CareersPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <benefit.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{benefit.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {benefit.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {benefit.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -154,15 +164,20 @@ export default function CareersPage() {
               Open Positions
             </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              Find your next opportunity at ChatFlow AI.
+              Find your next opportunity at ChatTime AI.
             </p>
           </div>
           <div className="mx-auto max-w-3xl space-y-4">
             {openPositions.map((position) => (
-              <Card key={position.title} className="border-border bg-card transition-shadow hover:shadow-lg">
+              <Card
+                key={position.title}
+                className="border-border bg-card transition-shadow hover:shadow-lg"
+              >
                 <CardContent className="flex items-center justify-between p-6">
                   <div>
-                    <h3 className="font-semibold text-foreground">{position.title}</h3>
+                    <h3 className="font-semibold text-foreground">
+                      {position.title}
+                    </h3>
                     <div className="mt-2 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Briefcase className="h-4 w-4" />
@@ -194,8 +209,8 @@ export default function CareersPage() {
               Do Not See the Right Role?
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              We are always looking for talented people. Send us your resume and we will
-              reach out when we have a role that matches your skills.
+              We are always looking for talented people. Send us your resume and
+              we will reach out when we have a role that matches your skills.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Contact Us</Link>

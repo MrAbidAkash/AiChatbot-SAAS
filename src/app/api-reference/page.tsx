@@ -19,14 +19,19 @@ const endpoints = [
   {
     icon: Key,
     title: "Authentication",
-    description: "Learn how to authenticate API requests with API keys and OAuth.",
+    description:
+      "Learn how to authenticate API requests with API keys and OAuth.",
     methods: ["POST /auth/token", "POST /auth/refresh"],
   },
   {
     icon: MessageSquare,
     title: "Conversations",
     description: "Create and manage conversation sessions with your chatbots.",
-    methods: ["GET /conversations", "POST /conversations", "GET /conversations/:id"],
+    methods: [
+      "GET /conversations",
+      "POST /conversations",
+      "GET /conversations/:id",
+    ],
   },
   {
     icon: MessageSquare,
@@ -71,7 +76,7 @@ export default function APIReferencePage() {
               API Reference
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Complete reference documentation for the ChatFlow AI REST API.
+              Complete reference documentation for the ChatTime AI REST API.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="gap-2" asChild>
@@ -92,9 +97,13 @@ export default function APIReferencePage() {
       <section className="border-b border-border py-8">
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-3xl">
-            <h2 className="mb-4 text-lg font-semibold text-foreground">Base URL</h2>
+            <h2 className="mb-4 text-lg font-semibold text-foreground">
+              Base URL
+            </h2>
             <div className="rounded-lg border border-border bg-muted p-4">
-              <code className="text-sm text-foreground">https://api.chatflow.ai/v1</code>
+              <code className="text-sm text-foreground">
+                https://api.ChatTime.ai/v1
+              </code>
             </div>
           </div>
         </div>
@@ -104,7 +113,9 @@ export default function APIReferencePage() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-foreground">API Endpoints</h2>
+            <h2 className="mb-4 text-3xl font-bold text-foreground">
+              API Endpoints
+            </h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
               Explore all available endpoints and their documentation.
             </p>
@@ -116,19 +127,26 @@ export default function APIReferencePage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <endpoint.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{endpoint.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {endpoint.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-4 text-sm text-muted-foreground">{endpoint.description}</p>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {endpoint.description}
+                  </p>
                   <div className="space-y-2">
                     {endpoint.methods.map((method) => (
-                      <div key={method} className="rounded bg-muted px-2 py-1 font-mono text-xs text-foreground">
+                      <div
+                        key={method}
+                        className="rounded bg-muted px-2 py-1 font-mono text-xs text-foreground"
+                      >
                         {method}
                       </div>
                     ))}
                   </div>
-                  <Link 
-                    href="#" 
+                  <Link
+                    href="#"
                     className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
                   >
                     View docs
@@ -153,10 +171,12 @@ export default function APIReferencePage() {
                 <span className="rounded bg-green-500/20 px-2 py-1 text-xs font-medium text-green-600">
                   POST
                 </span>
-                <code className="text-sm text-muted-foreground">/v1/messages</code>
+                <code className="text-sm text-muted-foreground">
+                  /v1/messages
+                </code>
               </div>
               <pre className="overflow-x-auto rounded bg-muted p-4 text-sm text-foreground">
-                <code>{`curl -X POST https://api.chatflow.ai/v1/messages \\
+                <code>{`curl -X POST https://api.ChatTime.ai/v1/messages \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{

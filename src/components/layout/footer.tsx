@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Bot, Github, Twitter, Linkedin, Youtube } from "lucide-react"
+import Link from "next/link";
+import { Bot, Github, Twitter, Linkedin, Youtube } from "lucide-react";
 
 const footerLinks = {
   product: [
@@ -31,7 +31,7 @@ const footerLinks = {
     { name: "Cookie Policy", href: "/cookie-policy" },
     { name: "Security", href: "/security" },
   ],
-}
+};
 
 export function Footer() {
   return (
@@ -44,25 +44,40 @@ export function Footer() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
                 <Bot className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="text-xl font-semibold text-foreground">ChatFlow AI</span>
+              <span className="text-xl font-semibold text-foreground">
+                ChatTime AI
+              </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Transform your customer engagement with intelligent AI chatbots. Connect seamlessly across all social media channels.
+              Transform your customer engagement with intelligent AI chatbots.
+              Connect seamlessly across all social media channels.
             </p>
             <div className="mt-6 flex items-center gap-4">
-              <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
                 <Twitter className="h-5 w-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
-              <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
                 <Github className="h-5 w-5" />
                 <span className="sr-only">GitHub</span>
               </Link>
-              <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
               </Link>
-              <Link href="#" className="text-muted-foreground transition-colors hover:text-foreground">
+              <Link
+                href="#"
+                className="text-muted-foreground transition-colors hover:text-foreground"
+              >
                 <Youtube className="h-5 w-5" />
                 <span className="sr-only">YouTube</span>
               </Link>
@@ -71,11 +86,16 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Product</h3>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">
+              Product
+            </h3>
             <ul className="space-y-3">
               {footerLinks.product.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -84,11 +104,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Company</h3>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">
+              Company
+            </h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -97,11 +122,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Resources</h3>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">
+              Resources
+            </h3>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -110,11 +140,16 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-foreground">Legal</h3>
+            <h3 className="mb-4 text-sm font-semibold text-foreground">
+              Legal
+            </h3>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  >
                     {link.name}
                   </Link>
                 </li>
@@ -125,7 +160,7 @@ export function Footer() {
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © 2026 ChatFlow AI. All rights reserved.
+            © 2026 ChatTime AI. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -136,5 +171,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

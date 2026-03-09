@@ -79,8 +79,7 @@ export default function EducationPage() {
               <span className="text-muted-foreground">Education Solutions</span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              Transform{" "}
-              <span className="text-primary">Education</span> with AI
+              Transform <span className="text-primary">Education</span> with AI
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
               AI-powered chatbots that enhance student engagement, streamline
@@ -108,8 +107,9 @@ export default function EducationPage() {
                 Empowering Educators and Students
               </h2>
               <p className="mb-8 text-muted-foreground">
-                Our AI chatbots help educational institutions provide better support
-                to students while reducing the burden on administrative staff.
+                Our AI chatbots help educational institutions provide better
+                support to students while reducing the burden on administrative
+                staff.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {benefits.map((benefit) => (
@@ -145,7 +145,8 @@ export default function EducationPage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Course registration for Spring 2026 closes on January 15th. Would you like me to help you select courses?
+                      Course registration for Spring 2026 closes on January
+                      15th. Would you like me to help you select courses?
                     </p>
                   </div>
                 </div>
@@ -170,7 +171,9 @@ export default function EducationPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -189,7 +192,7 @@ export default function EducationPage() {
               Ready to Transform Your Institution?
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              See how ChatFlow AI can help your school, college, or university.
+              See how ChatTime AI can help your school, college, or university.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Request Demo</Link>

@@ -76,15 +76,17 @@ export default function ChatbotBuilderPage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">AI-Powered Chatbot Platform</span>
+              <span className="text-muted-foreground">
+                AI-Powered Chatbot Platform
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
               Build Intelligent Chatbots{" "}
               <span className="text-primary">Without Code</span>
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Create, customize, and deploy AI chatbots that understand your customers
-              and drive conversions. No technical expertise required.
+              Create, customize, and deploy AI chatbots that understand your
+              customers and drive conversions. No technical expertise required.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="gap-2">
@@ -118,7 +120,9 @@ export default function ChatbotBuilderPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -175,8 +179,9 @@ export default function ChatbotBuilderPage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Your order #12345 is out for delivery and will arrive today
-                      between 2-4 PM. Would you like me to send you live tracking updates?
+                      Your order #12345 is out for delivery and will arrive
+                      today between 2-4 PM. Would you like me to send you live
+                      tracking updates?
                     </p>
                   </div>
                 </div>
@@ -194,14 +199,19 @@ export default function ChatbotBuilderPage() {
               Ready to Build Your First Chatbot?
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              Join thousands of businesses already using ChatFlow AI to automate
+              Join thousands of businesses already using ChatTime AI to automate
               customer conversations.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" variant="secondary" asChild>
                 <Link href="/signup">Get Started Free</Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10" asChild>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
+                asChild
+              >
                 <Link href="/contact">Contact Sales</Link>
               </Button>
             </div>

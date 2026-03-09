@@ -76,15 +76,18 @@ export default function FinancialPage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Financial Services Solutions</span>
+              <span className="text-muted-foreground">
+                Financial Services Solutions
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
               Secure AI for{" "}
               <span className="text-primary">Financial Services</span>
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Enterprise-grade AI chatbots built for banks, fintech, and financial
-              institutions with the highest security and compliance standards.
+              Enterprise-grade AI chatbots built for banks, fintech, and
+              financial institutions with the highest security and compliance
+              standards.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="lg" className="gap-2">
@@ -108,8 +111,8 @@ export default function FinancialPage() {
                 Built for Financial Security
               </h2>
               <p className="mb-8 text-muted-foreground">
-                Our platform meets the strictest security and compliance requirements
-                for financial institutions worldwide.
+                Our platform meets the strictest security and compliance
+                requirements for financial institutions worldwide.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {benefits.map((benefit) => (
@@ -128,7 +131,8 @@ export default function FinancialPage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Welcome to SecureBank. Please verify your identity to continue.
+                      Welcome to SecureBank. Please verify your identity to
+                      continue.
                     </p>
                   </div>
                 </div>
@@ -145,7 +149,8 @@ export default function FinancialPage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Identity verified. Your checking account balance is $12,450.00. Your savings account is $35,200.00.
+                      Identity verified. Your checking account balance is
+                      $12,450.00. Your savings account is $35,200.00.
                     </p>
                   </div>
                 </div>
@@ -170,7 +175,9 @@ export default function FinancialPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -189,7 +196,8 @@ export default function FinancialPage() {
               Secure Your Customer Experience
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              Schedule a demo to see how ChatFlow AI meets financial compliance standards.
+              Schedule a demo to see how ChatTime AI meets financial compliance
+              standards.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Request Demo</Link>

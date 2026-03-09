@@ -20,7 +20,8 @@ const channels = [
   {
     icon: MessageSquare,
     title: "Discord Community",
-    description: "Join thousands of developers and creators building with ChatFlow AI.",
+    description:
+      "Join thousands of developers and creators building with ChatTime AI.",
     members: "12,500+",
     cta: "Join Discord",
     link: "#",
@@ -28,7 +29,8 @@ const channels = [
   {
     icon: Github,
     title: "GitHub Discussions",
-    description: "Ask questions, share ideas, and contribute to open-source projects.",
+    description:
+      "Ask questions, share ideas, and contribute to open-source projects.",
     members: "3,200+",
     cta: "View GitHub",
     link: "#",
@@ -57,7 +59,7 @@ const upcomingEvents = [
     type: "Meetup",
   },
   {
-    title: "ChatFlow AI 2.0 Launch Event",
+    title: "ChatTime AI 2.0 Launch Event",
     date: "April 1, 2026",
     time: "10:00 AM EST",
     type: "Launch",
@@ -83,14 +85,16 @@ export default function CommunityPage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Join 25,000+ Members</span>
+              <span className="text-muted-foreground">
+                Join 25,000+ Members
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
               Community
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              Connect with developers, share ideas, and learn from experts building
-              the future of conversational AI.
+              Connect with developers, share ideas, and learn from experts
+              building the future of conversational AI.
             </p>
             <Button size="lg" className="gap-2">
               <MessageSquare className="h-4 w-4" />
@@ -118,10 +122,14 @@ export default function CommunityPage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <channel.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{channel.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {channel.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-4 text-sm text-muted-foreground">{channel.description}</p>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {channel.description}
+                  </p>
                   <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
                     <Users className="h-4 w-4" />
                     {channel.members} members
@@ -153,7 +161,9 @@ export default function CommunityPage() {
                       <Calendar className="h-6 w-6 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground">{event.title}</h3>
+                      <h3 className="font-semibold text-foreground">
+                        {event.title}
+                      </h3>
                       <p className="text-sm text-muted-foreground">
                         {event.date} at {event.time}
                       </p>
@@ -199,7 +209,9 @@ export default function CommunityPage() {
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
                         {contributor.avatar}
                       </div>
-                      <span className="font-medium text-foreground">{contributor.name}</span>
+                      <span className="font-medium text-foreground">
+                        {contributor.name}
+                      </span>
                     </div>
                     <span className="text-sm text-muted-foreground">
                       {contributor.contributions} contributions

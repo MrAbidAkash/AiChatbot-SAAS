@@ -20,19 +20,22 @@ const incidents = [
   {
     date: "March 5, 2026",
     title: "Scheduled Maintenance Completed",
-    description: "Database optimization completed successfully. No service interruption.",
+    description:
+      "Database optimization completed successfully. No service interruption.",
     status: "resolved",
   },
   {
     date: "February 28, 2026",
     title: "Minor API Latency",
-    description: "Increased response times were observed for approximately 15 minutes. Issue was identified and resolved.",
+    description:
+      "Increased response times were observed for approximately 15 minutes. Issue was identified and resolved.",
     status: "resolved",
   },
   {
     date: "February 15, 2026",
     title: "WhatsApp Integration Delay",
-    description: "Message delivery was delayed due to third-party API issues. Services restored after 30 minutes.",
+    description:
+      "Message delivery was delayed due to third-party API issues. Services restored after 30 minutes.",
     status: "resolved",
   },
 ];
@@ -54,7 +57,7 @@ export default function StatusPage() {
               System Status
             </h1>
             <p className="text-lg text-muted-foreground md:text-xl">
-              Real-time status of ChatFlow AI services and infrastructure.
+              Real-time status of ChatTime AI services and infrastructure.
             </p>
           </div>
         </div>
@@ -63,14 +66,18 @@ export default function StatusPage() {
       {/* Services Status */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-2xl font-bold text-foreground">Service Status</h2>
+          <h2 className="mb-8 text-2xl font-bold text-foreground">
+            Service Status
+          </h2>
           <div className="space-y-3">
             {services.map((service) => (
               <Card key={service.name} className="border-border bg-card">
                 <CardContent className="flex items-center justify-between p-4">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-green-500" />
-                    <span className="font-medium text-foreground">{service.name}</span>
+                    <span className="font-medium text-foreground">
+                      {service.name}
+                    </span>
                   </div>
                   <div className="flex items-center gap-4">
                     <span className="text-sm text-muted-foreground">
@@ -97,19 +104,25 @@ export default function StatusPage() {
             <Card className="border-border bg-card">
               <CardContent className="p-6 text-center">
                 <p className="text-4xl font-bold text-foreground">99.99%</p>
-                <p className="mt-2 text-sm text-muted-foreground">Last 24 hours</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Last 24 hours
+                </p>
               </CardContent>
             </Card>
             <Card className="border-border bg-card">
               <CardContent className="p-6 text-center">
                 <p className="text-4xl font-bold text-foreground">99.97%</p>
-                <p className="mt-2 text-sm text-muted-foreground">Last 7 days</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Last 7 days
+                </p>
               </CardContent>
             </Card>
             <Card className="border-border bg-card">
               <CardContent className="p-6 text-center">
                 <p className="text-4xl font-bold text-foreground">99.95%</p>
-                <p className="mt-2 text-sm text-muted-foreground">Last 30 days</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Last 30 days
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -119,14 +132,18 @@ export default function StatusPage() {
       {/* Recent Incidents */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="mb-8 text-2xl font-bold text-foreground">Recent Incidents</h2>
+          <h2 className="mb-8 text-2xl font-bold text-foreground">
+            Recent Incidents
+          </h2>
           <div className="space-y-4">
             {incidents.map((incident) => (
               <Card key={incident.title} className="border-border bg-card">
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between">
                     <div>
-                      <CardTitle className="text-lg text-foreground">{incident.title}</CardTitle>
+                      <CardTitle className="text-lg text-foreground">
+                        {incident.title}
+                      </CardTitle>
                       <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
                         <Clock className="h-3 w-3" />
                         {incident.date}
@@ -138,7 +155,9 @@ export default function StatusPage() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground">{incident.description}</p>
+                  <p className="text-sm text-muted-foreground">
+                    {incident.description}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -155,7 +174,8 @@ export default function StatusPage() {
               Get Status Updates
             </h2>
             <p className="mb-6 text-muted-foreground">
-              Subscribe to receive notifications about service disruptions and maintenance.
+              Subscribe to receive notifications about service disruptions and
+              maintenance.
             </p>
             <div className="flex gap-2">
               <input

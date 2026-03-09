@@ -76,11 +76,12 @@ export default function HealthcarePage() {
           <div className="mx-auto max-w-4xl text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2 text-sm">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Healthcare Solutions</span>
+              <span className="text-muted-foreground">
+                Healthcare Solutions
+              </span>
             </div>
             <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground md:text-6xl">
-              Transform{" "}
-              <span className="text-primary">Patient Care</span>
+              Transform <span className="text-primary">Patient Care</span>
             </h1>
             <p className="mb-8 text-lg text-muted-foreground md:text-xl">
               HIPAA-compliant AI chatbots that improve patient engagement,
@@ -108,8 +109,9 @@ export default function HealthcarePage() {
                 Trusted by Healthcare Providers
               </h2>
               <p className="mb-8 text-muted-foreground">
-                Our healthcare-specific AI chatbots are designed to meet the unique
-                needs of medical practices, hospitals, and healthcare systems.
+                Our healthcare-specific AI chatbots are designed to meet the
+                unique needs of medical practices, hospitals, and healthcare
+                systems.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {benefits.map((benefit) => (
@@ -145,7 +147,8 @@ export default function HealthcarePage() {
                   </div>
                   <div className="rounded-lg bg-muted p-3">
                     <p className="text-sm text-foreground">
-                      Dr. Smith has availability on Tuesday at 2pm or Thursday at 10am. Which works better for you?
+                      Dr. Smith has availability on Tuesday at 2pm or Thursday
+                      at 10am. Which works better for you?
                     </p>
                   </div>
                 </div>
@@ -170,7 +173,9 @@ export default function HealthcarePage() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                     <feature.icon className="h-6 w-6 text-primary" />
                   </div>
-                  <CardTitle className="text-foreground">{feature.title}</CardTitle>
+                  <CardTitle className="text-foreground">
+                    {feature.title}
+                  </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">{feature.description}</p>
@@ -189,7 +194,8 @@ export default function HealthcarePage() {
               Improve Patient Experience Today
             </h2>
             <p className="mb-8 text-primary-foreground/80">
-              Schedule a demo to see how ChatFlow AI can transform your healthcare practice.
+              Schedule a demo to see how ChatTime AI can transform your
+              healthcare practice.
             </p>
             <Button size="lg" variant="secondary" asChild>
               <Link href="/contact">Request Demo</Link>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { HeroBubbles } from "@/components/hero-bubbles";
 import {
   ArrowRight,
   Sparkles,
@@ -28,11 +29,62 @@ const socialChannels = [
   { name: "Telegram", color: "bg-sky-500/20 text-sky-400" },
 ];
 
+// Animated border component
+function AnimatedBorder({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      {/* Outer glow */}
+      <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-primary via-accent to-primary opacity-20 blur-xl animate-pulse" />
+      
+      {/* Animated border container */}
+      <div className="relative rounded-2xl p-[2px] overflow-hidden">
+        {/* Rotating gradient border */}
+        <div className="absolute inset-0 rounded-2xl">
+          <div 
+            className="absolute inset-0 rounded-2xl"
+            style={{
+              background: "conic-gradient(from var(--border-angle, 0deg) at 50% 50%, oklch(0.70 0.18 180), oklch(0.68 0.16 330), oklch(0.65 0.20 280), oklch(0.70 0.18 180))",
+              animation: "rotate-border 4s linear infinite",
+            }}
+          />
+        </div>
+        
+        {/* Inner content */}
+        <div className="relative rounded-[14px] bg-card">
+          {children}
+        </div>
+      </div>
+      
+      {/* Corner accents */}
+      <div className="absolute -top-1 -left-1 h-4 w-4 rounded-full bg-primary/60 blur-sm animate-pulse" />
+      <div className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-accent/60 blur-sm animate-pulse" style={{ animationDelay: "0.5s" }} />
+      <div className="absolute -bottom-1 -left-1 h-3 w-3 rounded-full bg-accent/60 blur-sm animate-pulse" style={{ animationDelay: "1s" }} />
+      <div className="absolute -bottom-1 -right-1 h-4 w-4 rounded-full bg-primary/60 blur-sm animate-pulse" style={{ animationDelay: "1.5s" }} />
+    </div>
+  );
+}
+
 export function HeroSection() {
   const [typedText, setTypedText] = useState("");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [showContent, setShowContent] = useState(false);
   const fullText = "How can I help you today?";
+  const sectionRef = useRef<HTMLElement>(null);
 
+  // Loading animation sequence
   useEffect(() => {
+    const loadTimer = setTimeout(() => setIsLoaded(true), 100);
+    const contentTimer = setTimeout(() => setShowContent(true), 300);
+    return () => {
+      clearTimeout(loadTimer);
+      clearTimeout(contentTimer);
+    };
+  }, []);
+
+  // Typing animation
+  useEffect(() => {
+    if (!showContent) return;
+    
     let index = 0;
     const timer = setInterval(() => {
       if (index <= fullText.length) {
@@ -43,44 +95,85 @@ export function HeroSection() {
       }
     }, 50);
     return () => clearInterval(timer);
-  }, []);
+  }, [showContent]);
 
   return (
-    <section className="relative overflow-hidden py-20">
+    <section ref={sectionRef} className="relative overflow-hidden py-20">
       {/* Background Effects */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/4 top-0 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />
-        <div className="absolute right-1/4 bottom-0 h-[400px] w-[400px] rounded-full bg-accent/5 blur-[100px]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1a1a1a_1px,transparent_1px),linear-gradient(to_bottom,#1a1a1a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+      <div className={`absolute inset-0 -z-10 overflow-hidden transition-opacity duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
+        {/* Animated floating bubble canvas with enhanced configuration */}
+        <HeroBubbles
+          bubbleCount={22}
+          minRadius={30}
+          maxRadius={180}
+          speed={0.7}
+          mouseInteraction={true}
+          mouseRadius={220}
+          colorTheme="mixed"
+          opacity={1}
+          enableGlow={true}
+          enableDepth={true}
+          enableConnections={true}
+          connectionDistance={160}
+          enableParticles={true}
+          particleCount={35}
+          enableMouseTrail={true}
+        />
+        {/* Subtle grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,oklch(0.18_0.01_260/0.2)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.18_0.01_260/0.2)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_30%,#000_50%,transparent_100%)]" />
+        {/* Radial vignette to keep edges dark */}
+        <div className="absolute inset-0 [background:radial-gradient(ellipse_90%_80%_at_50%_40%,transparent_30%,oklch(0.05_0.005_260)_100%)]" />
+        
+        {/* Animated floating orbs for additional depth */}
+        <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-primary/10 blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 right-1/4 h-48 w-48 rounded-full bg-accent/10 blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 right-1/3 h-32 w-32 rounded-full bg-primary/5 blur-2xl animate-float-slow" />
       </div>
 
       <div className="container mx-auto px-4">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left Column - Content */}
           <div className="max-w-2xl">
-            <Badge className="mb-6 border-primary/30 bg-primary/10 text-primary hover:bg-primary/20">
+            <Badge 
+              className={`mb-6 border-primary/30 bg-primary/10 text-primary hover:bg-primary/20 transition-all duration-700 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
               <Sparkles className="mr-2 h-3 w-3" />
               Powered by Advanced AI
             </Badge>
 
-            <h1 className="text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
+            <h1 
+              className={`text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl transition-all duration-700 delay-100 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
               Intelligent Conversations for{" "}
               <span className="gradient-text">Modern Businesses</span>
             </h1>
 
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
+            <p 
+              className={`mt-6 text-lg leading-relaxed text-muted-foreground transition-all duration-700 delay-200 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
               Build, deploy, and manage AI-powered chatbots across WhatsApp,
               Instagram, and Facebook. Train your AI with your own documents for
               context-aware, personalized customer interactions.
             </p>
 
             {/* Social Channels */}
-            <div className="mt-8 flex flex-wrap gap-2">
-              {socialChannels.map((channel) => (
+            <div 
+              className={`mt-8 flex flex-wrap gap-2 transition-all duration-700 delay-300 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
+              {socialChannels.map((channel, index) => (
                 <Badge
                   key={channel.name}
                   variant="outline"
-                  className={channel.color}
+                  className={`${channel.color} transition-all duration-500`}
+                  style={{ transitionDelay: `${400 + index * 100}ms` }}
                 >
                   {channel.name}
                 </Badge>
@@ -88,25 +181,37 @@ export function HeroSection() {
             </div>
 
             {/* CTA Buttons */}
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <div 
+              className={`mt-8 flex flex-col gap-4 sm:flex-row transition-all duration-700 delay-500 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
               <Button
                 size="lg"
-                className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+                className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90 hover:scale-105 transition-transform"
               >
                 <Sparkles className="h-4 w-4" />
                 Start Free Trial
                 <ArrowRight className="h-4 w-4" />
               </Button>
-              <Button size="lg" variant="outline" className="gap-2">
+              <Button size="lg" variant="outline" className="gap-2 hover:scale-105 transition-transform">
                 <Play className="h-4 w-4" />
                 Watch Demo
               </Button>
             </div>
 
             {/* Trust Indicators */}
-            <div className="mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4">
-              {stats.map((stat) => (
-                <div key={stat.label}>
+            <div 
+              className={`mt-12 grid grid-cols-2 gap-6 sm:grid-cols-4 transition-all duration-700 delay-700 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
+              {stats.map((stat, index) => (
+                <div 
+                  key={stat.label}
+                  className="transition-all duration-500"
+                  style={{ transitionDelay: `${800 + index * 100}ms` }}
+                >
                   <p className="text-2xl font-bold text-foreground">
                     {stat.value}
                   </p>
@@ -117,8 +222,13 @@ export function HeroSection() {
           </div>
 
           {/* Right Column - Interactive Demo */}
-          <div className="relative">
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-2xl">
+          <div 
+            className={`relative transition-all duration-1000 delay-300 ${
+              showContent ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+            }`}
+          >
+            <AnimatedBorder className="shadow-2xl">
+              <div className="p-6">
               {/* Chat Header */}
               <div className="flex items-center gap-3 border-b border-border pb-4">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary">
@@ -196,35 +306,60 @@ export function HeroSection() {
                 </div>
                 <Button
                   size="icon"
-                  className="rounded-full bg-primary text-primary-foreground"
+                  className="rounded-full bg-primary text-primary-foreground hover:scale-110 transition-transform"
                 >
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               </div>
-            </div>
+              </div>
+            </AnimatedBorder>
 
-            {/* Floating Cards */}
-            <div className="absolute -left-4 -top-9 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            {/* Floating Cards with staggered animations */}
+            <div 
+              className={`absolute -left-4 -top-9 hidden rounded-lg border border-border bg-card/90 backdrop-blur-sm p-3 shadow-lg lg:block animate-float transition-all duration-700 delay-700 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+              }`}
+            >
               <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-primary" />
+                <div className="relative">
+                  <Zap className="h-4 w-4 text-primary" />
+                  <div className="absolute inset-0 h-4 w-4 animate-ping text-primary opacity-30">
+                    <Zap className="h-4 w-4" />
+                  </div>
+                </div>
                 <span className="text-sm font-medium text-foreground">
                   Instant Responses
                 </span>
               </div>
             </div>
 
-            <div className="absolute -right-4 -bottom-8 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            <div 
+              className={`absolute -right-4 -bottom-8 hidden rounded-lg border border-border bg-card/90 backdrop-blur-sm p-3 shadow-lg lg:block animate-float-delayed transition-all duration-700 delay-1000 ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4 text-primary" />
+                <div className="relative">
+                  <Shield className="h-4 w-4 text-primary" />
+                  <div className="absolute inset-0 h-4 w-4 animate-pulse text-primary opacity-50">
+                    <Shield className="h-4 w-4" />
+                  </div>
+                </div>
                 <span className="text-sm font-medium text-foreground">
                   Enterprise Security
                 </span>
               </div>
             </div>
 
-            <div className="absolute -bottom-8 left-1/4 hidden rounded-lg border border-border bg-card p-3 shadow-lg lg:block">
+            <div 
+              className={`absolute -bottom-8 left-1/4 hidden rounded-lg border border-border bg-card/90 backdrop-blur-sm p-3 shadow-lg lg:block animate-float-slow transition-all duration-700 delay-[1200ms] ${
+                showContent ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
               <div className="flex items-center gap-2">
-                <Globe className="h-4 w-4 text-primary" />
+                <div className="relative">
+                  <Globe className="h-4 w-4 text-primary animate-spin" style={{ animationDuration: "8s" }} />
+                </div>
                 <span className="text-sm font-medium text-foreground">
                   Multi-Channel
                 </span>

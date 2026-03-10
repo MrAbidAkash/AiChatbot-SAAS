@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import AuthButton from "@/components/auth-button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
@@ -12,7 +12,6 @@ import {
   MessageSquare,
   TrendingUp,
   Clock,
-  ArrowRight,
   Sparkles,
   Check,
 } from "lucide-react";
@@ -89,10 +88,7 @@ export default function EcommercePage() {
               customer service.
             </p>
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button size="lg" className="gap-2">
-                Start Free Trial
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+              <AuthButton size="lg" className="gap-2" />
               <Button size="lg" variant="outline">
                 See Demo Store
               </Button>
@@ -197,9 +193,7 @@ export default function EcommercePage() {
             <p className="mb-8 text-primary-foreground/80">
               Join thousands of e-commerce businesses already using ChatTime AI.
             </p>
-            <Button size="lg" variant="secondary" asChild>
-              <Link href="/signup">Start Free Trial</Link>
-            </Button>
+            <AuthButton size="lg" variant="secondary" />
           </div>
         </div>
       </section>

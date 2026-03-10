@@ -1,744 +1,609 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// app/dashboard/page.tsx
 "use client";
 
-import { useState } from "react";
-import {
-  FaFacebook,
-  FaRobot,
-  FaChartLine,
-  FaComments,
-  FaBell,
-  FaCog,
-  FaPlus,
-  FaArrowRight,
-  FaLightbulb,
-  FaClock,
-  FaRocket,
-  FaShieldAlt,
-  FaBolt,
-  FaChartBar,
-  FaUsers,
-  FaEnvelope,
-  FaCheckCircle,
-  FaExclamationTriangle,
-  FaPlay,
-  FaPause,
-  FaEdit,
-  FaTrash,
-  FaEye,
-  FaDownload,
-} from "react-icons/fa";
-import { SiGoogleanalytics } from "react-icons/si";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import {
+  MessageSquare,
+  TrendingUp,
+  Clock,
+  Users,
+  ArrowRight,
+  ArrowUpRight,
+  Bell,
+  Plus,
+  Activity,
+  ChevronRight,
+  Play,
+  Pause,
+  Facebook,
+  Instagram,
+  Send,
+  CheckCircle,
+  AlertCircle,
+  ExternalLink,
+  Calendar,
+  Zap,
+  RefreshCw,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
-export default function Dashboard({ session }: any) {
-  const [hasConnectedPages, setHasConnectedPages] = useState(false);
-  const [pages, setPages] = useState<unknown[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("overview");
-  const [selectedTimeRange, setSelectedTimeRange] = useState("7d");
+interface DashboardProps {
+  session: {
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      image: string | null;
+    };
+    session: {
+      id: string;
+      expiresAt: Date;
+    };
+  };
+}
 
-  // Enhanced mock data for dark theme
-  const mockStats = {
-    totalMessages: 1247,
+// Monthly usage data
+const monthlyUsageData = {
+  currentMonth: "March 2026",
+  messagesUsed: 8247,
+  messagesLimit: 15000,
+  conversationsUsed: 1842,
+  conversationsLimit: 3000,
+  aiResponsesUsed: 7103,
+  aiResponsesLimit: 12000,
+  daysRemaining: 21,
+};
+
+// Weekly trend data for the chart
+const weeklyTrend = [
+  { week: "Week 1", messages: 1850 },
+  { week: "Week 2", messages: 2340 },
+  { week: "Week 3", messages: 2180 },
+  { week: "Week 4", messages: 1877 },
+];
+
+// Connected Facebook pages
+const connectedPages = [
+  {
+    id: "1",
+    name: "TechStore Official",
+    platform: "facebook",
+    status: "active",
+    followers: 24500,
+    messagesThisMonth: 3241,
+    responseRate: 96,
+    avgResponseTime: "1.2s",
+    lastSync: "2 min ago",
+  },
+  {
+    id: "2",
+    name: "TechStore Support",
+    platform: "facebook",
+    status: "active",
+    followers: 8200,
+    messagesThisMonth: 1856,
     responseRate: 94,
-    avgResponseTime: "2.3s",
-    leadsCaptured: 89,
-    satisfactionRate: 96,
-    activeUsers: 234,
-    automationRate: 78,
-    costSavings: 1250,
+    avgResponseTime: "1.8s",
+    lastSync: "5 min ago",
+  },
+  {
+    id: "3",
+    name: "TechStore Instagram",
+    platform: "instagram",
+    status: "paused",
+    followers: 45300,
+    messagesThisMonth: 2104,
+    responseRate: 89,
+    avgResponseTime: "2.1s",
+    lastSync: "1 hour ago",
+  },
+];
+
+// Quick stats
+const quickStats = [
+  {
+    title: "Total Messages",
+    value: "8,247",
+    change: "+12.5%",
+    trend: "up",
+    icon: MessageSquare,
+    description: "This month",
+  },
+  {
+    title: "Response Rate",
+    value: "94.2%",
+    change: "+3.1%",
+    trend: "up",
+    icon: TrendingUp,
+    description: "Avg across pages",
+  },
+  {
+    title: "Avg Response",
+    value: "1.6s",
+    change: "-0.4s",
+    trend: "up",
+    icon: Clock,
+    description: "Faster than last month",
+  },
+  {
+    title: "Active Users",
+    value: "2,341",
+    change: "+18.2%",
+    trend: "up",
+    icon: Users,
+    description: "Unique conversations",
+  },
+];
+
+export default function Dashboard({ session }: DashboardProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activeView, setActiveView] = useState<"overview" | "pages" | "usage">(
+    "overview",
+  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const usagePercentage = (used: number, limit: number) =>
+    Math.round((used / limit) * 100);
+
+  const getPlatformIcon = (platform: string) => {
+    switch (platform) {
+      case "facebook":
+        return <Facebook className="h-5 w-5" />;
+      case "instagram":
+        return <Instagram className="h-5 w-5" />;
+      case "telegram":
+        return <Send className="h-5 w-5" />;
+      default:
+        return <MessageSquare className="h-5 w-5" />;
+    }
   };
 
-  const recentConversations = [
-    {
-      id: 1,
-      page: "My Store",
-      message: "Hi, what's your return policy?",
-      time: "2 min ago",
-      status: "replied",
-      customer: "John Doe",
-      sentiment: "positive",
-      priority: "normal",
-    },
-    {
-      id: 2,
-      page: "My Store",
-      message: "Do you ship internationally?",
-      time: "5 min ago",
-      status: "pending",
-      customer: "Jane Smith",
-      sentiment: "neutral",
-      priority: "high",
-    },
-    {
-      id: 3,
-      page: "Tech Support",
-      message: "I need help with my order #12345",
-      time: "12 min ago",
-      status: "replied",
-      customer: "Mike Johnson",
-      sentiment: "negative",
-      priority: "urgent",
-    },
-    {
-      id: 4,
-      page: "Sales",
-      message: "What are your pricing plans?",
-      time: "25 min ago",
-      status: "missed",
-      customer: "Sarah Wilson",
-      sentiment: "positive",
-      priority: "normal",
-    },
-  ];
-
-  const performanceData = [
-    {
-      day: "Mon",
-      messages: 45,
-      responses: 42,
-      satisfaction: 94,
-      automation: 78,
-    },
-    {
-      day: "Tue",
-      messages: 52,
-      responses: 48,
-      satisfaction: 92,
-      automation: 82,
-    },
-    {
-      day: "Wed",
-      messages: 38,
-      responses: 35,
-      satisfaction: 92,
-      automation: 75,
-    },
-    {
-      day: "Thu",
-      messages: 65,
-      responses: 61,
-      satisfaction: 94,
-      automation: 85,
-    },
-    {
-      day: "Fri",
-      messages: 48,
-      responses: 45,
-      satisfaction: 94,
-      automation: 80,
-    },
-    {
-      day: "Sat",
-      messages: 28,
-      responses: 26,
-      satisfaction: 93,
-      automation: 70,
-    },
-    {
-      day: "Sun",
-      messages: 31,
-      responses: 29,
-      satisfaction: 94,
-      automation: 72,
-    },
-  ];
-
-  const connectedPagesData = [
-    {
-      id: 1,
-      name: "My Business Page",
-      platform: "Facebook",
-      status: "active",
-      lastActive: "2 min ago",
-      messageCount: 1247,
-      responseRate: 94,
-      automationRate: 78,
-      avatar: "/api/placeholder/40/40",
-    },
-    {
-      id: 2,
-      name: "Tech Support",
-      platform: "Facebook",
-      status: "active",
-      lastActive: "5 min ago",
-      messageCount: 856,
-      responseRate: 89,
-      automationRate: 82,
-      avatar: "/api/placeholder/40/40",
-    },
-    {
-      id: 3,
-      name: "Customer Service",
-      platform: "Instagram",
-      status: "inactive",
-      lastActive: "2 hours ago",
-      messageCount: 423,
-      responseRate: 91,
-      automationRate: 76,
-      avatar: "/api/placeholder/40/40",
-    },
-  ];
-
-  const handleConnectPage = () => {
-    // This would redirect to Facebook OAuth flow
-    window.location.href = "/connect";
-  };
-
-  const quickActions = [
-    {
-      title: "AI Training",
-      description: "Train your AI with custom data",
-      icon: <FaRobot className="text-purple-400" />,
-      link: "/setup/training",
-      color: "from-purple-900/20 to-purple-800/20 border-purple-700/50",
-      glow: "shadow-purple-500/20",
-    },
-    {
-      title: "Analytics",
-      description: "Deep insights and performance metrics",
-      icon: <SiGoogleanalytics className="text-green-400" />,
-      link: "/analytics",
-      color: "from-green-900/20 to-green-800/20 border-green-700/50",
-      glow: "shadow-green-500/20",
-    },
-    {
-      title: "Automation",
-      description: "Configure automated workflows",
-      icon: <FaBolt className="text-yellow-400" />,
-      link: "/setup/automation",
-      color: "from-yellow-900/20 to-yellow-800/20 border-yellow-700/50",
-      glow: "shadow-yellow-500/20",
-    },
-    {
-      title: "Lead Capture",
-      description: "Advanced lead generation tools",
-      icon: <FaUsers className="text-blue-400" />,
-      link: "/setup/leads",
-      color: "from-blue-900/20 to-blue-800/20 border-blue-700/50",
-      glow: "shadow-blue-500/20",
-    },
-  ];
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "active":
-        return "bg-green-500/20 text-green-400 border-green-500/30";
-      case "inactive":
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-      case "pending":
-        return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-      case "replied":
+  const getPlatformColor = (platform: string) => {
+    switch (platform) {
+      case "facebook":
         return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      case "missed":
-        return "bg-red-500/20 text-red-400 border-red-500/30";
+      case "instagram":
+        return "bg-pink-500/20 text-pink-400 border-pink-500/30";
+      case "telegram":
+        return "bg-sky-500/20 text-sky-400 border-sky-500/30";
       default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+        return "bg-muted text-muted-foreground";
     }
   };
 
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case "urgent":
-        return "bg-red-500/20 text-red-400 border-red-500/30";
-      case "high":
-        return "bg-orange-500/20 text-orange-400 border-orange-500/30";
-      case "normal":
-        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
-    }
-  };
-
-  const getSentimentColor = (sentiment: string) => {
-    switch (sentiment) {
-      case "positive":
-        return "bg-green-500";
-      case "negative":
-        return "bg-red-500";
-      default:
-        return "bg-gray-500";
-    }
-  };
+  const maxMessages = Math.max(...weeklyTrend.map((d) => d.messages));
 
   return (
-    <div
-      className="min-h-screen text-white"
-      style={{ backgroundColor: "#000000", background: "#000000" }}
-    >
-      {/* Animated Background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-black via-gray-900 to-black overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
-        <div className="absolute top-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    <div className="min-h-screen bg-background">
+      {/* Subtle Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,oklch(0.12_0.01_260/0.2)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.12_0.01_260/0.2)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_40%,transparent_100%)]" />
+        <div className="absolute -top-40 right-0 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -bottom-40 left-0 h-[400px] w-[400px] rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <div className="relative z-10 bg-black">
-   
-
-        {/* Main Content */}
-        <main className="px-6 py-8">
-          {!hasConnectedPages ? (
-            /* Empty State */
-            <div className="max-w-6xl mx-auto">
-              {/* Hero Section */}
-              <div className="relative mb-12">
-                <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-3xl p-12 border border-purple-800/30 backdrop-blur-xl">
-                  <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-                    <div className="lg:w-1/2 space-y-6">
-                      <div className="inline-flex items-center px-4 py-2 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                        <FaRocket className="mr-2" />
-                        <span className="font-medium">STEP 1 OF 3</span>
-                      </div>
-                      <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-                        Connect Your First
-                        <span className="block text-3xl mt-2 text-blue-400">
-                          Facebook Page
-                        </span>
-                      </h2>
-                      <p className="text-gray-300 text-lg leading-relaxed">
-                        Transform your customer service with AI-powered
-                        automation. Connect your Facebook page to start
-                        responding 24/7, capturing leads, and delighting
-                        customers instantly.
-                      </p>
-
-                      <div className="space-y-4">
-                        {[
-                          {
-                            icon: <FaBolt />,
-                            text: "Lightning-fast responses",
-                          },
-                          {
-                            icon: <FaShieldAlt />,
-                            text: "Enterprise-grade security",
-                          },
-                          { icon: <FaChartBar />, text: "Advanced analytics" },
-                          {
-                            icon: <FaUsers />,
-                            text: "Unlimited conversations",
-                          },
-                        ].map((feature, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center space-x-3 text-gray-300"
-                          >
-                            <div className="text-purple-400">
-                              {feature.icon}
-                            </div>
-                            <span>{feature.text}</span>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="pt-4">
-                        <button
-                          onClick={handleConnectPage}
-                          className="group bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/25 inline-flex items-center space-x-3"
-                        >
-                          <FaFacebook className="text-xl" />
-                          <span>Connect Facebook Page</span>
-                          <FaArrowRight className="group-hover:translate-x-1 transition-transform" />
-                        </button>
-                        <p className="mt-3 text-gray-400 text-sm">
-                          ⚡ 2-minute setup • No credit card required
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="lg:w-1/2">
-                      <div className="relative">
-                        <div className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 backdrop-blur-xl">
-                          <div className="flex items-center space-x-4 mb-6">
-                            <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30">
-                              <FaFacebook className="text-2xl text-purple-400" />
-                            </div>
-                            <div>
-                              <h3 className="text-xl font-semibold text-white">
-                                Connected Pages
-                              </h3>
-                              <p className="text-gray-400 text-sm">
-                                Your active integrations
-                              </p>
-                            </div>
-                          </div>
-
-                          <div className="space-y-3">
-                            {[1, 2, 3].map((i) => (
-                              <div
-                                key={i}
-                                className="flex items-center justify-between p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 hover:bg-gray-800/50 transition-colors"
-                              >
-                                <div className="flex items-center space-x-3">
-                                  <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg"></div>
-                                  <div>
-                                    <div className="font-medium text-white">
-                                      Your Facebook Page
-                                    </div>
-                                    <div className="text-sm text-gray-400">
-                                      Connected • Auto-replies active
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className="absolute -bottom-6 -right-6 bg-gradient-to-r from-green-900/50 to-green-800/50 rounded-2xl p-6 border border-green-700/30 backdrop-blur-xl">
-                          <div className="flex items-center space-x-4">
-                            <div className="p-3 bg-green-500/20 rounded-xl border border-green-500/30">
-                              <FaClock className="text-xl text-green-400" />
-                            </div>
-                            <div>
-                              <div className="text-2xl font-bold text-white">
-                                24/7
-                              </div>
-                              <div className="text-sm text-gray-400">
-                                Always Active
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quick Start Guide */}
-              <div className="grid md:grid-cols-3 gap-8 mb-12">
-                {[
-                  {
-                    step: "1",
-                    title: "Connect Pages",
-                    description: "Authorize your Facebook & Instagram pages",
-                    icon: "🔗",
-                  },
-                  {
-                    step: "2",
-                    title: "Train Your AI",
-                    description: "Upload FAQs and train your chatbot",
-                    icon: "🧠",
-                  },
-                  {
-                    step: "3",
-                    title: "Go Live",
-                    description: "Activate AI and start automating",
-                    icon: "🚀",
-                  },
-                ].map((step) => (
-                  <div
-                    key={step.step}
-                    className="bg-gray-900/50 rounded-2xl p-6 border border-gray-800 backdrop-blur-xl hover:bg-gray-900/70 transition-all duration-300"
-                  >
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="p-3 bg-purple-500/20 rounded-xl border border-purple-500/30 text-2xl">
-                        {step.icon}
-                      </div>
-                      <div>
-                        <div className="text-sm font-medium text-purple-400 mb-1">
-                          STEP {step.step}
-                        </div>
-                        <div className="font-bold text-lg text-white">
-                          {step.title}
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-gray-400">{step.description}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Features Preview */}
+      <main className="relative z-10 px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          {/* Header */}
+          <div
+            className={`mb-8 transition-all duration-700 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-6">
-                  What you&apos;ll get after connecting
-                </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {quickActions.map((action, index) => (
-                    <Link key={index} href={action.link}>
-                      <div
-                        className={`bg-gradient-to-br ${action.color} rounded-2xl p-6 border backdrop-blur-xl hover:shadow-lg hover:${action.glow} transition-all duration-300 cursor-pointer group`}
-                      >
-                        <div className="flex items-center space-x-4 mb-4">
-                          <div className="p-3 bg-gray-900/50 rounded-xl border border-gray-700 group-hover:scale-110 transition-transform">
-                            {action.icon}
-                          </div>
-                          <h4 className="font-bold text-lg text-white">
-                            {action.title}
-                          </h4>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          {action.description}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+                <h1 className="text-3xl font-bold text-foreground">
+                  Welcome back, {session.user.name || "User"}
+                </h1>
+                <p className="mt-1 text-muted-foreground">
+                  Manage your connected pages and monitor your monthly usage.
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Bell className="h-4 w-4" />
+                  <Badge
+                    variant="destructive"
+                    className="h-5 w-5 rounded-full p-0 text-xs"
+                  >
+                    3
+                  </Badge>
+                </Button>
+                <Button
+                  size="sm"
+                  className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90"
+                >
+                  <Plus className="h-4 w-4" />
+                  Connect Page
+                </Button>
               </div>
             </div>
-          ) : (
-            /* Dashboard With Data */
-            <div className="max-w-7xl mx-auto space-y-8">
-              {/* Stats Overview */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {[
-                  {
-                    title: "Total Messages",
-                    value: mockStats.totalMessages.toLocaleString(),
-                    change: 12,
-                    trend: "up",
-                    icon: <FaEnvelope className="text-purple-400" />,
-                    color:
-                      "from-purple-900/20 to-purple-800/20 border-purple-700/50",
-                  },
-                  {
-                    title: "Response Rate",
-                    value: `${mockStats.responseRate}%`,
-                    change: 3,
-                    trend: "up",
-                    icon: <FaChartLine className="text-green-400" />,
-                    color:
-                      "from-green-900/20 to-green-800/20 border-green-700/50",
-                  },
-                  {
-                    title: "Avg Response Time",
-                    value: mockStats.avgResponseTime,
-                    change: 8,
-                    trend: "down",
-                    icon: <FaClock className="text-yellow-400" />,
-                    color:
-                      "from-yellow-900/20 to-yellow-800/20 border-yellow-700/50",
-                  },
-                  {
-                    title: "Leads Captured",
-                    value: mockStats.leadsCaptured,
-                    change: 15,
-                    trend: "up",
-                    icon: <FaUsers className="text-blue-400" />,
-                    color: "from-blue-900/20 to-blue-800/20 border-blue-700/50",
-                  },
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className={`bg-gradient-to-br ${stat.color} rounded-2xl p-6 border backdrop-blur-xl hover:scale-105 transition-all duration-300`}
-                  >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="p-3 bg-gray-900/50 rounded-xl border border-gray-700">
-                        {stat.icon}
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        {stat.trend === "up" ? (
-                          <FaArrowRight className="h-3 w-3 text-green-400 rotate-45" />
-                        ) : (
-                          <FaArrowRight className="h-3 w-3 text-red-400 -rotate-45" />
-                        )}
-                        <span
-                          className={`text-xs ${
-                            stat.trend === "up"
-                              ? "text-green-400"
-                              : "text-red-400"
-                          }`}
-                        >
-                          {stat.change}%
+
+            {/* View Toggle */}
+            <div className="mt-6 inline-flex rounded-lg border border-border bg-muted/50 p-1">
+              {[
+                { id: "overview", label: "Overview" },
+                { id: "pages", label: "Connected Pages" },
+                { id: "usage", label: "Usage Stats" },
+              ].map((view) => (
+                <button
+                  key={view.id}
+                  onClick={() => setActiveView(view.id as typeof activeView)}
+                  className={`rounded-md px-4 py-2 text-sm font-medium transition-all ${
+                    activeView === view.id
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  {view.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div
+            className={`mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 transition-all duration-700 delay-100 ${
+              isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            {quickStats.map((stat, index) => (
+              <Card
+                key={stat.title}
+                className="group border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-border hover:shadow-lg"
+                style={{ transitionDelay: `${150 + index * 50}ms` }}
+              >
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between">
+                    <div className="space-y-1">
+                      <p className="text-sm text-muted-foreground">
+                        {stat.title}
+                      </p>
+                      <p className="text-2xl font-bold text-foreground">
+                        {stat.value}
+                      </p>
+                      <div className="flex items-center gap-1.5">
+                        <ArrowUpRight className="h-3.5 w-3.5 text-success" />
+                        <span className="text-xs font-medium text-success">
+                          {stat.change}
                         </span>
                       </div>
                     </div>
-                    <div>
-                      <p className="text-2xl font-bold text-white mb-1">
-                        {stat.value}
-                      </p>
-                      <p className="text-sm text-gray-400">{stat.title}</p>
+                    <div className="rounded-lg bg-primary/10 p-2.5">
+                      <stat.icon className="h-5 w-5 text-primary" />
                     </div>
                   </div>
-                ))}
-              </div>
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    {stat.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-              {/* Connected Pages */}
-              <div className="bg-gray-900/50 rounded-2xl border border-gray-800 backdrop-blur-xl">
-                <div className="p-6 border-b border-gray-800">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        Connected Pages
-                      </h3>
-                      <p className="text-gray-400 text-sm">
-                        Manage your social media integrations
-                      </p>
-                    </div>
-                    <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors flex items-center space-x-2">
-                      <FaPlus className="text-sm" />
-                      <span>Add Page</span>
-                    </button>
+          {/* Main Content Grid */}
+          <div className="grid gap-6 lg:grid-cols-3">
+            {/* Left Column - Connected Pages */}
+            <div
+              className={`lg:col-span-2 transition-all duration-700 delay-200 ${
+                isLoaded
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                <CardHeader className="flex flex-row items-center justify-between pb-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <Facebook className="h-5 w-5 text-blue-400" />
+                      Connected Pages
+                    </CardTitle>
+                    <CardDescription>
+                      Manage your Facebook and Instagram page connections
+                    </CardDescription>
                   </div>
-                </div>
-                <div className="p-6">
-                  <div className="space-y-4">
-                    {connectedPagesData.map((page) => (
-                      <div
-                        key={page.id}
-                        className="flex items-center justify-between p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 hover:bg-gray-800/50 transition-colors"
-                      >
-                        <div className="flex items-center space-x-4">
-                          <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                            <FaFacebook className="text-white text-xl" />
-                          </div>
-                          <div>
-                            <div className="font-semibold text-white">
-                              {page.name}
-                            </div>
-                            <div className="text-sm text-gray-400">
-                              {page.platform} • Last active {page.lastActive}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-4">
-                          <div className="text-right">
-                            <div className="text-sm text-gray-400">
-                              {page.messageCount} messages
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {page.responseRate}% response rate
-                            </div>
-                          </div>
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <RefreshCw className="h-4 w-4" />
+                    Sync All
+                  </Button>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {connectedPages.map((page, index) => (
+                    <div
+                      key={page.id}
+                      className="group rounded-xl border border-border/50 bg-background/50 p-4 transition-all duration-200 hover:border-border hover:shadow-md"
+                      style={{ animationDelay: `${300 + index * 100}ms` }}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-4">
+                          {/* Platform Icon */}
                           <div
-                            className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(page.status)}`}
+                            className={`rounded-xl p-3 ${getPlatformColor(page.platform)}`}
                           >
-                            {page.status === "active" ? "Active" : "Inactive"}
+                            {getPlatformIcon(page.platform)}
                           </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
 
-              {/* Recent Conversations */}
-              <div className="bg-gray-900/50 rounded-2xl border border-gray-800 backdrop-blur-xl">
-                <div className="p-6 border-b border-gray-800">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-white">
-                        Recent Conversations
-                      </h3>
-                      <p className="text-gray-400 text-sm">
-                        Latest customer interactions
-                      </p>
-                    </div>
-                    <button className="text-purple-400 hover:text-purple-300 transition-colors">
-                      View All
-                    </button>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <div className="space-y-4">
-                    {recentConversations.map((conversation) => (
-                      <div
-                        key={conversation.id}
-                        className="p-4 bg-gray-800/30 rounded-xl border border-gray-700/50 hover:bg-gray-800/50 transition-colors"
-                      >
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-3 mb-2">
-                              <div
-                                className={`w-2 h-2 rounded-full ${getSentimentColor(conversation.sentiment)}`}
-                              ></div>
-                              <span className="font-medium text-white">
-                                {conversation.customer}
-                              </span>
-                              <span className="text-xs text-gray-500">
-                                {conversation.time}
-                              </span>
-                              <div
-                                className={`px-2 py-1 rounded-full text-xs font-medium border ${getPriorityColor(conversation.priority)}`}
+                          {/* Page Info */}
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-2">
+                              <h3 className="font-semibold text-foreground">
+                                {page.name}
+                              </h3>
+                              <Badge
+                                variant="outline"
+                                className={
+                                  page.status === "active"
+                                    ? "bg-success/10 text-success border-success/30"
+                                    : "bg-warning/10 text-warning border-warning/30"
+                                }
                               >
-                                {conversation.priority}
-                              </div>
+                                {page.status === "active" ? (
+                                  <Play className="mr-1 h-3 w-3" />
+                                ) : (
+                                  <Pause className="mr-1 h-3 w-3" />
+                                )}
+                                {page.status}
+                              </Badge>
                             </div>
-                            <p className="text-gray-300 text-sm">
-                              {conversation.message}
+                            <p className="text-sm text-muted-foreground">
+                              {page.followers.toLocaleString()} followers
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              Last synced: {page.lastSync}
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center justify-between">
-                          <div
-                            className={`px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(conversation.status)}`}
-                          >
-                            {conversation.status}
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <button className="p-1 hover:bg-gray-700/50 rounded transition-colors">
-                              <FaEye className="text-gray-400 text-sm" />
-                            </button>
-                            <button className="p-1 hover:bg-gray-700/50 rounded transition-colors">
-                              <FaEdit className="text-gray-400 text-sm" />
-                            </button>
-                          </div>
+
+                        {/* Stats */}
+                        <div className="hidden text-right sm:block">
+                          <p className="text-lg font-semibold text-foreground">
+                            {page.messagesThisMonth.toLocaleString()}
+                          </p>
+                          <p className="text-xs text-muted-foreground">
+                            messages this month
+                          </p>
                         </div>
+                      </div>
+
+                      {/* Page Stats Row */}
+                      <div className="mt-4 grid grid-cols-3 gap-4 border-t border-border/50 pt-4">
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            Response Rate
+                          </p>
+                          <p className="font-semibold text-foreground">
+                            {page.responseRate}%
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">
+                            Avg Response
+                          </p>
+                          <p className="font-semibold text-foreground">
+                            {page.avgResponseTime}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="gap-1 text-primary"
+                          >
+                            Manage
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Add New Page CTA */}
+                  <button className="w-full rounded-xl border-2 border-dashed border-border/50 bg-background/30 p-6 text-center transition-all duration-200 hover:border-primary/50 hover:bg-primary/5">
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="rounded-full bg-primary/10 p-3">
+                        <Plus className="h-6 w-6 text-primary" />
+                      </div>
+                      <p className="font-medium text-foreground">
+                        Connect New Page
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Link your Facebook or Instagram page
+                      </p>
+                    </div>
+                  </button>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right Column - Usage Stats */}
+            <div
+              className={`space-y-6 transition-all duration-700 delay-300 ${
+                isLoaded
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-4"
+              }`}
+            >
+              {/* Monthly Usage Card */}
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                <CardHeader className="pb-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <Calendar className="h-5 w-5 text-primary" />
+                        Monthly Usage
+                      </CardTitle>
+                      <CardDescription>
+                        {monthlyUsageData.currentMonth}
+                      </CardDescription>
+                    </div>
+                    <Badge
+                      variant="outline"
+                      className="bg-primary/10 text-primary border-primary/30"
+                    >
+                      {monthlyUsageData.daysRemaining} days left
+                    </Badge>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Messages Usage */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">Messages</span>
+                      <span className="font-medium text-foreground">
+                        {monthlyUsageData.messagesUsed.toLocaleString()} /{" "}
+                        {monthlyUsageData.messagesLimit.toLocaleString()}
+                      </span>
+                    </div>
+                    <Progress
+                      value={usagePercentage(
+                        monthlyUsageData.messagesUsed,
+                        monthlyUsageData.messagesLimit,
+                      )}
+                      className="h-2"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {usagePercentage(
+                        monthlyUsageData.messagesUsed,
+                        monthlyUsageData.messagesLimit,
+                      )}
+                      % used
+                    </p>
+                  </div>
+
+                  {/* Conversations Usage */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        Conversations
+                      </span>
+                      <span className="font-medium text-foreground">
+                        {monthlyUsageData.conversationsUsed.toLocaleString()} /{" "}
+                        {monthlyUsageData.conversationsLimit.toLocaleString()}
+                      </span>
+                    </div>
+                    <Progress
+                      value={usagePercentage(
+                        monthlyUsageData.conversationsUsed,
+                        monthlyUsageData.conversationsLimit,
+                      )}
+                      className="h-2"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {usagePercentage(
+                        monthlyUsageData.conversationsUsed,
+                        monthlyUsageData.conversationsLimit,
+                      )}
+                      % used
+                    </p>
+                  </div>
+
+                  {/* AI Responses Usage */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">
+                        AI Responses
+                      </span>
+                      <span className="font-medium text-foreground">
+                        {monthlyUsageData.aiResponsesUsed.toLocaleString()} /{" "}
+                        {monthlyUsageData.aiResponsesLimit.toLocaleString()}
+                      </span>
+                    </div>
+                    <Progress
+                      value={usagePercentage(
+                        monthlyUsageData.aiResponsesUsed,
+                        monthlyUsageData.aiResponsesLimit,
+                      )}
+                      className="h-2"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      {usagePercentage(
+                        monthlyUsageData.aiResponsesUsed,
+                        monthlyUsageData.aiResponsesLimit,
+                      )}
+                      % used
+                    </p>
+                  </div>
+
+                  <Button variant="outline" className="w-full gap-2">
+                    <Zap className="h-4 w-4" />
+                    Upgrade Plan
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Weekly Trend Mini Chart */}
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <Activity className="h-5 w-5 text-primary" />
+                    Weekly Trend
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex h-24 items-end justify-between gap-2">
+                    {weeklyTrend.map((data, index) => (
+                      <div
+                        key={data.week}
+                        className="flex flex-1 flex-col items-center gap-1"
+                      >
+                        <span className="text-xs font-medium text-foreground">
+                          {data.messages.toLocaleString()}
+                        </span>
+                        <div
+                          className="w-full rounded-t bg-linear-to-t from-primary to-primary/60 transition-all duration-500"
+                          style={{
+                            height: `${(data.messages / maxMessages) * 60}px`,
+                            transitionDelay: `${index * 100}ms`,
+                          }}
+                        />
+                        <span className="text-xs text-muted-foreground">
+                          W{index + 1}
+                        </span>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
 
-              {/* Quick Actions */}
-              <div>
-                <h3 className="text-xl font-bold text-white mb-6">
-                  Quick Actions
-                </h3>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {quickActions.map((action, index) => (
-                    <Link key={index} href={action.link}>
-                      <div
-                        className={`bg-gradient-to-br ${action.color} rounded-2xl p-6 border backdrop-blur-xl hover:scale-105 hover:shadow-lg hover:${action.glow} transition-all duration-300 cursor-pointer group`}
-                      >
-                        <div className="flex items-center space-x-4 mb-4">
-                          <div className="p-3 bg-gray-900/50 rounded-xl border border-gray-700 group-hover:scale-110 transition-transform">
-                            {action.icon}
-                          </div>
-                          <h4 className="font-bold text-lg text-white">
-                            {action.title}
-                          </h4>
-                        </div>
-                        <p className="text-gray-400 text-sm">
-                          {action.description}
-                        </p>
+              {/* Quick Status */}
+              <Card className="relative overflow-hidden border-success/20 bg-gradient-to-br from-success/10 via-card/50 to-primary/10">
+                <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-success/10 blur-2xl" />
+                <CardContent className="relative p-5">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success/20">
+                        <CheckCircle className="h-6 w-6 text-success" />
                       </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Help Section */}
-          <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 rounded-2xl p-8 border border-purple-800/30 backdrop-blur-xl">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Need help getting started?
-                </h3>
-                <p className="text-gray-300">
-                  Check out our setup guide or contact support
-                </p>
-              </div>
-              <div className="flex space-x-4">
-                <button className="px-6 py-3 bg-gray-800/50 hover:bg-gray-800/70 border border-gray-700 rounded-xl transition-colors">
-                  View Guide
-                </button>
-                <button className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-xl transition-all duration-300">
-                  Contact Support
-                </button>
-              </div>
+                      <div className="absolute -bottom-1 -right-1 h-4 w-4 animate-pulse rounded-full bg-success" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-foreground">
+                        All Systems Active
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        3 pages connected and responding
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   );
 }

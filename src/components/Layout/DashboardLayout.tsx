@@ -31,10 +31,10 @@ import {
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Inbox", href: "/inbox", icon: MessageSquare, badge: 5 },
-  { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Training", href: "/training", icon: BookOpen },
-  { name: "Settings", href: "/settings", icon: Settings },
+  // { name: "Inbox", href: "/inbox", icon: MessageSquare, badge: 5 },
+  // { name: "Analytics", href: "/analytics", icon: BarChart3 },
+  { name: "Training", href: "/dashboard/training", icon: BookOpen },
+  // { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 const DashboardLayout = () => {
@@ -43,12 +43,12 @@ const DashboardLayout = () => {
 
   return (
     <nav className="sticky top-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="mx-auto max-w-350 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex items-center gap-8">
-            <Link href="/" className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-br from-primary to-accent shadow-lg shadow-primary/20">
+            <Link href="/dashboard" className="flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/20">
                 <Bot className="h-5 w-5 text-primary-foreground" />
               </div>
               <div className="hidden sm:block">

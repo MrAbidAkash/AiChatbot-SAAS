@@ -12,5 +12,20 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  return <Dashboard session={session} />;
+  return (
+    <Dashboard
+      session={{
+        user: {
+          id: session.user.id,
+          name: session.user.name,
+          email: session.user.email,
+          image: session.user.image || null,
+        },
+        session: {
+          id: session.session.id,
+          expiresAt: session.session.expiresAt,
+        },
+      }}
+    />
+  );
 }

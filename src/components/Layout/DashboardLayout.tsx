@@ -30,11 +30,21 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  {
+    name: "Dashboard",
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    badge: undefined,
+  },
   // { name: "Inbox", href: "/inbox", icon: MessageSquare, badge: 5 },
-  // { name: "Analytics", href: "/analytics", icon: BarChart3 },
-  { name: "Training", href: "/dashboard/training", icon: BookOpen },
-  // { name: "Settings", href: "/settings", icon: Settings },
+  // { name: "Analytics", href: "/analytics", icon: BarChart3, badge: undefined },
+  {
+    name: "Training",
+    href: "/dashboard/training",
+    icon: BookOpen,
+    badge: undefined,
+  },
+  // { name: "Settings", href: "/settings", icon: Settings, badge: undefined },
 ];
 
 const DashboardLayout = () => {

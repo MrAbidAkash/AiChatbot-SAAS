@@ -1,19 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import {
-  Check,
-  Sparkles,
-  Zap,
-  Building2,
-  HelpCircle,
-  ArrowRight,
-} from "lucide-react";
+import AuthButton from "@/components/auth-button";
+import PricingButton from "@/components/pricing-button";
+import { Check, Sparkles, Zap, Building2, HelpCircle } from "lucide-react";
 
 const plans = [
   {
@@ -243,25 +237,15 @@ export function PricingSection() {
                   )}
                 </div>
 
-                <Button
+                <PricingButton
+                  planName={plan.name}
                   className={`mb-6 w-full gap-2 ${
                     plan.popular
                       ? "bg-primary text-primary-foreground hover:bg-primary/90"
                       : "bg-muted text-foreground hover:bg-muted/80"
                   }`}
-                  asChild
-                >
-                  <Link
-                    href={
-                      plan.name === "Enterprise"
-                        ? "/contact"
-                        : `/checkout?plan=${plan.name.toLowerCase()}`
-                    }
-                  >
-                    {plan.cta}
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
+                  variant={plan.popular ? "default" : "secondary"}
+                />
 
                 <ul className="space-y-3">
                   {plan.features.map((feature) => (
@@ -326,13 +310,10 @@ export function PricingSection() {
                 <Button variant="outline" size="lg">
                   Schedule Demo
                 </Button>
-                <Button
+                <AuthButton
                   size="lg"
                   className="gap-2 bg-primary text-primary-foreground"
-                >
-                  <Sparkles className="h-4 w-4" />
-                  Start Free Trial
-                </Button>
+                />
               </div>
             </CardContent>
           </Card>

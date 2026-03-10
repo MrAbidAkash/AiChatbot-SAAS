@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import AuthButton from "@/components/auth-button";
+import PricingButton from "@/components/pricing-button";
 import {
   Card,
   CardContent,
@@ -203,28 +203,11 @@ export default function PricingPage() {
                       </li>
                     ))}
                   </ul>
-                  {plan.cta === "Start Free Trial" ? (
-                    <AuthButton
-                      className="w-full"
-                      variant={plan.popular ? "default" : "outline"}
-                    />
-                  ) : (
-                    <Button
-                      className="w-full"
-                      variant={plan.popular ? "default" : "outline"}
-                      asChild
-                    >
-                      <Link
-                        href={
-                          plan.name === "Enterprise"
-                            ? "/contact"
-                            : `/checkout?plan=${plan.name.toLowerCase()}`
-                        }
-                      >
-                        {plan.cta}
-                      </Link>
-                    </Button>
-                  )}
+                  <PricingButton
+                    planName={plan.name}
+                    className="w-full"
+                    variant={plan.popular ? "default" : "outline"}
+                  />
                 </CardContent>
               </Card>
             ))}

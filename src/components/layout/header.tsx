@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Bot, Menu, X, ChevronDown, Sparkles } from "lucide-react";
 import {
@@ -14,6 +15,14 @@ import AuthHeader from "@/components/auth-header";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(href);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -35,7 +44,7 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="gap-1 text-muted-foreground hover:text-foreground"
+                  className={`gap-1 ${isActive("/products") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 >
                   Product
                   <ChevronDown className="h-4 w-4" />
@@ -65,7 +74,7 @@ export function Header() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="gap-1 text-muted-foreground hover:text-foreground"
+                  className={`gap-1 ${isActive("/solutions") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 >
                   Solutions
                   <ChevronDown className="h-4 w-4" />
@@ -89,21 +98,21 @@ export function Header() {
 
             <Button
               variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
+              className={`${isActive("/integrations") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
               asChild
             >
               <Link href="/integrations">Integrations</Link>
             </Button>
             <Button
               variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
+              className={`${isActive("/pricing") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
               asChild
             >
               <Link href="/pricing">Pricing</Link>
             </Button>
             <Button
               variant="ghost"
-              className="text-muted-foreground hover:text-foreground"
+              className={`${isActive("/docs") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
               asChild
             >
               <Link href="/docs">Documentation</Link>
@@ -136,35 +145,35 @@ export function Header() {
             <nav className="flex flex-col gap-2">
               <Button
                 variant="ghost"
-                className="justify-start text-muted-foreground"
+                className={`justify-start ${isActive("/products") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 asChild
               >
                 <Link href="/products/chatbot-builder">Product</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="justify-start text-muted-foreground"
+                className={`justify-start ${isActive("/solutions") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 asChild
               >
                 <Link href="/solutions/ecommerce">Solutions</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="justify-start text-muted-foreground"
+                className={`justify-start ${isActive("/integrations") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 asChild
               >
                 <Link href="/integrations">Integrations</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="justify-start text-muted-foreground"
+                className={`justify-start ${isActive("/pricing") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 asChild
               >
                 <Link href="/pricing">Pricing</Link>
               </Button>
               <Button
                 variant="ghost"
-                className="justify-start text-muted-foreground"
+                className={`justify-start ${isActive("/docs") ? "bg-accent text-accent-foreground" : "text-muted-foreground"} hover:bg-accent hover:text-accent-foreground`}
                 asChild
               >
                 <Link href="/docs">Documentation</Link>

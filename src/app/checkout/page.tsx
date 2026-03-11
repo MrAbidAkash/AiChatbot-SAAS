@@ -13,6 +13,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import AuthGuard from "@/components/auth-guard";
+import { useBkash } from "@/hooks/use-bkash";
 import {
   CreditCard,
   Smartphone,
@@ -71,6 +72,20 @@ function CheckoutContent() {
     name: "",
   });
 
+  const {
+    createPayment,
+    isLoading: isBkashLoading,
+    error: bkashError,
+  } = useBkash({
+    onSuccess: () => {
+      setPaymentStatus("processing");
+    },
+    onError: (error) => {
+      setPaymentStatus("error");
+      console.error("bKash payment error:", error);
+    },
+  });
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -100,18 +115,44 @@ function CheckoutContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsProcessing(true);
-    setPaymentStatus("processing");
 
-    // Simulate payment processing
-    setTimeout(() => {
-      setPaymentStatus("success");
-      setIsProcessing(false);
-      // Redirect to success page after 2 seconds
+    if (paymentMethod === "bkash") {
+      // Handle bKash payment
+      setIsProcessing(true);
+      setPaymentStatus("processing");
+
+      try {
+        const callbackURL = `${window.location.origin}/api/bkash/callback`;
+
+        await createPayment({
+          amount: selectedPlan.price,
+          callbackURL,
+          customerInfo: {
+            name: formData.name,
+            email: formData.email,
+            phone: formData.bkashNumber,
+          },
+        });
+      } catch (error) {
+        console.error("bKash payment error:", error);
+        setPaymentStatus("error");
+        setIsProcessing(false);
+      }
+    } else {
+      // Handle card payment (existing logic)
+      setIsProcessing(true);
+      setPaymentStatus("processing");
+
+      // Simulate payment processing
       setTimeout(() => {
-        router.push("/checkout/success");
-      }, 2000);
-    }, 3000);
+        setPaymentStatus("success");
+        setIsProcessing(false);
+        // Redirect to success page after 2 seconds
+        setTimeout(() => {
+          router.push("/checkout/success");
+        }, 2000);
+      }, 3000);
+    }
   };
 
   const isFormValid = () => {
@@ -156,335 +197,350 @@ function CheckoutContent() {
           <div className="grid gap-8 lg:grid-cols-3">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Payment Status Alert */}
-              {paymentStatus === "processing" && (
-                <Alert>
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <AlertDescription>
-                    Processing your payment securely...
-                  </AlertDescription>
-                </Alert>
-              )}
+              <form onSubmit={handleSubmit}>
+                {/* Payment Status Alert */}
+                {paymentStatus === "processing" && (
+                  <Alert>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <AlertDescription>
+                      Processing your payment securely...
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-              {paymentStatus === "success" && (
-                <Alert className="border-green-500/30 bg-green-500/10 text-green-400">
-                  <CheckCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Payment successful! Redirecting to confirmation page...
-                  </AlertDescription>
-                </Alert>
-              )}
+                {paymentStatus === "success" && (
+                  <Alert className="border-green-500/30 bg-green-500/10 text-green-400">
+                    <CheckCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      Payment successful! Redirecting to confirmation page...
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-              {paymentStatus === "error" && (
-                <Alert className="border-red-500/30 bg-red-500/10 text-red-400">
-                  <AlertCircle className="h-4 w-4" />
-                  <AlertDescription>
-                    Payment failed. Please try again or contact support.
-                  </AlertDescription>
-                </Alert>
-              )}
+                {paymentStatus === "error" && (
+                  <Alert className="border-red-500/30 bg-red-500/10 text-red-400">
+                    <AlertCircle className="h-4 w-4" />
+                    <AlertDescription>
+                      {bkashError ||
+                        "Payment failed. Please try again or contact support."}
+                    </AlertDescription>
+                  </Alert>
+                )}
 
-              {/* Contact Information */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Contact Information</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid gap-4 md:grid-cols-2">
-                    <div>
-                      <Label htmlFor="name">Full Name</Label>
-                      <Input
-                        id="name"
-                        value={formData.name}
-                        onChange={(e) =>
-                          handleInputChange("name", e.target.value)
-                        }
-                        placeholder="John Doe"
-                        disabled={isProcessing}
-                        className="mt-1.5 border border-border"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email Address</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
-                        }
-                        placeholder="john@example.com"
-                        disabled={isProcessing}
-                        className="mt-1.5 border border-border"
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Payment Method Selection */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Payment Method</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <RadioGroup
-                    value={paymentMethod}
-                    onValueChange={(value) =>
-                      setPaymentMethod(value as "card" | "bkash")
-                    }
-                    disabled={isProcessing}
-                  >
-                    <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
-                      <RadioGroupItem value="card" id="card" />
-                      <Label
-                        htmlFor="card"
-                        className="flex items-center space-x-3 cursor-pointer flex-1"
-                      >
-                        <CreditCard className="h-5 w-5" />
-                        <div>
-                          <p className="font-medium">Credit/Debit Card</p>
-                          <p className="text-sm text-muted-foreground">
-                            Visa, Mastercard, American Express
-                          </p>
-                        </div>
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
-                      <RadioGroupItem value="bkash" id="bkash" />
-                      <Label
-                        htmlFor="bkash"
-                        className="flex items-center space-x-3 cursor-pointer flex-1"
-                      >
-                        <Smartphone className="h-5 w-5" />
-                        <div>
-                          <p className="font-medium">bKash</p>
-                          <p className="text-sm text-muted-foreground">
-                            Pay with your bKash account
-                          </p>
-                        </div>
-                      </Label>
-                    </div>
-                  </RadioGroup>
-
-                  <Separator />
-
-                  {/* Payment Forms */}
-                  {paymentMethod === "card" && (
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Contact Information */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">
+                      Contact Information
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-4 md:grid-cols-2">
                       <div>
-                        <Label htmlFor="cardNumber">Card Number</Label>
+                        <Label htmlFor="name">Full Name</Label>
                         <Input
-                          id="cardNumber"
-                          value={formData.cardNumber}
+                          id="name"
+                          value={formData.name}
                           onChange={(e) =>
-                            handleInputChange(
-                              "cardNumber",
-                              formatCardNumber(e.target.value),
-                            )
-                          }
-                          placeholder="1234 5678 9012 3456"
-                          maxLength={19}
-                          disabled={isProcessing}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="cardName">Cardholder Name</Label>
-                        <Input
-                          id="cardName"
-                          value={formData.cardName}
-                          onChange={(e) =>
-                            handleInputChange("cardName", e.target.value)
+                            handleInputChange("name", e.target.value)
                           }
                           placeholder="John Doe"
                           disabled={isProcessing}
+                          className="mt-1.5 border border-border"
                         />
                       </div>
-                      <div className="grid gap-4 md:grid-cols-2">
+                      <div>
+                        <Label htmlFor="email">Email Address</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
+                          placeholder="john@example.com"
+                          disabled={isProcessing}
+                          className="mt-1.5 border border-border"
+                        />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Payment Method Selection */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Payment Method</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <RadioGroup
+                      value={paymentMethod}
+                      onValueChange={(value) =>
+                        setPaymentMethod(value as "card" | "bkash")
+                      }
+                      disabled={isProcessing || isBkashLoading}
+                    >
+                      <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
+                        <RadioGroupItem value="card" id="card" />
+                        <Label
+                          htmlFor="card"
+                          className="flex items-center space-x-3 cursor-pointer flex-1"
+                        >
+                          <CreditCard className="h-5 w-5" />
+                          <div>
+                            <p className="font-medium">Credit/Debit Card</p>
+                            <p className="text-sm text-muted-foreground">
+                              Pay securely with your card
+                            </p>
+                          </div>
+                        </Label>
+                      </div>
+
+                      <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
+                        <RadioGroupItem value="bkash" id="bkash" />
+                        <Label
+                          htmlFor="bkash"
+                          className="flex items-center space-x-3 cursor-pointer flex-1"
+                        >
+                          <Smartphone className="h-5 w-5" />
+                          <div>
+                            <p className="font-medium">bKash</p>
+                            <p className="text-sm text-muted-foreground">
+                              Pay with bKash mobile banking
+                            </p>
+                          </div>
+                          <Badge variant="secondary" className="ml-auto">
+                            Popular
+                          </Badge>
+                        </Label>
+                      </div>
+                    </RadioGroup>
+
+                    {/* Card Payment Form */}
+                    {paymentMethod === "card" && (
+                      <div className="space-y-4">
                         <div>
-                          <Label htmlFor="expiryDate">Expiry Date</Label>
+                          <Label htmlFor="cardNumber">Card Number</Label>
                           <Input
-                            id="expiryDate"
-                            value={formData.expiryDate}
+                            id="cardNumber"
+                            value={formatCardNumber(formData.cardNumber)}
                             onChange={(e) =>
                               handleInputChange(
-                                "expiryDate",
-                                formatExpiryDate(e.target.value),
+                                "cardNumber",
+                                formatCardNumber(e.target.value),
                               )
                             }
-                            placeholder="MM/YY"
-                            maxLength={5}
+                            placeholder="1234 5678 9012 3456"
+                            maxLength={19}
                             disabled={isProcessing}
+                            className="mt-1.5 border border-border"
                           />
                         </div>
+
                         <div>
-                          <Label htmlFor="cvv">CVV</Label>
+                          <Label htmlFor="cardName">Cardholder Name</Label>
                           <Input
-                            id="cvv"
-                            value={formData.cvv}
+                            id="cardName"
+                            value={formData.cardName}
+                            onChange={(e) =>
+                              handleInputChange("cardName", e.target.value)
+                            }
+                            placeholder="John Doe"
+                            disabled={isProcessing}
+                            className="mt-1.5 border border-border"
+                          />
+                        </div>
+
+                        <div className="grid gap-4 grid-cols-2">
+                          <div>
+                            <Label htmlFor="expiryDate">Expiry Date</Label>
+                            <Input
+                              id="expiryDate"
+                              value={formatExpiryDate(formData.expiryDate)}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "expiryDate",
+                                  formatExpiryDate(e.target.value),
+                                )
+                              }
+                              placeholder="MM/YY"
+                              maxLength={5}
+                              disabled={isProcessing}
+                              className="mt-1.5 border border-border"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="cvv">CVV</Label>
+                            <Input
+                              id="cvv"
+                              value={formData.cvv}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "cvv",
+                                  e.target.value.replace(/[^0-9]/g, ""),
+                                )
+                              }
+                              placeholder="123"
+                              maxLength={3}
+                              disabled={isProcessing}
+                              className="mt-1.5 border border-border"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* bKash Payment Form */}
+                    {paymentMethod === "bkash" && (
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="bkashNumber">
+                            bKash Account Number
+                          </Label>
+                          <Input
+                            id="bkashNumber"
+                            value={formData.bkashNumber}
                             onChange={(e) =>
                               handleInputChange(
-                                "cvv",
+                                "bkashNumber",
                                 e.target.value.replace(/[^0-9]/g, ""),
                               )
                             }
-                            placeholder="123"
-                            maxLength={3}
-                            type="password"
-                            disabled={isProcessing}
+                            placeholder="01XXXXXXXXX"
+                            maxLength={11}
+                            disabled={isProcessing || isBkashLoading}
+                            className="mt-1.5 border border-border"
                           />
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Enter your 11-digit bKash account number
+                          </p>
+                        </div>
+
+                        <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
+                          <div className="flex items-start space-x-2">
+                            <Smartphone className="h-4 w-4 text-blue-600 mt-0.5" />
+                            <div className="text-sm">
+                              <p className="font-medium text-blue-900 dark:text-blue-100">
+                                bKash Payment Process
+                              </p>
+                              <ul className="text-blue-700 dark:text-blue-300 mt-1 space-y-1">
+                                <li>
+                                  • Click &quot;Pay with bKash&quot; to initiate
+                                  payment
+                                </li>
+                                <li>
+                                  • You&apos;ll be redirected to bKash payment
+                                  page
+                                </li>
+                                <li>
+                                  • Enter your bKash PIN to complete payment
+                                </li>
+                                <li>
+                                  • You&apos;ll be returned here after payment
+                                </li>
+                              </ul>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <Button
-                        type="submit"
-                        className="w-full"
-                        disabled={!isFormValid() || isProcessing}
-                      >
-                        {isProcessing ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Processing...
-                          </>
-                        ) : (
-                          <>
-                            Pay ৳{selectedPlan.price}
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </>
-                        )}
-                      </Button>
-                    </form>
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Submit Button */}
+                <Button
+                  type="submit"
+                  className="w-full h-12 text-base"
+                  disabled={!isFormValid() || isProcessing || isBkashLoading}
+                  onClick={handleSubmit}
+                >
+                  {isProcessing || isBkashLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {paymentMethod === "bkash"
+                        ? "Initiating bKash Payment..."
+                        : "Processing..."}
+                    </>
+                  ) : (
+                    <>
+                      {paymentMethod === "bkash"
+                        ? `Pay ৳${selectedPlan.price.toLocaleString()} with bKash`
+                        : `Pay ৳${selectedPlan.price.toLocaleString()}`}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </>
                   )}
+                </Button>
+              </form>
+            </div>
 
-                  {paymentMethod === "bkash" && (
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                      {/* <div>
-                        <Label htmlFor="bkashNumber">
-                          bKash Account Number
-                        </Label>
-                        <Input
-                          id="bkashNumber"
-                          value={formData.bkashNumber}
-                          onChange={(e) =>
-                            handleInputChange(
-                              "bkashNumber",
-                              e.target.value.replace(/[^0-9]/g, ""),
-                            )
-                          }
-                          placeholder="01XXXXXXXXX"
-                          maxLength={11}
-                          disabled={isProcessing}
-                        />
-                        <p className="text-xs text-muted-foreground mt-1">
-                          Enter your 11-digit bKash account number
-                        </p>
-                      </div> */}
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Plan Details */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">
+                    {selectedPlan.name} Plan
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-3xl font-bold">
+                    ৳{selectedPlan.price.toLocaleString()}
+                    <span className="text-lg font-normal text-muted-foreground">
+                      /month
+                    </span>
+                  </div>
 
-                      <div className="rounded-lg border border-border bg-muted/30 p-4">
-                        <h4 className="font-medium mb-2">
-                          How to pay with bKash:
-                        </h4>
-                        <ol className="text-sm text-muted-foreground space-y-1">
-                          <li>1. Enter your bKash account number above</li>
-                          <li>2. Click &quot;Pay with bKash&quot; button</li>
-                          <li>
-                            3. You&apos;ll receive a payment request on your
-                            bKash app
-                          </li>
-                          <li>
-                            4. Enter your bKash PIN to confirm the payment
-                          </li>
-                        </ol>
-                      </div>
-
-                      <Button
-                        type="submit"
-                        className="w-full bg-pink-600 hover:bg-pink-700"
-                        disabled={isProcessing}
-                      >
-                        {isProcessing ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Processing...
-                          </>
-                        ) : (
-                          <>
-                            <Smartphone className="mr-2 h-4 w-4" />
-                            Pay ৳{selectedPlan.price} with bKash
-                          </>
-                        )}
-                      </Button>
-                    </form>
-                  )}
+                  <ul className="space-y-2">
+                    {selectedPlan.features.map((feature, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span className="text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
 
-              {/* Security Badge */}
-              <div className="flex items-center justify-center space-x-4 text-sm text-muted-foreground">
-                <div className="flex items-center space-x-1">
-                  <Shield className="h-4 w-4" />
-                  <span>SSL Encrypted</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Lock className="h-4 w-4" />
-                  <span>Secure Payment</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Order Summary */}
-            <div className="lg:col-span-1">
-              <Card className="sticky top-8">
+              {/* Order Summary */}
+              <Card>
                 <CardHeader>
                   <CardTitle className="text-lg">Order Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <span className="font-medium">
-                        {selectedPlan.name} Plan
-                      </span>
-                      <Badge variant="secondary">Monthly</Badge>
-                    </div>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Billed monthly
-                    </p>
+                  <div className="flex justify-between">
+                    <span>{selectedPlan.name} Plan</span>
+                    <span>৳{selectedPlan.price.toLocaleString()}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm text-muted-foreground">
+                    <span>Subtotal</span>
+                    <span>৳{selectedPlan.price.toLocaleString()}</span>
+                  </div>
+
+                  <div className="flex justify-between text-sm text-muted-foreground">
+                    <span>Tax (0%)</span>
+                    <span>৳0</span>
                   </div>
 
                   <Separator />
 
-                  <div className="space-y-2">
-                    {selectedPlan.features.map((feature, index) => (
-                      <div key={index} className="flex items-center space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span className="text-sm">{feature}</span>
-                      </div>
-                    ))}
+                  <div className="flex justify-between font-semibold text-lg">
+                    <span>Total</span>
+                    <span>৳{selectedPlan.price.toLocaleString()}</span>
                   </div>
+                </CardContent>
+              </Card>
 
-                  <Separator />
-
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span>Subtotal</span>
-                      <span>৳{selectedPlan.price}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Tax (0%)</span>
-                      <span>৳0</span>
-                    </div>
-                    <Separator />
-                    <div className="flex justify-between font-medium text-lg">
-                      <span>Total</span>
-                      <span>৳{selectedPlan.price}</span>
-                    </div>
+              {/* Security Badge */}
+              <Card>
+                <CardContent className="pt-6">
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <Shield className="h-4 w-4" />
+                    <span>Secure payment powered by SSL encryption</span>
                   </div>
-
-                  <div className="rounded-lg bg-muted/30 p-3">
-                    <p className="text-xs text-muted-foreground">
-                      By completing this purchase, you agree to our Terms of
-                      Service and Privacy Policy. Your subscription will
-                      auto-renew monthly unless cancelled.
-                    </p>
+                  <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-2">
+                    <Lock className="h-4 w-4" />
+                    <span>Your payment information is safe and secure</span>
                   </div>
                 </CardContent>
               </Card>

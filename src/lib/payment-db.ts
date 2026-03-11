@@ -82,7 +82,7 @@ export async function updatePaymentRecord(
     { returnDocument: "after" },
   );
 
-  if (!result.value) {
+  if (!result || !result.value) {
     return null;
   }
 

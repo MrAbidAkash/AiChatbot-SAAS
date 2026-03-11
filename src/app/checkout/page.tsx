@@ -57,7 +57,7 @@ function CheckoutContent() {
   const plan = searchParams.get("plan") as keyof typeof plans;
   const selectedPlan = plans[plan] || plans["starter"];
 
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "bkash">("card");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "bkash">("bkash");
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentStatus, setPaymentStatus] = useState<
     "idle" | "processing" | "success" | "error"
@@ -125,12 +125,12 @@ function CheckoutContent() {
         const callbackURL = `${window.location.origin}/api/bkash/callback`;
 
         await createPayment({
+          // amount: 1,
           amount: selectedPlan.price,
           callbackURL,
           customerInfo: {
             name: formData.name,
             email: formData.email,
-            phone: formData.bkashNumber,
           },
         });
       } catch (error) {
@@ -166,11 +166,8 @@ function CheckoutContent() {
         formData.name.length > 0
       );
     } else {
-      return (
-        formData.bkashNumber.length === 11 &&
-        formData.email.length > 0 &&
-        formData.name.length > 0
-      );
+      // For bKash, only require name and email since phone input is commented out
+      return formData.email.length > 0 && formData.name.length > 0;
     }
   };
 
@@ -276,26 +273,10 @@ function CheckoutContent() {
                     <RadioGroup
                       value={paymentMethod}
                       onValueChange={(value) =>
-                        setPaymentMethod(value as "card" | "bkash")
+                        setPaymentMethod(value as "bkash" | "card")
                       }
                       disabled={isProcessing || isBkashLoading}
                     >
-                      <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
-                        <RadioGroupItem value="card" id="card" />
-                        <Label
-                          htmlFor="card"
-                          className="flex items-center space-x-3 cursor-pointer flex-1"
-                        >
-                          <CreditCard className="h-5 w-5" />
-                          <div>
-                            <p className="font-medium">Credit/Debit Card</p>
-                            <p className="text-sm text-muted-foreground">
-                              Pay securely with your card
-                            </p>
-                          </div>
-                        </Label>
-                      </div>
-
                       <div className="flex items-center space-x-3 rounded-lg border p-4 hover:bg-muted/50">
                         <RadioGroupItem value="bkash" id="bkash" />
                         <Label
@@ -309,8 +290,26 @@ function CheckoutContent() {
                               Pay with bKash mobile banking
                             </p>
                           </div>
-                          <Badge variant="secondary" className="ml-auto">
+                          <Badge variant="default" className="ml-auto">
                             Popular
+                          </Badge>
+                        </Label>
+                      </div>
+                      <div className="flex items-center space-x-3 rounded-lg border p-4 opacity-60">
+                        <RadioGroupItem value="card" id="card" disabled />
+                        <Label
+                          htmlFor="card"
+                          className="flex items-center space-x-3 cursor-pointer flex-1"
+                        >
+                          <CreditCard className="h-5 w-5" />
+                          <div>
+                            <p className="font-medium">Credit/Debit Card</p>
+                            <p className="text-sm text-muted-foreground">
+                              Pay securely with your card
+                            </p>
+                          </div>
+                          <Badge variant="secondary" className="ml-auto">
+                            Coming Soon
                           </Badge>
                         </Label>
                       </div>
@@ -393,7 +392,7 @@ function CheckoutContent() {
                     {/* bKash Payment Form */}
                     {paymentMethod === "bkash" && (
                       <div className="space-y-4">
-                        <div>
+                        {/* <div>
                           <Label htmlFor="bkashNumber">
                             bKash Account Number
                           </Label>
@@ -414,7 +413,7 @@ function CheckoutContent() {
                           <p className="text-xs text-muted-foreground mt-1">
                             Enter your 11-digit bKash account number
                           </p>
-                        </div>
+                        </div> */}
 
                         <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
                           <div className="flex items-start space-x-2">
@@ -447,29 +446,52 @@ function CheckoutContent() {
                   </CardContent>
                 </Card>
 
-                {/* Submit Button */}
-                <Button
-                  type="submit"
-                  className="w-full h-12 text-base"
-                  disabled={!isFormValid() || isProcessing || isBkashLoading}
-                  onClick={handleSubmit}
-                >
-                  {isProcessing || isBkashLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      {paymentMethod === "bkash"
-                        ? "Initiating bKash Payment..."
-                        : "Processing..."}
-                    </>
-                  ) : (
-                    <>
-                      {paymentMethod === "bkash"
-                        ? `Pay ৳${selectedPlan.price.toLocaleString()} with bKash`
-                        : `Pay ৳${selectedPlan.price.toLocaleString()}`}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </>
+                {/* Payment Buttons */}
+                <div className="space-y-3">
+                  {/* bKash Payment Button */}
+                  {paymentMethod === "bkash" && (
+                    <Button
+                      type="button"
+                      className="w-full h-12 text-base bg-pink-600 hover:bg-pink-700"
+                      disabled={isProcessing || isBkashLoading}
+                      onClick={handleSubmit}
+                    >
+                      {isProcessing || isBkashLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Initiating bKash Payment...
+                        </>
+                      ) : (
+                        <>
+                          Pay ৳{selectedPlan.price.toLocaleString()} with bKash
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </>
+                      )}
+                    </Button>
                   )}
-                </Button>
+
+                  {/* Card Payment Button */}
+                  {paymentMethod === "card" && (
+                    <Button
+                      type="button"
+                      className="w-full h-12 text-base"
+                      disabled={!isFormValid() || isProcessing}
+                      onClick={handleSubmit}
+                    >
+                      {isProcessing ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          Pay ৳{selectedPlan.price.toLocaleString()}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </>
+                      )}
+                    </Button>
+                  )}
+                </div>
               </form>
             </div>
 

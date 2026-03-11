@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,14 +29,61 @@ export default function CheckoutSuccessPage() {
 }
 
 function CheckoutSuccessContent() {
+  const searchParams = useSearchParams();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Extract payment details from URL parameters during component initialization
+  const paymentId = searchParams.get("paymentID");
+  const transactionId = searchParams.get("trxID");
+  const amount = searchParams.get("amount");
+  const plan = searchParams.get("plan");
+  const paymentMethod = searchParams.get("paymentMethod") || "bKash";
+
+  const [paymentDetails] = useState(() => ({
+    orderId: paymentId ? `BK-${paymentId.slice(-8)}` : `ORD-${Date.now()}`,
+    plan: plan || "Professional",
+    amount: amount ? parseFloat(amount) : 2999,
+    paymentMethod,
+    paymentId: paymentId || "",
+    transactionId: transactionId || "",
+  }));
+
   const [nextBillingDate] = useState(() =>
     new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString(),
   );
 
   useEffect(() => {
-    // In a real app, you would verify the payment status here
-    // and redirect to dashboard if payment is confirmed
+    // Simulate payment verification
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/20 mb-4">
+                <Loader2 className="h-8 w-8 text-blue-600 dark:text-blue-400 animate-spin" />
+              </div>
+              <h1 className="text-2xl font-bold text-foreground mb-2">
+                Verifying Your Payment...
+              </h1>
+              <p className="text-muted-foreground">
+                Please wait while we confirm your payment status.
+              </p>
+            </div>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -53,8 +100,15 @@ function CheckoutSuccessContent() {
               Payment Successful!
             </h1>
             <p className="text-lg text-muted-foreground">
-              Thank you for your purchase. Your subscription is now active.
+              {paymentDetails.paymentMethod === "bKash"
+                ? "Thank you for your purchase. Your bKash payment has been confirmed and your subscription is now active."
+                : "Thank you for your purchase. Your subscription is now active."}
             </p>
+            {paymentDetails.paymentMethod === "bKash" && (
+              <div className="mt-4 inline-flex items-center px-3 py-1 rounded-full text-sm bg-pink-100 dark:bg-pink-900/20 text-pink-700 dark:text-pink-300">
+                Paid with bKash
+              </div>
+            )}
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
@@ -66,20 +120,34 @@ function CheckoutSuccessContent() {
               <CardContent className="space-y-4">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Order ID</span>
-                  <span className="font-medium">#ORD-2024-001234</span>
+                  <span className="font-medium">{paymentDetails.orderId}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Plan</span>
-                  <span className="font-medium">Professional</span>
+                  <span className="font-medium">{paymentDetails.plan}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Amount Paid</span>
-                  <span className="font-medium">৳2999</span>
+                  <span className="font-medium">
+                    ৳{paymentDetails.amount.toLocaleString()}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Payment Method</span>
-                  <span className="font-medium">Credit Card</span>
+                  <span className="font-medium">
+                    {paymentDetails.paymentMethod}
+                  </span>
                 </div>
+                {paymentDetails.transactionId && (
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Transaction ID
+                    </span>
+                    <span className="font-medium">
+                      {paymentDetails.transactionId}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Date</span>
                   <span className="font-medium">

@@ -10,10 +10,10 @@ export interface BkashCreatePaymentRequest {
   amount: number;
   callbackURL: string;
   payerReference?: string;
-  customerInfo: {
-    name: string;
-    email: string;
-    phone: string;
+  customerInfo?: {
+    name?: string;
+    email?: string;
+    phone?: string;
     address?: string;
   };
 }
@@ -96,6 +96,13 @@ export async function createBkashPayment(
 ): Promise<BkashCreatePaymentResponse> {
   const idToken = await grantToken();
 
+  // Use customer phone or email as payerReference, or a default value
+  const payerReference =
+    paymentData.payerReference ||
+    paymentData.customerInfo?.phone ||
+    paymentData.customerInfo?.email ||
+    "customer";
+
   const response = await fetch(`${BASE_URL}/tokenized/checkout/create`, {
     method: "POST",
     headers: {
@@ -111,7 +118,7 @@ export async function createBkashPayment(
       intent: "sale",
       merchantInvoiceNumber: `INV_${Date.now()}`,
       callbackURL: paymentData.callbackURL,
-      payerReference: paymentData.payerReference || "",
+      payerReference,
     }),
   });
 

@@ -14,15 +14,25 @@ export async function POST(req: NextRequest) {
 
     console.log("bKash response:", bkashResponse);
 
-    const paymentRecord = await savePaymentRecord({
-      paymentID: bkashResponse.paymentID,
-      amount: parseFloat(bkashResponse.amount),
-      transactionStatus: bkashResponse.transactionStatus || "Pending",
-      payerReference: paymentData.payerReference || "",
-      customerInfo: paymentData.customerInfo,
-    });
-
-    console.log("Payment record saved:", paymentRecord);
+    // Save payment record to database
+    try {
+      const paymentRecord = await savePaymentRecord({
+        paymentID: bkashResponse.paymentID,
+        amount: paymentData.amount,
+        transactionStatus: bkashResponse.transactionStatus,
+        // payerReference: paymentData.payerReference,
+        customerInfo: {
+          name: paymentData.customerInfo?.name || "",
+          email: paymentData.customerInfo?.email || "",
+          phone: paymentData.customerInfo?.phone || "",
+          address: paymentData.customerInfo?.address,
+        },
+      });
+      console.log("Payment record saved:", paymentRecord);
+    } catch (dbError) {
+      console.error("Failed to save payment record:", dbError);
+      // Continue with the response even if DB save fails
+    }
 
     return NextResponse.json(bkashResponse);
   } catch (error) {

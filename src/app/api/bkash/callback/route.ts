@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { executeBkashPayment } from "@/lib/bkash";
-import { updatePaymentRecord, findPaymentRecord } from "@/lib/payment-db";
-import { sendCourseEmail } from "@/lib/email-service";
+import { findPaymentRecord, updatePaymentRecord } from "@/lib/payment-db";
 
 export async function GET(req: NextRequest) {
   try {
@@ -23,87 +22,91 @@ export async function GET(req: NextRequest) {
     });
 
     if (!paymentID || status !== "success") {
-      return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/payment-fail?reason=${status}`,
+      const failUrl = new URL(
+        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/checkout`,
       );
+      failUrl.searchParams.set("payment", "failed");
+      failUrl.searchParams.set("reason", status || "unknown");
+      if (paymentID) {
+        failUrl.searchParams.set("paymentID", paymentID);
+      }
+
+      return NextResponse.redirect(failUrl.toString());
     }
 
+    // Find payment record in database
+    console.log("Finding payment record for:", paymentID);
     const paymentRecord = await findPaymentRecord(paymentID);
+
     if (!paymentRecord) {
-      throw new Error("Payment record not found");
+      console.error("Payment record not found for:", paymentID);
+      const failUrl = new URL(
+        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/checkout`,
+      );
+      failUrl.searchParams.set("payment", "failed");
+      failUrl.searchParams.set("reason", "record_not_found");
+      failUrl.searchParams.set("paymentID", paymentID);
+
+      return NextResponse.redirect(failUrl.toString());
     }
 
     const executeResponse = await executeBkashPayment(paymentID);
     console.log("bKash execute response:", executeResponse);
 
     if (executeResponse.transactionStatus === "Completed") {
-      await updatePaymentRecord(paymentID, {
-        amount: parseFloat(executeResponse.amount) || 0,
-        currency: executeResponse.currency || "BDT",
-        merchantInvoiceNo: executeResponse.merchantInvoiceNumber,
-        transactionStatus: "Completed",
-        trxID: executeResponse.trxID,
-        user: executeResponse.customerMsisdn || "",
-      });
+      // Update payment record in database
+      try {
+        const updatedRecord = await updatePaymentRecord(paymentID, {
+          transactionStatus: executeResponse.transactionStatus,
+          trxID: executeResponse.trxID,
+          currency: "BDT",
+          payerReference: executeResponse.customerMsisdn,
+        });
+        console.log("Payment record updated as completed:", updatedRecord);
+      } catch (dbError) {
+        console.error("Failed to update payment record:", dbError);
+        // Continue with the response even if DB update fails
+      }
 
-    //   await sendCourseEmail({
-    //     to: paymentRecord.customerInfo.email,
-    //     paymentID,
-    //   });
+      // TODO: Send confirmation email when email service is configured
+      // await sendCourseEmail({
+      //   to: paymentRecord.customerInfo.email,
+      //   paymentID,
+      // });
 
-    //   const orderId = `purchase_${paymentID}_${executeResponse.trxID}`;
-    //   const purchaseType =
-    //     paymentRecord.payerReference === "partial" ? "partial" : "full";
-
-    //   const facebookEventData = {
-    //     platform: "facebook",
-    //     event_name: "Purchase",
-    //     event_id: orderId,
-    //     customer_info: {
-    //       name: paymentRecord.customerInfo.name,
-    //       phone: paymentRecord.customerInfo.phone,
-    //       address: paymentRecord.customerInfo.address,
-    //       email: paymentRecord.customerInfo.email,
-    //     },
-    //     currency: "BDT",
-    //     value: paymentRecord.amount / 2,
-    //     custom_data: {
-    //       purchase_type: purchaseType,
-    //       content_ids: [paymentRecord._id],
-    //       content_type: "product",
-    //       productPrice: paymentRecord.amount / 2,
-    //     },
-    //   };
-
-    //   try {
-    //     await fetch(
-    //       `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/api/fb-conversion`,
-    //       {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify(facebookEventData),
-    //       },
-    //     );
-    //     console.log("Facebook conversion event sent");
-    //   } catch (fbError) {
-    //     console.error("Failed to send Facebook conversion event:", fbError);
-    //   }
-
-      return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/payment-success?paymentID=${paymentID}`,
+      // Redirect to checkout success page with payment details
+      const successUrl = new URL(
+        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/checkout/success`,
       );
+      successUrl.searchParams.set("paymentID", paymentID);
+      successUrl.searchParams.set("trxID", executeResponse.trxID);
+      successUrl.searchParams.set("amount", executeResponse.amount);
+      successUrl.searchParams.set("paymentMethod", "bKash");
+      successUrl.searchParams.set("status", "success");
+      successUrl.searchParams.set("plan", "starter"); // You might want to get this from the payment record
+
+      return NextResponse.redirect(successUrl.toString());
     }
 
-    await updatePaymentRecord(paymentID, {
-      transactionStatus: executeResponse.transactionStatus || "Failed",
-      amount: parseFloat(executeResponse.amount) || 0,
-      currency: executeResponse.currency || "BDT",
-      merchantInvoiceNo: executeResponse.merchantInvoiceNumber,
-    });
+    // Update payment record as failed in database
+    try {
+      const updatedRecord = await updatePaymentRecord(paymentID, {
+        transactionStatus: "Failed",
+      });
+      console.log("Payment record updated as failed:", updatedRecord);
+    } catch (dbError) {
+      console.error("Failed to update payment record:", dbError);
+      // Continue with the response even if DB update fails
+    }
 
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/payment-fail?paymentID=${paymentID}`,
+    const failUrl = new URL(
+      `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/checkout`,
     );
+    failUrl.searchParams.set("payment", "failed");
+    failUrl.searchParams.set("reason", "transaction_failed");
+    failUrl.searchParams.set("paymentID", paymentID);
+
+    return NextResponse.redirect(failUrl.toString());
   } catch (error) {
     console.error("bKash callback error:", error);
 
@@ -111,17 +114,21 @@ export async function GET(req: NextRequest) {
     const paymentID = url.searchParams.get("paymentID");
 
     if (paymentID) {
+      // Update payment record as error in database
       try {
         await updatePaymentRecord(paymentID, {
           transactionStatus: "Error",
         });
-      } catch (updateError) {
-        console.error("Failed to update payment record:", updateError);
+        console.log("Payment record updated as error for:", paymentID);
+      } catch (dbError) {
+        console.error("Failed to update payment record as error:", dbError);
       }
     }
 
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/payment-fail?reason=server_error`,
+      new URL(
+        `${process.env.NEXT_PUBLIC_AUTH_BASE_URL}/checkout?payment=failed&reason=server_error`,
+      ).toString(),
     );
   }
 }

@@ -72,28 +72,53 @@ export default function ProductDesignOutline() {
         </div>
       </div>
 
-      <main className="px-4">
-        <section ref={overviewRef}>
+      <main>
+        <section ref={overviewRef} className="px-4">
           <HeroSection />
         </section>
 
-        <section ref={featuresRef}>
+        <div className="section-divider" />
+
+        <section
+          ref={featuresRef}
+          className="section-features section-noise px-4"
+        >
           <FeaturesSection />
         </section>
 
-        <section ref={integrationsRef}>
+        <div className="section-divider" />
+
+        <section
+          ref={integrationsRef}
+          className="section-integrations section-noise px-4"
+        >
           <IntegrationsSection />
         </section>
 
-        <section ref={dashboardRef}>
+        <div className="section-divider" />
+
+        <section
+          ref={dashboardRef}
+          className="section-dashboard section-noise px-4"
+        >
           <DashboardPreview />
         </section>
 
-        <section ref={trainingRef}>
+        <div className="section-divider" />
+
+        <section
+          ref={trainingRef}
+          className="section-training section-noise px-4"
+        >
           <DocumentTrainingSection />
         </section>
 
-        <section ref={pricingRef}>
+        <div className="section-divider" />
+
+        <section
+          ref={pricingRef}
+          className="section-pricing section-noise px-4"
+        >
           <PricingSection />
         </section>
       </main>

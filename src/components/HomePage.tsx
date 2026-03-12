@@ -27,11 +27,13 @@ export default function ProductDesignOutline() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidde">
-      <Header />
+    <div className="min-h-screen overflow-x-hidden ">
+      <div className="md:max-w-[90%] md:mx-auto px-4">
+        <Header />
+      </div>
 
       {/* Sticky Navigation */}
-      <div className="sticky top-16 px-4 z-40 border-b bg-background w-full">
+      <div className="sticky top-16 px-4 z-40 border-b bg-background w-full md:max-w-[90%] md:mx-auto ">
         <div className="container mx-auto flex flex-wrap gap-3 sm:gap-10 px-4 py-2 ">
           <button
             onClick={() => scrollToSection(overviewRef)}
@@ -73,7 +75,7 @@ export default function ProductDesignOutline() {
       </div>
 
       <main>
-        <section ref={overviewRef} className="px-4">
+        <section ref={overviewRef} className="px-4 md:max-w-[90%] md:mx-auto">
           <HeroSection />
         </section>
 
@@ -81,7 +83,7 @@ export default function ProductDesignOutline() {
 
         <section
           ref={featuresRef}
-          className="section-features section-noise px-4"
+          className="section-features section-noise px-4 "
         >
           <FeaturesSection />
         </section>

@@ -132,7 +132,7 @@ export function IntegrationsSection() {
 
   return (
     <section className="py-20 lg:py-32">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 md:max-w-[90%] md:mx-auto">
         {/* Section Header */}
         <div className="mx-auto max-w-3xl text-center">
           <Badge className="mb-6 border-primary/30 bg-primary/10 text-primary">

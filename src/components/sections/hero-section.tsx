@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import AuthButton from "@/components/auth-button";
-import { HeroBubbles } from "@/components/hero-bubbles";
 import {
   ArrowRight,
   Sparkles,
@@ -15,6 +15,11 @@ import {
   Globe,
   Play,
 } from "lucide-react";
+
+const HeroBubbles = dynamic(
+  () => import("@/components/hero-bubbles").then((mod) => mod.HeroBubbles),
+  { ssr: false },
+);
 
 const stats = [
   { value: "5k+", label: "Messages Processed" },
@@ -116,7 +121,9 @@ export function HeroSection() {
     <section ref={sectionRef} className="relative overflow-hidden py-20">
       {/* Background Effects */}
       <div
-        className={`absolute inset-0 -z-10 overflow-hidden transition-opacity duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
+        className={`max-sm:hidden absolute inset-0 -z-10 overflow-hidden transition-opacity duration-1000 ${
+          isLoaded ? "opacity-100" : "opacity-0"
+        }`}
       >
         {/* Animated floating bubble canvas with enhanced configuration */}
         <HeroBubbles
@@ -136,19 +143,21 @@ export function HeroSection() {
           particleCount={35}
           enableMouseTrail={true}
         />
+
         {/* Subtle grid overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,oklch(0.18_0.01_260/0.2)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.18_0.01_260/0.2)_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_30%,#000_50%,transparent_100%)]" />
-        {/* Radial vignette to keep edges dark */}
+
+        {/* Radial vignette */}
         <div className="absolute inset-0 [background:radial-gradient(ellipse_90%_80%_at_50%_40%,transparent_30%,oklch(0.05_0.005_260)_100%)]" />
 
-        {/* Animated floating orbs for additional depth */}
+        {/* Floating orbs */}
         <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-primary/10 blur-3xl animate-float" />
         <div className="absolute bottom-1/4 right-1/4 h-48 w-48 rounded-full bg-accent/10 blur-3xl animate-float-delayed" />
         <div className="absolute top-1/2 right-1/3 h-32 w-32 rounded-full bg-primary/5 blur-2xl animate-float-slow" />
       </div>
 
       <div className="container mx-auto px-4">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 ">
           {/* Left Column - Content */}
           <div className="max-w-2xl">
             <Badge
@@ -163,7 +172,7 @@ export function HeroSection() {
             </Badge>
 
             <h1
-              className={`text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl transition-all duration-700 delay-100 ${
+              className={`text-balance text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl transition-all duration-700 delay-100${
                 showContent
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-6"
@@ -249,7 +258,6 @@ export function HeroSection() {
               ))}
             </div>
           </div>
-
           {/* Right Column - Interactive Demo */}
           <div
             className={`relative transition-all duration-1000 delay-300 ${
@@ -405,7 +413,7 @@ export function HeroSection() {
                 </span>
               </div>
             </div>
-          </div>
+          </div>{" "}
         </div>
       </div>
     </section>
